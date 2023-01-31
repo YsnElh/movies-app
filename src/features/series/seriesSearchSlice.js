@@ -1,0 +1,41 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const initialState = {
+  loading: false,
+  seriesSearch: [],
+  error: "",
+};
+export const fetchSeriesSearch = createAsyncThunk(
+  "seriesSearch/fetchSeriesSearch",
+  async (searchValue) => {
+    return await axios
+      .get(
+        `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIES_API}&query=${searchValue}`
+      )
+      .then((res) => res.data.results.filter((e) => e.media_type === "tv"));
+  }
+);
+
+const seriesSearchSlice = createSlice({
+  name: "seriesSearch",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchSeriesSearch.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchSeriesSearch.fulfilled, (state, action) => {
+      state.loading = false;
+      state.seriesSearch = action.payload;
+      state.error = "";
+    });
+    builder.addCase(fetchSeriesSearch.rejected, (state, action) => {
+      state.loading = false;
+      state.seriesSearch = [];
+      state.error = action.error.message;
+    });
+  },
+});
+
+export default seriesSearchSlice.reducer;
