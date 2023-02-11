@@ -10,6 +10,12 @@ In the project directory, you can run:
 
 Runs the command to install all packages needed
 
+### `.env`
+
+get your api code from www.themoviedb.org
+Create a file and name it (.env) and put in it your api code like this:
+REACT_APP_MOVIES_API=#api code here
+
 ### `npm start`
 
 Runs the app in the development mode.\
