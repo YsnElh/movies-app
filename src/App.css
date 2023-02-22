@@ -1,4 +1,5 @@
 /* navbar */
+
 @keyframes background-flow {
   from {
     background-position: left;
@@ -182,7 +183,9 @@ nav ul li a:hover::after {
 }
 
 /* single page movie */
+
 .movie-info {
+
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -216,7 +219,6 @@ nav ul li a:hover::after {
 }
 
 .movie-info .one-movies-header .info-movieOne h1 {
-
   padding: 5px;
 }
 
@@ -225,7 +227,6 @@ nav ul li a:hover::after {
   padding: 5px;
   margin-bottom: 4px;
   border-radius: 10px;
-
   font-size: 15px;
 }
 
