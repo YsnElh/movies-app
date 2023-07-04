@@ -67,7 +67,7 @@ export const HomePage = () => {
             <h1 className="display-1">{movie?.title}</h1>
             <p className="display-6">{movie?.overview}</p>
             <NavLink
-              to={`/movies/${movie?.id}`}
+              to={`/movies-app/movies/${movie?.id}`}
               className="btn btn-dark button-homepage"
             >
               View details
@@ -95,7 +95,7 @@ export const HomePage = () => {
           <div className="display-6">top rated Movies</div>
           <button className="btn btn-dark">
             <NavLink
-              to={`/movies`}
+              to={`/movies-app/movies`}
               style={{ color: "white", textDecoration: "none" }}
             >
               View More
@@ -125,7 +125,7 @@ export const HomePage = () => {
           <div className="display-6">top rated Series</div>
           <button className="btn btn-dark">
             <NavLink
-              to={`/series`}
+              to={`/movies-app/series`}
               style={{ color: "white", textDecoration: "none" }}
             >
               View More

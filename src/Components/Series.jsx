@@ -63,7 +63,7 @@ export const Series = () => {
                   <div className="title">{c.name}</div>
                   <div className="rating">Rating: {c.vote_average}</div>
                   {/* <div className="genres">Year: {c.release_date.slice(0, 4)}</div> */}
-                  <NavLink to={`${c.id}`} className="button">
+                  <NavLink to={`/movies-app/series/${c.id}`} className="button">
                     More details
                   </NavLink>
                 </div>

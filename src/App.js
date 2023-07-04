@@ -17,16 +17,18 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies-app" element={<HomePage />} />
-        <Route path="movies-react-app" element={<HomePage />} />
-        <Route path="movies" element={<MoviesPopular />} />
-        <Route path="action-movies" element={<ActionMovies />} />
-        <Route path="comedy-movies" element={<ComedyMovies />} />
-        <Route path="series" element={<Series />} />
-        <Route path="favourite-shows" element={<FavouritesShows />} />
-        <Route path="movies/:id" element={<OneMovie />} />
-        <Route path="series/:id" element={<OneSerie />} />
+        <Route path="movies-app" element={<HomePage />} />
+        <Route path="movies-app/movies-react-app" element={<HomePage />} />
+        <Route path="movies-app/movies" element={<MoviesPopular />} />
+        <Route path="movies-app/action-movies" element={<ActionMovies />} />
+        <Route path="movies-app/comedy-movies" element={<ComedyMovies />} />
+        <Route path="movies-app/series" element={<Series />} />
+        <Route
+          path="movies-app/favourite-shows"
+          element={<FavouritesShows />}
+        />
+        <Route path="movies-app/movies/:id" element={<OneMovie />} />
+        <Route path="movies-app/series/:id" element={<OneSerie />} />
       </Routes>
       <Footer />
       <UpComp />

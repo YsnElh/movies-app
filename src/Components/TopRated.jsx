@@ -16,8 +16,8 @@ export const TopRated = (props) => {
         <NavLink
           to={
             props.title !== undefined
-              ? `/movies/${props.id}`
-              : `/series/${props.id}`
+              ? `/movies-app/movies/${props.id}`
+              : `/movies-app/series/${props.id}`
           }
           className="img-btn"
         >

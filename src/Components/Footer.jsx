@@ -16,7 +16,7 @@ export const Footer = () => {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item">
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/movies-app">Home</NavLink>
           </li>
 
           <li className="list-inline-item">

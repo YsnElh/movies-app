@@ -35,7 +35,7 @@ function Navbar() {
     <header id="up-m">
       <nav ref={navbarRef}>
         <NavLink
-          to="/"
+          to="/movies-app"
           style={{ color: "#fff", textDecoration: "none", fontSize: "1.3rem" }}
         >
           Movie APP
@@ -47,14 +47,14 @@ function Navbar() {
                 handleClick();
               }}
             >
-              <NavLink to="/movies">Popular movies</NavLink>
+              <NavLink to="movies-app/movies">Popular movies</NavLink>
             </li>
             <li
               onClick={() => {
                 handleClick();
               }}
             >
-              <NavLink to="/action-movies">Action movies</NavLink>
+              <NavLink to="movies-app/action-movies">Action movies</NavLink>
             </li>
 
             <li
@@ -62,21 +62,21 @@ function Navbar() {
                 handleClick();
               }}
             >
-              <NavLink to="/comedy-movies">Comedy movies</NavLink>
+              <NavLink to="movies-app/comedy-movies">Comedy movies</NavLink>
             </li>
             <li
               onClick={() => {
                 handleClick();
               }}
             >
-              <NavLink to="series">series</NavLink>
+              <NavLink to="movies-app/series">series</NavLink>
             </li>
             <li
               onClick={() => {
                 handleClick();
               }}
             >
-              <NavLink to="favourite-shows">
+              <NavLink to="movies-app/favourite-shows">
                 Favourites Shows{" "}
                 <span className="badgeME">{favouritesShows.length}</span>
               </NavLink>

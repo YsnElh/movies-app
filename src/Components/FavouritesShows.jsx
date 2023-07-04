@@ -44,8 +44,8 @@ export const FavouritesShows = () => {
                 <NavLink
                   to={
                     elem.title === undefined
-                      ? `/series/${elem.id}`
-                      : `/movies/${elem.id}`
+                      ? `/movies-app/series/${elem.id}`
+                      : `/movies-app/movies/${elem.id}`
                   }
                   className="button"
                 >
