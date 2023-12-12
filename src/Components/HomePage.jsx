@@ -92,7 +92,7 @@ export const HomePage = () => {
         className="top-rated-pad"
       >
         <div className="top-rated-movies-tite">
-          <div className="display-6">top rated Movies</div>
+          <div className="display-6">Top Rated Movies</div>
           <button className="btn btn-dark">
             <NavLink
               to={`/movies-app/movies`}
@@ -122,7 +122,7 @@ export const HomePage = () => {
         className="top-rated-pad"
       >
         <div className="top-rated-movies-tite">
-          <div className="display-6">top rated Series</div>
+          <div className="display-6">Top Rated Series</div>
           <button className="btn btn-dark">
             <NavLink
               to={`/movies-app/series`}
