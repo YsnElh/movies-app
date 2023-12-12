@@ -7,11 +7,11 @@ export const Footer = () => {
       <footer>
         <div className="social">
           <a href="mailto:Elhainouniyassine21@gmail.com">
-            <i class="fa-solid fa-envelope"></i>
+            <i className="fa-solid fa-envelope"></i>
           </a>
 
           <a href="https://github.com/YsnElh">
-            <i class="fa-brands fa-github"></i>
+            <i className="fa-brands fa-github"></i>
           </a>
         </div>
         <ul className="list-inline">
