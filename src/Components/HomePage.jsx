@@ -31,7 +31,7 @@ export const HomePage = () => {
     dispatch(fetchTopRatedMovies());
   }, [dispatch]);
   const topRatedMoviesS = useSelector((state) => state.topRatedMovies);
-  console.log(topRatedMoviesS.topRatedMovies[0]);
+  //console.log(topRatedMoviesS.topRatedMovies[0]);
 
   topRatedMovies = topRatedMoviesS.topRatedMovies;
   topRated_Loading = topRatedMoviesS.loading;
