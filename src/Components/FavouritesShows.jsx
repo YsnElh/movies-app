@@ -9,7 +9,7 @@ export const FavouritesShows = () => {
   const favouritesShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
   );
-
+  console.log(favouritesShows);
   return (
     <>
       {favouritesShows.length > 0 ? (
@@ -31,7 +31,7 @@ export const FavouritesShows = () => {
               />
               <div className="details">
                 <div className="title">
-                  {elem.media_type === "movie" ? elem.title : elem.name}
+                  {elem.title ? elem.title : elem.name}
                 </div>
                 <div className="rating">
                   Rating: {elem.vote_average !== 0 ? elem.vote_average : "n/a"}

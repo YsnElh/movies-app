@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 function Navbar() {
   const [clicked, setClicked] = useState(false);
+
   function handleClick() {
     if (clicked === false) {
       setClicked(true);
@@ -11,9 +12,11 @@ function Navbar() {
       setClicked(false);
     }
   }
+
   const favouritesShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
   );
+
   // ----------------
   const navbarRef = useRef(null);
 
@@ -30,6 +33,7 @@ function Navbar() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   // ---------
   return (
     <header id="up-m">
@@ -69,7 +73,7 @@ function Navbar() {
                 handleClick();
               }}
             >
-              <NavLink to="movies-app/series">series</NavLink>
+              <NavLink to="movies-app/series">Series</NavLink>
             </li>
             <li
               onClick={() => {
@@ -78,7 +82,9 @@ function Navbar() {
             >
               <NavLink to="movies-app/favourite-shows">
                 Favourites Shows{" "}
-                <span className="badgeME">{favouritesShows.length}</span>
+                {favouritesShows.length > 0 ? (
+                  <span className="badgeME">{favouritesShows.length}</span>
+                ) : null}
               </NavLink>
             </li>
           </ul>

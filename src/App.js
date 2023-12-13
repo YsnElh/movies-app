@@ -10,7 +10,7 @@ import { ActionMovies } from "./Components/ActionMovies";
 import { ComedyMovies } from "./Components/ComedyMovies";
 import { FavouritesShows } from "./Components/FavouritesShows";
 import { Footer } from "./Components/Footer";
-import { UpComp } from "./Components/UpComp";
+//import { UpComp } from "./Components/UpComp";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="movies-app/series/:id" element={<OneSerie />} />
       </Routes>
       <Footer />
-      <UpComp />
+      {/* <UpComp /> */}
     </>
   );
 }

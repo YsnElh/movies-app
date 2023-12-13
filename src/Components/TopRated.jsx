@@ -12,6 +12,7 @@ export const TopRated = (props) => {
             props.name === undefined ? props.title : props.name
           }`}
           style={{ width: "150px" }}
+          draggable="false"
         />
         <NavLink
           to={
