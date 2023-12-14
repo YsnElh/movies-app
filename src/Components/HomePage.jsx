@@ -13,7 +13,7 @@ export const HomePage = () => {
   //console.log(moviesPopular.moviesPopular);
   let [movie] = useState({});
   let [loading] = useState(false);
-  let [error] = useState("");
+  let [error] = useState(false);
 
   useEffect(() => {
     dispatch(fetchMoviesPop());
@@ -22,6 +22,7 @@ export const HomePage = () => {
   movie = moviesPopular.moviesPopular[0];
   loading = moviesPopular.loading;
   error = moviesPopular.error;
+  //console.log(movie.poster_path);
   //---------fetch TOp rated movies ----------------
   let [topRatedMovies] = useState([]);
   let [topRated_Loading] = useState(false);
@@ -103,11 +104,11 @@ export const HomePage = () => {
           loading...
         </div>
       )}
-      {!loading && error.length === 0 ? (
+      {!loading && !error ? (
         <div
           className="home-movie-pop"
           style={{
-            backgroundImage: `url(${`https://image.tmdb.org/t/p/original${movie?.poster_path}`})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.poster_path})`,
           }}
         >
           <div className="home-movie-pop-text">
