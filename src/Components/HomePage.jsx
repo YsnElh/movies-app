@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesPop } from "../features/movies/moviesPopularSlice";
 import { fetchTopRatedMovies } from "../features/movies/topRatedMoviesSlice";
 import { fetchTopRatedSeries } from "../features/series/topRatedSeriesSlice";
-import { addToFavourites } from "../features/favourites/favouritesShowSlice";
+// import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { TopRated } from "./TopRated";
 import { NavLink } from "react-router-dom";
 
@@ -120,12 +120,12 @@ export const HomePage = () => {
             >
               View details
             </NavLink>
-            <div
+            {/* <div
               onClick={() => dispatch(addToFavourites(movie))}
               title="Add to favourites"
             >
               <i className="fa-solid fa-heart heartHH"></i>
-            </div>
+            </div> */}
           </div>
           <img
             src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}

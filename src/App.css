@@ -116,7 +116,7 @@ nav ul li a:hover::after {
   flex-direction: column;
   width: 300px;
   /* height: 450px; */
-  height: inherit;
+  height: auto;
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 10px;
@@ -136,7 +136,7 @@ nav ul li a:hover::after {
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  height: 200px;
+  height: auto;
 }
 
 .movie-card .title {
@@ -171,6 +171,12 @@ nav ul li a:hover::after {
   font-size: 0.9rem;
   cursor: pointer;
   text-decoration: none;
+}
+
+.movie-card .addToFavourites-heart {
+  display: inline-block;
+  padding: 8px 20px;
+  cursor: pointer;
 }
 
 .searchMovie {
@@ -364,19 +370,34 @@ nav ul li a:hover::after {
 
 
 /* Homepage */
+
+
 .home-movie-pop {
-  /*   opacity: 0.5; */
-  /* background-color: rgba(0, 0, 0, 0.6); */
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 50px;
-  /* content: ""; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   color: #fff;
   border-radius: 5px;
+  box-shadow: inset 0 500px 500px -500px rgba(0, 0, 0, 0.8),
+    inset 0 -500px 500px -500px rgba(0, 0, 0, 0.8),
+    inset 500px 0 500px -500px rgba(0, 0, 0, 0.8),
+    inset -500px 0 500px -500px rgba(0, 0, 0, 0.8);
+}
+
+.home-movie-pop::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  pointer-events: none;
 }
 
 .home-movie-pop img {
@@ -515,7 +536,7 @@ nav ul li a:hover::after {
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1070px) {
 
   .home-movie-pop img,
   .heartHH {
@@ -538,8 +559,7 @@ nav ul li a:hover::after {
     display: flex;
     flex-direction: column;
     width: 150px;
-    /* height: 450px; */
-    height: 400px;
+    height: auto;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: 10px;

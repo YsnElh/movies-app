@@ -9,7 +9,6 @@ export const FavouritesShows = () => {
   const favouritesShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
   );
-  console.log(favouritesShows);
   return (
     <>
       {favouritesShows.length > 0 ? (
