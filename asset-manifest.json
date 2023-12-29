@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/movies-app/static/css/main.2fdb1774.css",
+    "main.css": "/movies-app/static/css/main.8ec44ec0.css",
     "main.js": "/movies-app/static/js/main.891b2596.js",
     "static/js/787.2b35ebb1.chunk.js": "/movies-app/static/js/787.2b35ebb1.chunk.js",
     "static/media/filled-star-icon.png": "/movies-app/static/media/filled-star-icon.8c03dec8fd62b0535f61.png",
     "index.html": "/movies-app/index.html",
-    "main.2fdb1774.css.map": "/movies-app/static/css/main.2fdb1774.css.map",
+    "main.8ec44ec0.css.map": "/movies-app/static/css/main.8ec44ec0.css.map",
     "main.891b2596.js.map": "/movies-app/static/js/main.891b2596.js.map",
     "787.2b35ebb1.chunk.js.map": "/movies-app/static/js/787.2b35ebb1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2fdb1774.css",
+    "static/css/main.8ec44ec0.css",
     "static/js/main.891b2596.js"
   ]
 }
