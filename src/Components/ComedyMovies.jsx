@@ -12,8 +12,11 @@ export const ComedyMovies = () => {
   let [error] = useState("");
 
   const comedyMovies = useSelector((state) => state.comedyMovies);
+  let favouriteShows = useSelector(
+    (state) => state.favouritesShow
+  ).favouritesShow;
 
-  movies = comedyMovies.comedyMovies;
+  movies = checkIsFavs(comedyMovies.comedyMovies);
   loading = comedyMovies.loading;
   error = comedyMovies.error;
 
@@ -28,6 +31,17 @@ export const ComedyMovies = () => {
       dispatch(removeFromFavourites(elem.id));
     }
   };
+  function checkIsFavs(movies) {
+    if (!Array.isArray(favouriteShows)) {
+      console.error("favouriteShows is not an array");
+      return;
+    }
+    const updatedMovies = movies.map((movie) => {
+      const isFavourite = favouriteShows.some((show) => show.id === movie.id);
+      return { ...movie, ischecked: isFavourite };
+    });
+    return updatedMovies;
+  }
 
   return (
     <div className="movies-container">
@@ -63,6 +77,7 @@ export const ComedyMovies = () => {
                 className="like"
                 type="checkbox"
                 title="like"
+                checked={elem.ischecked}
               />
               <div className="checkmark">
                 <svg

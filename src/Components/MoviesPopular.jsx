@@ -13,8 +13,12 @@ export const MoviesPopular = () => {
   let [movies] = useState([]);
   let [loading] = useState(false);
   let [error] = useState("");
+
   const moviesSearch = useSelector((state) => state.moviesSearch);
   const moviesPopular = useSelector((state) => state.moviesPopular);
+  let favouriteShows = useSelector(
+    (state) => state.favouritesShow
+  ).favouritesShow;
 
   //------------
 
@@ -43,14 +47,39 @@ export const MoviesPopular = () => {
   //-------------
 
   if (searchValue.length > 0) {
-    movies = moviesSearch.moviesSearch;
+    movies = checkIsFavs(moviesSearch.moviesSearch);
     loading = moviesSearch.loading;
     error = moviesSearch.error;
   } else {
-    movies = moviesPopular.moviesPopular;
+    movies = checkIsFavs(moviesPopular.moviesPopular);
     loading = moviesPopular.loading;
     error = moviesPopular.error;
   }
+
+  function checkIsFavs(movies) {
+    if (!Array.isArray(favouriteShows)) {
+      console.error("favouriteShows is not an array");
+      return;
+    }
+    const updatedMovies = movies.map((movie) => {
+      const isFavourite = favouriteShows.some((show) => show.id === movie.id);
+      return { ...movie, ischecked: isFavourite };
+    });
+    return updatedMovies;
+  }
+
+  // useEffect(() => {
+  //   if (!Array.isArray(favouriteShows)) {
+  //     console.error("favouriteShows is not an array");
+  //     return;
+  //   }
+  //   const updatedMovies = movies.map((movie) => {
+  //     const isFavourite = favouriteShows.some((show) => show.id === movie.id);
+  //     return { ...movie, ischecked: isFavourite };
+  //   });
+  //   setMovies(updatedMovies);
+  // }, [movies, favouriteShows]);
+
   //----------------------------------
   /*  const favouritesShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
@@ -111,6 +140,7 @@ export const MoviesPopular = () => {
                   className="like"
                   type="checkbox"
                   title="like"
+                  checked={elem.ischecked}
                 />
                 <div className="checkmark">
                   <svg

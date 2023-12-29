@@ -18,6 +18,9 @@ export const Series = () => {
   }, [dispatch]);
   //--------
   const seriesState = useSelector((state) => state.series);
+  let favouriteShows = useSelector(
+    (state) => state.favouritesShow
+  ).favouritesShow;
   //-------------
   useEffect(() => {
     if (searchValue.length > 0) {
@@ -27,12 +30,11 @@ export const Series = () => {
   const seriesSearch = useSelector((state) => state.seriesSearch);
   //console.log(seriesSearch);
   if (searchValue.length > 0) {
-    series = seriesSearch.seriesSearch;
+    series = checkIsFavs(seriesSearch.seriesSearch);
     loading = seriesSearch.loading;
     error = seriesSearch.error;
   } else {
-    series = seriesState.series;
-
+    series = checkIsFavs(seriesState.series);
     loading = seriesState.loading;
     error = seriesState.error;
   }
@@ -44,6 +46,19 @@ export const Series = () => {
       dispatch(removeFromFavourites(elem.id));
     }
   };
+  function checkIsFavs(series) {
+    if (!Array.isArray(favouriteShows)) {
+      console.error("favouriteShows is not an array");
+      return;
+    }
+    const updatedMovies = series.map((serie) => {
+      const isFavourite = favouriteShows.some(
+        (show) => show.id === serie.id && show.name === serie.name
+      );
+      return { ...serie, ischecked: isFavourite };
+    });
+    return updatedMovies;
+  }
   return (
     <div>
       <div className="form__group field">
@@ -91,6 +106,7 @@ export const Series = () => {
                       className="like"
                       type="checkbox"
                       title="like"
+                      checked={c.ischecked}
                     />
                     <div className="checkmark">
                       <svg
