@@ -16,15 +16,24 @@ export const Footer = () => {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item">
-            <NavLink to="/movies-app">Home</NavLink>
+            <NavLink className="menu__link" to="/movies-app">
+              Home
+            </NavLink>
           </li>
 
           <li className="list-inline-item">
-            <a href="https://www.themoviedb.org/">API Source</a>
+            <a className="menu__link" href="https://www.themoviedb.org/">
+              API Source
+            </a>
           </li>
 
           <li className="list-inline-item">
-            <a href="https://github.com/YsnElh/movies-app">Source code</a>
+            <a
+              className="menu__link"
+              href="https://github.com/YsnElh/movies-app"
+            >
+              Source code
+            </a>
           </li>
         </ul>
       </footer>

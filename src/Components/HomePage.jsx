@@ -116,7 +116,7 @@ export const HomePage = () => {
             <p className="display-6">{movie?.overview}</p>
             <NavLink
               to={`/movies-app/movies/${movie?.id}`}
-              className="btn btn-dark button-homepage"
+              className="btn-homepage"
             >
               View details
             </NavLink>
@@ -141,12 +141,12 @@ export const HomePage = () => {
       >
         <div className="top-rated-movies-tite">
           <div className="display-6">Top Rated Movies</div>
-          <button className="btn btn-dark">
+          <button className="btn-see-more-homepage">
             <NavLink
               to={`/movies-app/movies`}
               style={{ color: "white", textDecoration: "none" }}
             >
-              View More
+              Explore more Movies
             </NavLink>
           </button>
         </div>
@@ -178,12 +178,12 @@ export const HomePage = () => {
       >
         <div className="top-rated-movies-tite">
           <div className="display-6">Top Rated Series</div>
-          <button className="btn btn-dark">
+          <button className="btn-see-more-homepage">
             <NavLink
               to={`/movies-app/series`}
               style={{ color: "white", textDecoration: "none" }}
             >
-              View More
+              Explore more Series
             </NavLink>
           </button>
         </div>

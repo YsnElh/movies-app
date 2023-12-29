@@ -84,7 +84,7 @@ export const OneMovie = () => {
                 <StarRating rating={movie.movie.vote_average} />
                 <span>Votes Number: {movie.movie.vote_count}</span>
                 <div>
-                  <a class="menu__link" href={movie.movie.homepage}>
+                  <a className="menu__link" href={movie.movie.homepage}>
                     Movie HomePage
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

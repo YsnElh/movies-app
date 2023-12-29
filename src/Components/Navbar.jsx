@@ -42,7 +42,7 @@ function Navbar() {
           to="/movies-app"
           style={{ color: "#fff", textDecoration: "none", fontSize: "1.3rem" }}
         >
-          Movie APP
+          Movies APP
         </NavLink>
         <div>
           <ul className={clicked ? "navbar-links activeNav" : "navbar-links"}>

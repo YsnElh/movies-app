@@ -66,7 +66,7 @@ export const ComedyMovies = () => {
                 ? "Year: " + elem.release_date.slice(0, 4)
                 : null}
             </div>
-            <NavLink to={`/movies-app/movies/${elem.id}`} className="button">
+            <NavLink to={`/movies-app/movies/${elem.id}`} className="btn-card">
               More details
             </NavLink>
           </div>

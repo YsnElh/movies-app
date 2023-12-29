@@ -14,7 +14,6 @@ export const OneSerie = () => {
 
   //------------
   const serie = useSelector((state) => state.serie);
-  console.log(serie.serie);
   //-------------
   const styleComp = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original${serie.serie.backdrop_path})`,
