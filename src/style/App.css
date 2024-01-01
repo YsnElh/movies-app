@@ -250,7 +250,7 @@ nav ul li a:hover::after {
 
 .movie-info .image-card,
 .home-movie-pop img {
-  z-index: 100;
+  z-index: 90;
 }
 
 .movie-info img {
@@ -473,7 +473,7 @@ nav ul li a:hover::after {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  z-index: 100;
+  z-index: 90;
 }
 
 .button-homepage {
