@@ -22,7 +22,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background-color: #333;
+  background-color: #000;
 }
 
 nav ul {
@@ -73,11 +73,11 @@ nav ul li a:hover::after {
     justify-content: flex-start;
     position: fixed;
     border-bottom-left-radius: 6px;
-    top: 56px;
+    top: 71px;
     right: -200px;
     width: 200px;
     height: auto;
-    background: #333;
+    background-color: #000;
     box-shadow: 0 40px 40px rgba(0, 0, 0, 0.1);
     padding: 40px 0 0 10px;
     transition: 0.3s ease-in-out;
@@ -113,35 +113,57 @@ nav ul li a:hover::after {
 }
 
 .movie-card {
-  display: flex;
-  flex-direction: column;
-  width: 340px;
-  /* height: 450px; */
+  position: relative;
+  width: 300px;
   height: auto;
-  background-color: white;
   border: 1px solid lightgray;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  cursor: pointer;
 }
 
 .movie-card img {
   width: 100%;
+  transition: transform 0.3s ease-out;
   object-fit: cover;
 }
 
 .movie-card .details {
-  padding: 20px;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+
+}
+
+.movie-card:hover .details {
+  display: flex;
+  opacity: 1;
+
+}
+
+.movie-card:hover .card-img {
+  transform: scale(1.05);
+  filter: blur(4px);
 }
 
 .movie-card .title {
-  font-size: 20px;
+  font-size: 35px;
   font-weight: bold;
   margin: 10px 0;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .movie-card .description {
@@ -150,9 +172,15 @@ nav ul li a:hover::after {
   margin: 10px 0;
 }
 
-.movie-card .rating,
+.movie-card .rating {
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
 .movie-card .genres {
-  font-size: 15px;
+  font-weight: bold;
+  font-size: 25px;
+  font-size: bold;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -290,7 +318,7 @@ nav ul li a:hover::after {
 /* footer */
 .footer-basic {
   padding: 40px 0;
-  background-color: #333;
+  background-color: #000;
   color: #fff;
 }
 
@@ -657,7 +685,7 @@ nav ul li a:hover::after {
   }
 
   .movie-card .title {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: bold;
     margin: 10px 0;
   }
@@ -673,7 +701,8 @@ nav ul li a:hover::after {
   }
 
   .movie-card .btn-card {
-    padding: 5px 10px;
+    padding: 5px;
+    font-size: 10px;
   }
 
   .movie-card .button {
@@ -688,12 +717,8 @@ nav ul li a:hover::after {
     text-decoration: none;
   }
 
-  .heart {
-    /* position: relative; */
-    left: 70%;
-    cursor: pointer;
-    color: #6e6e6e;
-    font-size: 27px;
+  .con-like .checkmark {
+    width: 70%;
   }
 
   /* -------------------- */

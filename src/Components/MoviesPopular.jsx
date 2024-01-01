@@ -5,6 +5,7 @@ import { fetchMoviesSearch } from "../features/movies/moviesSearchSlice";
 import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import { NavLink } from "react-router-dom";
+import StarRating from "./comps/StarRating";
 
 export const MoviesPopular = () => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ export const MoviesPopular = () => {
   }
 
   return (
-    <div>
+    <div className="movies-general-container">
       <div className="form__group field">
         <input
           type="input"
@@ -88,21 +89,30 @@ export const MoviesPopular = () => {
             loading...
           </div>
         )}
+        {movies && movies.length === 0 && searchValue.length > 0 && !loading ? (
+          <div className="display-4" style={{ textAlign: "center" }}>
+            There is no movies based on this search: {searchValue}!
+          </div>
+        ) : null}
         {movies?.map((elem) => (
           <div className="movie-card mt-2" key={elem.id}>
             <img
+              className="card-img"
               src={`https://image.tmdb.org/t/p/original${elem.poster_path}`}
               alt="Movie poster"
             />
             <div className="details">
               <div className="title">{elem.title}</div>
-              <div className="rating">
+              {/* <div className="rating">
                 Rating: {elem.vote_average !== 0 ? elem.vote_average : "n/a"}
-              </div>
+              </div> */}
               <div className="genres">
                 {elem.release_date !== undefined
                   ? "Year: " + elem.release_date.slice(0, 4)
                   : null}
+              </div>
+              <div className="rating">
+                <StarRating rating={elem.vote_average} />
               </div>
               <NavLink
                 to={`/movies-app/movies/${elem.id}`}

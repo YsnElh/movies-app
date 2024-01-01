@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import { destroyFavourites } from "../features/favourites/favouritesShowSlice";
 import { NavLink } from "react-router-dom";
+import StarRating from "./comps/StarRating";
 
 export const FavouritesShows = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export const FavouritesShows = () => {
           favouritesShows?.map((elem) => (
             <div className="movie-card mt-2" key={elem.id}>
               <img
+                className="card-img"
                 src={`https://image.tmdb.org/t/p/original${elem.poster_path}`}
                 alt="Movie poster"
               />
@@ -32,8 +34,15 @@ export const FavouritesShows = () => {
                 <div className="title">
                   {elem.title ? elem.title : elem.name}
                 </div>
+                <div className="genres">
+                  <img
+                    src={elem.adult ? "./R18-rating.png" : "./PG.png"}
+                    style={{ width: "35px" }}
+                    alt=""
+                  />
+                </div>
                 <div className="rating">
-                  Rating: {elem.vote_average !== 0 ? elem.vote_average : "n/a"}
+                  <StarRating rating={elem.vote_average} />
                 </div>
                 <NavLink
                   to={
@@ -48,12 +57,12 @@ export const FavouritesShows = () => {
                 <div className="addToFavourites-heart">
                   <button
                     onClick={() => dispatch(removeFromFavourites(elem.id))}
-                    class="Btn"
+                    className="Btn"
                   >
-                    <div class="sign">
+                    <div className="sign">
                       <svg
                         viewBox="0 0 16 16"
-                        class="bi bi-trash3-fill"
+                        className="bi bi-trash3-fill"
                         fill="currentColor"
                         height="18"
                         width="18"
@@ -63,7 +72,7 @@ export const FavouritesShows = () => {
                       </svg>
                     </div>
 
-                    <div class="text">Remove</div>
+                    <div className="text">Remove</div>
                   </button>
                 </div>
               </div>

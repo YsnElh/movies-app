@@ -157,11 +157,15 @@
 }
 
 /* -------------FAVS BTNS-------------------------- */
+.btn-card {
+    font-weight: bold;
+}
+
 .btn-card:link,
 .btn-card:visited {
     text-transform: uppercase;
     text-decoration: none;
-    color: rgb(27, 27, 27);
+    color: rgb(255, 255, 255);
     padding: 10px 30px;
     border: 1px solid;
     border-radius: 1000px;
@@ -173,7 +177,7 @@
 .btn-card:hover,
 .btn-homepage:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(27, 27, 27, .5);
+    box-shadow: 0 10px 20px rgba(107, 107, 107, 0.5);
 }
 
 .btn-card:active,

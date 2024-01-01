@@ -74,7 +74,6 @@ export const OneMovie = () => {
                   {movie.movie.adult === true ? "+18" : "+13"}
                 </p>
                 <div>{movie.movie.tagline}</div>
-                <p>Overview</p>
                 <p>{movie.movie.overview}</p>
                 <p>
                   {movie.movie.original_language
