@@ -54,7 +54,7 @@ export const OneMovie = () => {
         <div>
           <div className="movie-info" style={styleComp}>
             <div className="one-movies-header">
-              <div>
+              <div className="image-card">
                 <img
                   title={movie.movie.title}
                   src={`https://image.tmdb.org/t/p/original/${movie.movie.poster_path}`}

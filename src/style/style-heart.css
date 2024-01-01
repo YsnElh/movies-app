@@ -157,8 +157,10 @@
 }
 
 /* -------------FAVS BTNS-------------------------- */
-.btn-card {
+.btn-card,
+.btn-homepage {
     font-weight: bold;
+    z-index: 100;
 }
 
 .btn-card:link,

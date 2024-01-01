@@ -128,6 +128,7 @@ export const HomePage = () => {
             </div> */}
           </div>
           <img
+            className="image-card"
             src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
             alt={`Poster of the movie ${movie?.title}`}
           />

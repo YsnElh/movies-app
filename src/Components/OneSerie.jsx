@@ -41,7 +41,7 @@ export const OneSerie = () => {
       {!serie.loading && serie.error === "" ? (
         <div className="movie-info" style={styleComp}>
           <div className="one-movies-header">
-            <div>
+            <div className="image-card">
               <img
                 title={serie.serie.name}
                 style={{ cursor: "pointer" }}
