@@ -14,7 +14,7 @@ export const Footer = () => {
             <i className="fa-brands fa-github"></i>
           </a>
           <a href="https://www.linkedin.com/in/yassine-elhainouni/">
-            <i class="fab fa-linkedin"></i>
+            <i className="fab fa-linkedin"></i>
           </a>
         </div>
         <ul className="list-inline">

@@ -496,6 +496,7 @@ nav ul li a.active::before {
   flex-direction: column;
   justify-content: space-around;
   z-index: 90;
+  transition: opacity 0.3s ease-out;
 }
 
 .button-homepage {

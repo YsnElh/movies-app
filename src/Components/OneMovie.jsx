@@ -1,24 +1,53 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieOne } from "../features/movies/movieOneSlice";
+import { fetchAllBackDropsMovie } from "../features/movies/movieOneGetAllBackdrops";
 import { useParams } from "react-router-dom";
 import StarRating from "./comps/StarRating";
 
 export const OneMovie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  //console.log(id);
+  const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+  //--------------------
   useEffect(() => {
     dispatch(fetchMovieOne(id));
   }, [dispatch, id]);
+
   const movie = useSelector((state) => state.movie);
 
+  useEffect(() => {
+    dispatch(fetchAllBackDropsMovie(id));
+  }, [dispatch, id]);
+  let movieBackDrops = useSelector((state) => state.movieAllBackdrops.movie);
+
+  useEffect(() => {
+    let intervalId;
+
+    const updateBackdropIndex = () => {
+      const newBackdropIndex = Math.floor(
+        Math.random() * (movieBackDrops?.backdrops.length || 0)
+      );
+      setCurrentBackdropIndex(newBackdropIndex);
+    };
+    updateBackdropIndex();
+    intervalId = setInterval(() => {
+      updateBackdropIndex();
+    }, 10000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [movieBackDrops]);
+
+  let movieBackDrop =
+    movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
   //----------------------
 
   //--------------
   const styleComp = {
-    backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.movie.backdrop_path})`,
+    backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieBackDrop})`,
   };
+  //----------------------
   const formatRuntime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;

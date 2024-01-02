@@ -3,18 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesPop } from "../features/movies/moviesPopularSlice";
 import { fetchTopRatedMovies } from "../features/movies/topRatedMoviesSlice";
 import { fetchTopRatedSeries } from "../features/series/topRatedSeriesSlice";
-// import { addToFavourites } from "../features/favourites/favouritesShowSlice";
+import { fetchAllBackDropsMovie } from "../features/movies/movieOneGetAllBackdrops";
 import { TopRated } from "./TopRated";
 import { NavLink } from "react-router-dom";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const moviesPopular = useSelector((state) => state.moviesPopular);
+  const movieBackDrops = useSelector((state) => state.movieAllBackdrops.movie);
 
-  let [movie, setMovie] = useState({});
-  let [loading, setLoading] = useState(false);
-  let [error, setError] = useState(false);
+  const [movie, setMovie] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+  const [moviePoster, setMoviePoster] = useState(false);
+
+  useEffect(() => {
+    if (movieBackDrops?.backdrops.length > 0) {
+      const maxIndex = Math.min(10, movieBackDrops.backdrops.length);
+      const randomIndex = Math.floor(Math.random() * maxIndex);
+      setCurrentBackdropIndex(randomIndex);
+    }
+  }, [movieBackDrops]);
+
+  useEffect(() => {
+    setMoviePoster(movieBackDrops?.backdrops[currentBackdropIndex]?.file_path);
+  }, [currentBackdropIndex, movieBackDrops]);
 
   useEffect(() => {
     dispatch(fetchMoviesPop());
@@ -26,6 +41,7 @@ export const HomePage = () => {
         Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
       );
       setMovie(moviesPopular.moviesPopular[randomIndex]);
+      setCurrentBackdropIndex(0); // Reset backdrop index when a new movie is set
     }
 
     setLoading(moviesPopular.loading);
@@ -39,6 +55,7 @@ export const HomePage = () => {
         setIsTransitioning(true);
         setTimeout(() => {
           setMovie(moviesPopular.moviesPopular[randomIndex]);
+          setCurrentBackdropIndex(0); // Reset backdrop index when a new movie is set
           setIsTransitioning(false);
         }, 500);
       }
@@ -46,6 +63,12 @@ export const HomePage = () => {
 
     return () => clearInterval(intervalId);
   }, [moviesPopular]);
+
+  useEffect(() => {
+    if (movie.id) {
+      dispatch(fetchAllBackDropsMovie(movie.id));
+    }
+  }, [dispatch, movie.id]);
 
   //---------fetch TOp rated movies ----------------
   let [topRatedMovies] = useState([]);
@@ -120,7 +143,6 @@ export const HomePage = () => {
   let handleMouseUpS = () => {
     setIsDraggingS(false);
   };
-
   return (
     <div className="homepage-container">
       {loading && (
@@ -132,7 +154,7 @@ export const HomePage = () => {
         <div
           className={`home-movie-pop ${isTransitioning ? "transitioning" : ""}`}
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.poster_path})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${moviePoster})`,
           }}
         >
           <div className="home-movie-pop-text">
