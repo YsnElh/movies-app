@@ -10,19 +10,43 @@ import { NavLink } from "react-router-dom";
 export const HomePage = () => {
   const dispatch = useDispatch();
   const moviesPopular = useSelector((state) => state.moviesPopular);
-  //console.log(moviesPopular.moviesPopular);
-  let [movie] = useState({});
-  let [loading] = useState(false);
-  let [error] = useState(false);
+
+  let [movie, setMovie] = useState({});
+  let [loading, setLoading] = useState(false);
+  let [error, setError] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     dispatch(fetchMoviesPop());
   }, [dispatch]);
 
-  movie = moviesPopular.moviesPopular[0];
-  loading = moviesPopular.loading;
-  error = moviesPopular.error;
-  //console.log(movie.poster_path);
+  useEffect(() => {
+    if (moviesPopular.moviesPopular.length > 0) {
+      const randomIndex = Math.floor(
+        Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
+      );
+      setMovie(moviesPopular.moviesPopular[randomIndex]);
+    }
+
+    setLoading(moviesPopular.loading);
+    setError(moviesPopular.error);
+
+    const intervalId = setInterval(() => {
+      if (moviesPopular.moviesPopular.length > 0) {
+        const randomIndex = Math.floor(
+          Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
+        );
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setMovie(moviesPopular.moviesPopular[randomIndex]);
+          setIsTransitioning(false);
+        }, 500);
+      }
+    }, 15000);
+
+    return () => clearInterval(intervalId);
+  }, [moviesPopular]);
+
   //---------fetch TOp rated movies ----------------
   let [topRatedMovies] = useState([]);
   let [topRated_Loading] = useState(false);
@@ -106,7 +130,7 @@ export const HomePage = () => {
       )}
       {!loading && !error ? (
         <div
-          className="home-movie-pop"
+          className={`home-movie-pop ${isTransitioning ? "transitioning" : ""}`}
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.poster_path})`,
           }}
@@ -120,15 +144,10 @@ export const HomePage = () => {
             >
               View details
             </NavLink>
-            {/* <div
-              onClick={() => dispatch(addToFavourites(movie))}
-              title="Add to favourites"
-            >
-              <i className="fa-solid fa-heart heartHH"></i>
-            </div> */}
           </div>
           <img
             className="image-card"
+            title={"poster of the movie: " + movie?.title}
             src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
             alt={`Poster of the movie ${movie?.title}`}
           />

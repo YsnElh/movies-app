@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { initializeFavourites } from "../features/favourites/favouritesShowSlice";
 import moviesPopularSlice from "../features/movies/moviesPopularSlice";
 import seriesSlice from "../features/series/seriesSlice";
 import seriesSearchSlice from "../features/series/seriesSearchSlice";
@@ -26,5 +27,7 @@ const store = configureStore({
     topRatedSeries: topRatedSeriesSlice,
   },
 });
+
+store.dispatch(initializeFavourites());
 
 export default store;

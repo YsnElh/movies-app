@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
   favouritesShow: [],
@@ -14,26 +15,33 @@ const favouritesShowSlice = createSlice({
       );
       if (arrDup.length === 0) {
         state.favouritesShow.push(action.payload);
+        Cookies.set("favouritesShow", JSON.stringify(state.favouritesShow));
       }
-      //state.favouritesShow.push(action.payload);
-
-      //
     },
     removeFromFavourites: (state, action) => {
-      return {
-        favouritesShow: state.favouritesShow.filter(
-          (show) => show.id !== action.payload
-        ),
-      };
+      state.favouritesShow = state.favouritesShow.filter(
+        (show) => show.id !== action.payload
+      );
+      Cookies.set("favouritesShow", JSON.stringify(state.favouritesShow));
     },
     destroyFavourites: (state) => {
-      return {
-        favouritesShow: [],
-      };
+      state.favouritesShow = [];
+      Cookies.remove("favouritesShow");
+    },
+    initializeFavourites: (state) => {
+      const storedFavourites = Cookies.get("favouritesShow");
+      if (storedFavourites) {
+        state.favouritesShow = JSON.parse(storedFavourites);
+      }
     },
   },
 });
 
-export const { addToFavourites, removeFromFavourites, destroyFavourites } =
-  favouritesShowSlice.actions;
+export const {
+  addToFavourites,
+  removeFromFavourites,
+  destroyFavourites,
+  initializeFavourites,
+} = favouritesShowSlice.actions;
+
 export default favouritesShowSlice.reducer;

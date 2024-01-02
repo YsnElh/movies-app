@@ -8,9 +8,7 @@ export const TopRated = (props) => {
       <div className="flip-card">
         <img
           src={`https://image.tmdb.org/t/p/original${props.poster_path}`}
-          alt={`Poster of the show ${
-            props.name === undefined ? props.title : props.name
-          }`}
+          alt={`Poster of the show: ${props.name ? props.name : props.title}`}
           style={{ width: "150px" }}
           draggable="false"
         />

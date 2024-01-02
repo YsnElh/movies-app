@@ -245,7 +245,7 @@ nav ul li a:hover::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.336);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .movie-info .image-card,
@@ -546,6 +546,8 @@ nav ul li a:hover::after {
 .img-btn {
   display: block;
   opacity: 1;
+  transition: 0.3s;
+  z-index: 90;
 }
 
 .top-rated-pad {
@@ -795,4 +797,11 @@ nav ul li a:hover::after {
   .menu__link {
     font-size: 15px;
   }
+}
+
+/* Add this to your CSS or styles */
+
+.home-movie-pop.transitioning {
+  background-color: black;
+  transition: background-color 0.5s ease-out;
 }
