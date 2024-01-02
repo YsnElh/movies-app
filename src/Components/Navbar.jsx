@@ -39,10 +39,15 @@ function Navbar() {
     <header id="up-m">
       <nav ref={navbarRef}>
         <NavLink
-          to="/movies-app"
+          to="/movies-app/"
           style={{ color: "#fff", textDecoration: "none", fontSize: "1.3rem" }}
         >
-          Movies APP
+          <img
+            src="./logo.png"
+            style={{ width: "30px" }}
+            alt="Movies App Logo"
+          />
+          MOVIES APP
         </NavLink>
         <div>
           <ul className={clicked ? "navbar-links activeNav" : "navbar-links"}>
@@ -51,14 +56,26 @@ function Navbar() {
                 handleClick();
               }}
             >
-              <NavLink to="movies-app/movies">Popular movies</NavLink>
+              <NavLink
+                activeclassname="active"
+                style={{ fontSize: "1.3rem" }}
+                to="movies-app/movies"
+              >
+                Popular movies
+              </NavLink>
             </li>
             <li
               onClick={() => {
                 handleClick();
               }}
             >
-              <NavLink to="movies-app/action-movies">Action movies</NavLink>
+              <NavLink
+                activeclassname="active"
+                style={{ fontSize: "1.3rem" }}
+                to="movies-app/action-movies"
+              >
+                Action movies
+              </NavLink>
             </li>
 
             <li
@@ -66,21 +83,37 @@ function Navbar() {
                 handleClick();
               }}
             >
-              <NavLink to="movies-app/comedy-movies">Comedy movies</NavLink>
+              <NavLink
+                activeclassname="active"
+                style={{ fontSize: "1.3rem" }}
+                to="movies-app/comedy-movies"
+              >
+                Comedy movies
+              </NavLink>
             </li>
             <li
               onClick={() => {
                 handleClick();
               }}
             >
-              <NavLink to="movies-app/series">Series</NavLink>
+              <NavLink
+                activeclassname="active"
+                style={{ fontSize: "1.3rem" }}
+                to="movies-app/series"
+              >
+                Series
+              </NavLink>
             </li>
             <li
               onClick={() => {
                 handleClick();
               }}
             >
-              <NavLink to="movies-app/favourite-shows">
+              <NavLink
+                activeclassname="active"
+                style={{ fontSize: "1.3rem" }}
+                to="movies-app/favourite-shows"
+              >
                 Favourites Shows{" "}
                 {favouritesShows.length > 0 ? (
                   <span className="badgeME">{favouritesShows.length}</span>

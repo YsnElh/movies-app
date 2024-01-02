@@ -13,14 +13,16 @@ export const Footer = () => {
           <a href="https://github.com/YsnElh">
             <i className="fa-brands fa-github"></i>
           </a>
+          <a href="https://www.linkedin.com/in/yassine-elhainouni/">
+            <i class="fab fa-linkedin"></i>
+          </a>
         </div>
         <ul className="list-inline">
           <li className="list-inline-item">
-            <NavLink className="menu__link" to="/movies-app">
+            <NavLink className="menu__link" to="/movies-app/">
               Home
             </NavLink>
           </li>
-
           <li className="list-inline-item">
             <a className="menu__link" href="https://www.themoviedb.org/">
               API Source
