@@ -17,6 +17,7 @@ export const MoviesPopular = () => {
 
   const moviesSearch = useSelector((state) => state.moviesSearch);
   const moviesPopular = useSelector((state) => state.moviesPopular);
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   let favouriteShows = useSelector(
     (state) => state.favouritesShow
   ).favouritesShow;
@@ -83,12 +84,18 @@ export const MoviesPopular = () => {
       </div>
       <div className="movies-container">
         {loading && (
-          <div className="display-4" style={{ textAlign: "center" }}>
+          <div
+            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+            style={{ textAlign: "center" }}
+          >
             loading...
           </div>
         )}
         {movies && movies.length === 0 && searchValue.length > 0 && !loading ? (
-          <div className="display-4" style={{ textAlign: "center" }}>
+          <div
+            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+            style={{ textAlign: "center" }}
+          >
             There is no movies based on this search: {searchValue}!
           </div>
         ) : null}

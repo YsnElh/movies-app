@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="footer-basic">
+    <div className="footer-basic" id="footer">
       <footer>
         <div className="social">
           <a href="mailto:Elhainouniyassine21@gmail.com">

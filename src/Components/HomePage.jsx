@@ -11,6 +11,7 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const moviesPopular = useSelector((state) => state.moviesPopular);
   const movieBackDrops = useSelector((state) => state.movieAllBackdrops.movie);
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
 
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
@@ -146,7 +147,10 @@ export const HomePage = () => {
   return (
     <div className="homepage-container">
       {loading && (
-        <div className="display-4" style={{ textAlign: "center" }}>
+        <div
+          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+          style={{ textAlign: "center" }}
+        >
           loading...
         </div>
       )}

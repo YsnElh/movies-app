@@ -11,6 +11,7 @@ export const ComedyMovies = () => {
   let [movies] = useState([]);
   let [loading] = useState(false);
   let [error] = useState("");
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
 
   const comedyMovies = useSelector((state) => state.comedyMovies);
   let favouriteShows = useSelector(
@@ -47,7 +48,10 @@ export const ComedyMovies = () => {
   return (
     <div className="movies-container movies-general-container">
       {loading && (
-        <div className="display-4" style={{ textAlign: "center" }}>
+        <div
+          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+          style={{ textAlign: "center" }}
+        >
           loading...
         </div>
       )}
@@ -115,7 +119,9 @@ export const ComedyMovies = () => {
         </div>
       ))}
       {!loading && error ? (
-        <div className="display-4">Error : {error}</div>
+        <div className={`display-4 ${!darkModeStatu ? "text-light" : null}`}>
+          Error : {error}
+        </div>
       ) : null}
     </div>
   );

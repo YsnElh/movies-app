@@ -13,6 +13,7 @@ import topRatedMoviesSlice from "../features/movies/topRatedMoviesSlice";
 import topRatedSeriesSlice from "../features/series/topRatedSeriesSlice";
 import movieOneGetAllBackdrops from "../features/movies/movieOneGetAllBackdrops";
 import serieOneGetAllBackdrops from "../features/series/serieOneGetAllBackdrops";
+import darkModeSlice from "../features/favourites/darkModeSlice";
 
 const store = configureStore({
   reducer: {
@@ -29,6 +30,7 @@ const store = configureStore({
     topRatedSeries: topRatedSeriesSlice,
     movieAllBackdrops: movieOneGetAllBackdrops,
     serieAllBackdrops: serieOneGetAllBackdrops,
+    darkMode: darkModeSlice,
   },
 });
 

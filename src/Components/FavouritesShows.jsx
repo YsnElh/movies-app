@@ -10,6 +10,9 @@ export const FavouritesShows = () => {
   const favouritesShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
   );
+
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
+
   return (
     <>
       {favouritesShows.length > 0 ? (
@@ -79,7 +82,10 @@ export const FavouritesShows = () => {
             </div>
           ))
         ) : (
-          <div className="display-4" style={{ height: "800px" }}>
+          <div
+            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+            style={{ height: "800px" }}
+          >
             You don't have any favourites shows yet
           </div>
         )}

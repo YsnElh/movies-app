@@ -13,6 +13,7 @@ export const Series = () => {
   let [series] = useState([]);
   let [loading] = useState(false);
   let [error] = useState("");
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
 
   useEffect(() => {
     dispatch(fetchSeries());
@@ -76,12 +77,18 @@ export const Series = () => {
       </div>
       <div className="movies-container">
         {loading && (
-          <div className="display-4" style={{ textAlign: "center" }}>
+          <div
+            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+            style={{ textAlign: "center" }}
+          >
             loading...
           </div>
         )}
         {series && series.length === 0 && searchValue.length > 0 && !loading ? (
-          <div className="display-4" style={{ textAlign: "center" }}>
+          <div
+            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+            style={{ textAlign: "center" }}
+          >
             There is no series based on this search: {searchValue}!
           </div>
         ) : null}
@@ -175,7 +182,9 @@ export const Series = () => {
             ))
           : null}
         {!loading && error ? (
-          <div className="display-4">Error : {error}</div>
+          <div className={`display-4 ${!darkModeStatu ? "text-light" : null}`}>
+            Error : {error}
+          </div>
         ) : null}
       </div>
     </div>
