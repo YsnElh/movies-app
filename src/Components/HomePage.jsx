@@ -157,6 +157,12 @@ export const HomePage = () => {
             backgroundImage: `url(https://image.tmdb.org/t/p/original${moviePoster})`,
           }}
         >
+          <img
+            className="image-card"
+            title={"poster of the movie: " + movie?.title}
+            src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
+            alt={`Poster of the movie ${movie?.title}`}
+          />
           <div className="home-movie-pop-text">
             <h1 className="display-1">{movie?.title}</h1>
             <p className="display-6">{movie?.overview}</p>
@@ -167,12 +173,6 @@ export const HomePage = () => {
               View details
             </NavLink>
           </div>
-          <img
-            className="image-card"
-            title={"poster of the movie: " + movie?.title}
-            src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
-            alt={`Poster of the movie ${movie?.title}`}
-          />
         </div>
       ) : (
         <div></div>

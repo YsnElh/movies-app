@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieOne } from "../features/movies/movieOneSlice";
 import { fetchAllBackDropsMovie } from "../features/movies/movieOneGetAllBackdrops";
+import { addToFavourites } from "../features/favourites/favouritesShowSlice";
+import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import { useParams } from "react-router-dom";
 import StarRating from "./comps/StarRating";
 
@@ -15,6 +17,9 @@ export const OneMovie = () => {
   }, [dispatch, id]);
 
   const movie = useSelector((state) => state.movie);
+  let favouriteShows = useSelector(
+    (state) => state.favouritesShow
+  ).favouritesShow;
 
   useEffect(() => {
     dispatch(fetchAllBackDropsMovie(id));
@@ -31,9 +36,9 @@ export const OneMovie = () => {
       setCurrentBackdropIndex(newBackdropIndex);
     };
     updateBackdropIndex();
-    intervalId = setInterval(() => {
-      updateBackdropIndex();
-    }, 10000);
+    // intervalId = setInterval(() => {
+    //   updateBackdropIndex();
+    // }, 10000);
     return () => {
       clearInterval(intervalId);
     };
@@ -68,6 +73,37 @@ export const OneMovie = () => {
     );
     return formattedDate;
   };
+  /* ---------------- */
+
+  function checkIsFavs(movie) {
+    if (!Array.isArray(favouriteShows)) {
+      console.error("favouriteShows is not an array");
+      return;
+    }
+
+    const isFavourite = favouriteShows.some((show) => show.id === movie.id);
+    return { ...movie, ischecked: isFavourite };
+  }
+
+  const handleCheckboxChange = (isChecked, elem) => {
+    if (isChecked) {
+      dispatch(addToFavourites(elem));
+    } else {
+      dispatch(removeFromFavourites(elem.id));
+    }
+  };
+
+  let OneMovie = checkIsFavs(movie.movie);
+
+  //-------------------Update the document title----------------------------
+  useEffect(() => {
+    document.title = OneMovie.title ? OneMovie.title : "Movies App";
+
+    // Cleanup function
+    return () => {
+      document.title = "Movies App";
+    };
+  }, [OneMovie.title]);
   return (
     <div>
       {movie.loading && (
@@ -85,34 +121,96 @@ export const OneMovie = () => {
             <div className="one-movies-header">
               <div className="image-card">
                 <img
-                  title={movie.movie.title}
-                  src={`https://image.tmdb.org/t/p/original/${movie.movie.poster_path}`}
-                  alt="movie.Movie poster"
+                  title={OneMovie.title}
+                  src={`https://image.tmdb.org/t/p/original/${OneMovie.poster_path}`}
+                  alt="OneMovie poster"
                 />
               </div>
               <div className="info-movieOne">
-                <h1>{movie.movie.title}</h1>
+                <h1>{OneMovie.title}</h1>
                 <p>
-                  {formatDate(movie.movie.release_date) + " •"}
-                  {movie.movie.genres === undefined
-                    ? "n/a"
-                    : movie.movie.genres.map((g) => (
-                        <span key={g.id}> {g.name},</span>
-                      ))}
-                  {" • " + formatRuntime(movie.movie.runtime) + " • "}
-                  {movie.movie.adult === true ? "+18" : "+13"}
+                  {formatDate(OneMovie.release_date) + " • "}
+                  {OneMovie.genres && OneMovie.genres.length > 0
+                    ? OneMovie.genres.map((g, index) => (
+                        <span key={g.id}>
+                          {g.name}
+                          {index < OneMovie.genres.length - 1 && ","}{" "}
+                        </span>
+                      ))
+                    : null}
+                  {" • " + formatRuntime(OneMovie.runtime)}
                 </p>
-                <div>{movie.movie.tagline}</div>
-                <p>{movie.movie.overview}</p>
+                <div>{OneMovie.tagline}</div>
+                <p>{OneMovie.overview}</p>
                 <p>
-                  {movie.movie.original_language
-                    ? "language: " + movie.movie.original_language + " "
+                  {OneMovie.original_language
+                    ? "language: " + OneMovie.original_language + " "
                     : null}
                 </p>
-                <StarRating rating={movie.movie.vote_average} />
-                <span>Votes Number: {movie.movie.vote_count}</span>
+                <StarRating rating={OneMovie.vote_average} />
+                <span>Votes Number: {OneMovie.vote_count}</span>
+                <div className="addToFavourites-heart">
+                  <div className="con-like">
+                    <input
+                      onChange={(e) =>
+                        handleCheckboxChange(e.target.checked, OneMovie)
+                      }
+                      className="like"
+                      type="checkbox"
+                      title="Add to Favourites"
+                      checked={OneMovie.ischecked}
+                    />
+                    <div className="checkmark">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="outline"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z"></path>
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="filled"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z"></path>
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="100"
+                        width="100"
+                        className="celebrate"
+                      >
+                        <polygon
+                          className="poly"
+                          points="10,10 20,20"
+                        ></polygon>
+                        <polygon
+                          className="poly"
+                          points="10,50 20,50"
+                        ></polygon>
+                        <polygon
+                          className="poly"
+                          points="20,80 30,70"
+                        ></polygon>
+                        <polygon
+                          className="poly"
+                          points="90,10 80,20"
+                        ></polygon>
+                        <polygon
+                          className="poly"
+                          points="90,50 80,50"
+                        ></polygon>
+                        <polygon
+                          className="poly"
+                          points="80,80 70,70"
+                        ></polygon>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
                 <div>
-                  <a className="menu__link" href={movie.movie.homepage}>
+                  <a className="menu__link" href={OneMovie.homepage}>
                     Movie HomePage
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

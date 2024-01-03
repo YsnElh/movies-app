@@ -98,7 +98,7 @@ export const MoviesPopular = () => {
                 <img
                   className="card-img"
                   src={`https://image.tmdb.org/t/p/original${elem.poster_path}`}
-                  alt="Movie poster"
+                  alt={elem.title + " movie poster"}
                 />
                 <div className="details">
                   <div className="title">{elem.title}</div>

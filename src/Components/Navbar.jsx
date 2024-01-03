@@ -35,6 +35,7 @@ function Navbar() {
   }, []);
 
   // ---------
+
   return (
     <header id="up-m">
       <nav ref={navbarRef}>

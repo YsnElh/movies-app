@@ -80,7 +80,12 @@ export const Series = () => {
             loading...
           </div>
         )}
-        {!loading && series.length > 0
+        {series && series.length === 0 && searchValue.length > 0 && !loading ? (
+          <div className="display-4" style={{ textAlign: "center" }}>
+            There is no series based on this search: {searchValue}!
+          </div>
+        ) : null}
+        {!loading && series.length > 0 && error.length === 0
           ? series.map((c) => (
               <div className="movie-card mt-2" key={c.id}>
                 <img
