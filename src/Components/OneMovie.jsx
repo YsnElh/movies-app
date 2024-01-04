@@ -11,6 +11,7 @@ export const OneMovie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   //--------------------
   useEffect(() => {
     dispatch(fetchMovieOne(id));
@@ -107,12 +108,17 @@ export const OneMovie = () => {
   return (
     <div>
       {movie.loading && (
-        <div className="display-4" style={{ textAlign: "center" }}>
+        <div
+          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+          style={{ textAlign: "center" }}
+        >
           loading...
         </div>
       )}
       {!movie.loading && movie.error ? (
-        <div className="display-4">Error : {movie.error}</div>
+        <div className={`display-4 ${!darkModeStatu ? "text-light" : null}`}>
+          Error : {movie.error}
+        </div>
       ) : null}
 
       {!movie.loading && movie.error.length === 0 ? (

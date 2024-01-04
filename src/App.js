@@ -12,7 +12,6 @@ import { FavouritesShows } from "./Components/FavouritesShows";
 import { Footer } from "./Components/Footer";
 import "./style/style-heart.css";
 import "./style/style-search.css";
-//import { UpComp } from "./Components/UpComp";
 
 function App() {
   return (
@@ -33,7 +32,6 @@ function App() {
         <Route path="movies-app/series/:id" element={<OneSerie />} />
       </Routes>
       <Footer />
-      {/* <UpComp /> */}
     </>
   );
 }

@@ -16,6 +16,8 @@ function Navbar() {
     setNightMode(!isNightMode);
   };
 
+  // document.getElementById("favicon").href = "logo192-darkmode.ico";
+  // document.getElementById("favicon").href = "logo192.ico";
   useEffect(() => {
     // Update body and footer styles when darkModeStatu changes
     if (!darkModeStatu) {

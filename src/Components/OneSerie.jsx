@@ -11,6 +11,7 @@ export const OneSerie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
 
   useEffect(() => {
     dispatch(fetchSerieOne(id));
@@ -94,12 +95,17 @@ export const OneSerie = () => {
   return (
     <div>
       {serie.loading && (
-        <div className="display-4" style={{ textAlign: "center" }}>
+        <div
+          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
+          style={{ textAlign: "center" }}
+        >
           loading...
         </div>
       )}
       {!serie.loading && serie.error ? (
-        <div className="display-4">Error : {serie.error}</div>
+        <div className={`display-4 ${!darkModeStatu ? "text-light" : null}`}>
+          Error : {serie.error}
+        </div>
       ) : null}
       {!serie.loading && serie.error === "" ? (
         <div className="movie-info" style={styleComp}>
