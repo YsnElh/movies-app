@@ -25,6 +25,7 @@ nav {
   align-items: center;
   padding: 20px 50px;
   background-color: #000;
+  border-bottom: #fff 1px solid;
 }
 
 nav ul {
@@ -100,12 +101,14 @@ nav ul li a.active::before {
     top: 73px;
     right: -200px;
     width: 200px;
-    height: 420px;
+    height: auto;
     background-color: #000;
     box-shadow: 0 40px 40px rgba(0, 0, 0, 0.1);
     padding: 40px 0 0 10px;
     transition: 0.3s ease-in-out;
     z-index: 100;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
   }
 
   nav ul.activeNav {
@@ -244,13 +247,7 @@ nav ul li a.active::before {
 .home-movie-pop {
   animation: background-flow 40s linear infinite;
   position: relative;
-  /* background-repeat: no-repeat;
-  background-position: center; */
   background-size: cover;
-  /* box-shadow: inset 0 600px 600px -600px rgb(0, 0, 0),
-    inset 0 -300px 300px -300px rgba(0, 0, 0, 0.9),
-    inset 300px 0 300px -300px rgba(0, 0, 0, 0.9),
-    inset -300px 0 300px -300px rgba(0, 0, 0, 0.9); */
   width: 100%;
   height: auto;
   display: flex;
@@ -268,6 +265,20 @@ nav ul li a.active::before {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
+}
+
+.movie-info::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.8),
+    inset 0 -20px 40px rgba(0, 0, 0, 0.7),
+    inset 0 -30px 60px rgba(0, 0, 0, 0.6),
+    inset 0 -40px 80px rgba(0, 0, 0, 0.5),
+    inset 0 -50px 100px rgba(0, 0, 0, 0.4);
 }
 
 .movie-info .image-card,
@@ -328,24 +339,377 @@ nav ul li a.active::before {
   font-size: 15px;
 }
 
-/* .movie-info img {
-  width: 250px;
+.movie-other-info {
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px 20px;
+}
+
+.movie-other-info .other-info1 {
+  width: 68%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.movie-other-info .other-info1 .casts-cards {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a #1c1c1c;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    height: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #1c1c1c;
+  }
+}
+
+.movie-other-info .other-info1 .casts-cards .cats-card-one {
+  position: relative;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.movie-other-info .other-info1 .casts-cards .cats-card-one .casts-card-details {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.movie-other-info .other-info1 .casts-cards .cats-card-one .casts-card-details p {
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.movie-other-info .other-info1 .casts-cards .cats-card-one img {
+  width: 120px;
   object-fit: cover;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-bottom: 20px;
+  filter: grayscale(100%);
+
 }
 
-.movie-info h1 {
-  font-size: 2em;
-  margin-bottom: 10px;
+.movie-other-info .other-info1 .casts-cards .cats-card-one:hover .casts-card-details {
+  display: flex;
+  opacity: 1;
 }
 
-.movie-info p {
-  font-size: 1.2em;
-  line-height: 1.5;
-  margin-bottom: 10px;
-} */
+.movie-other-info .other-info1 .casts-cards .cats-card-one:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+  filter: brightness(0.7);
+  transition: opacity 0.3s ease-out;
+}
+
+.movie-other-info .other-info1 .other-info1-reviews .review {
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.movie-other-info .other-info1 .other-info1-reviews .review h4 {
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.movie-other-info .other-info1 .other-info1-reviews .review .review-text {
+  font-size: 25px;
+}
+
+.movie-other-info .other-info1 .other-info1-reviews .review .review-text a {
+  color: white;
+  text-decoration: none;
+}
+
+.movie-other-info .other-info1 .other-info1-reviews .review .review-text i {
+  font-size: 20px;
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a #1c1c1c;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    height: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #1c1c1c;
+  }
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards .recommendations-card-one {
+  position: relative;
+  margin: 5px;
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards .recommendations-card-details {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards .recommendations-card-details p {
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards img {
+  width: 150px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards .recommendations-card-one:hover .recommendations-card-details {
+  display: flex;
+  opacity: 1;
+}
+
+.movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards .recommendations-card-one:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+  filter: brightness(0.5);
+  transition: opacity 0.3s ease-out;
+}
+
+
+
+
+.movie-other-info .other-info2 {
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+}
+
+.movie-other-info .other-info2 .other-info2-socialmedia {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+.movie-other-info .other-info2 .other-info2-socialmedia a {
+  color: white;
+  text-decoration: none;
+  font-size: 40px;
+  margin: 1px 10px;
+}
+
+.movie-other-info .other-info2 .other-info2-socialmedia a:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.movie-other-info .other-info2 .other-info2-usd {
+  margin-left: 10px;
+}
+
+.movie-other-info .other-info2 .other-info2-usd h4 {
+  margin-top: 10px;
+}
+
+.movie-other-info .other-info2 .other-info2-usd div {
+  font-size: 25px;
+}
+
+.movie-other-info .other-info2 .other-info2-keywords {
+  margin-left: 20px 0 0 10px;
+}
+
+.movie-other-info .other-info2 .other-info2-keywords span {
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 50px;
+}
+
+.movie-other-info .other-info2 .other-info2-createdby .directors {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a #1c1c1c;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    height: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #1c1c1c;
+  }
+}
+
+.movie-other-info .other-info2 .other-info2-createdby .directors img {
+  border-radius: 6px;
+}
+
+.movie-other-info .other-info2 .other-info2-createdby .directors p {
+  text-align: center;
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a4a #1c1c1c;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    height: 40px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #1c1c1c;
+  }
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-one {
+  position: relative;
+  margin: 5px;
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-details {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-details p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards img {
+  width: 120px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-one:hover .saisons-card-details {
+  display: flex;
+  opacity: 1;
+}
+
+.movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-one:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+  filter: brightness(0.3);
+  transition: opacity 0.3s ease-out;
+}
+
+.movie-other-info .other-info2 .other-info1-prodcom .prodcom-single {
+  padding: 5px;
+}
+
+.movie-other-info .other-info2 .other-info1-prodcom .prodcom-single img {
+  width: 100px;
+  background-color: white;
+  padding: 2px;
+}
+
+
+
+
+
+
+
+
+
+
 
 /*  */
 .section-body {
@@ -359,9 +723,14 @@ nav ul li a.active::before {
 
 /* footer */
 .footer-basic {
-  padding: 40px 0;
-  background-color: #000;
+  background-image: url(./footer-bg.jpg);
   color: #fff;
+  padding: 120px 0;
+  box-shadow: inset 0 10px 20px rgba(0, 0, 0, 1),
+    inset 0 20px 40px rgba(0, 0, 0, 0.9),
+    inset 0 30px 60px rgba(0, 0, 0, 0.8),
+    inset 0 40px 80px rgba(0, 0, 0, 0.7),
+    inset 0 50px 100px rgba(0, 0, 0, 0.6);
 }
 
 .footer-basic ul {
@@ -675,6 +1044,20 @@ nav ul li a.active::before {
     height: 20px;
     background-size: cover;
   }
+
+  /* -------------------------------- */
+  .movie-other-info {
+    flex-direction: column;
+
+  }
+
+  .movie-other-info .other-info1 {
+    width: 100%;
+  }
+
+  .movie-other-info .other-info2 {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 600px) {}
@@ -827,7 +1210,7 @@ nav ul li a.active::before {
   }
 }
 
-/* Add this to your CSS or styles */
+/*  */
 
 .home-movie-pop.transitioning {
   background-color: black;

@@ -84,7 +84,7 @@ export const FavouritesShows = () => {
         ) : (
           <div
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
-            style={{ height: "800px" }}
+            style={{ height: "60vh" }}
           >
             You don't have any favourites shows yet
           </div>

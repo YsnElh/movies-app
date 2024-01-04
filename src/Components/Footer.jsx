@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="footer-basic" id="footer">
-      <footer>
+    <footer className="footer-basic" id="footer">
+      <div>
         <div className="social">
           <a href="mailto:Elhainouniyassine21@gmail.com">
             <i className="fa-solid fa-envelope"></i>
@@ -38,7 +38,7 @@ export const Footer = () => {
             </a>
           </li>
         </ul>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 };

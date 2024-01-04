@@ -4,17 +4,23 @@ import { fetchMovieOne } from "../features/movies/movieOneSlice";
 import { fetchAllBackDropsMovie } from "../features/movies/movieOneGetAllBackdrops";
 import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
+import { fetchMovieCrew } from "../features/movies/getMovieCrewSlice";
 import { useParams } from "react-router-dom";
 import StarRating from "./comps/StarRating";
+import { ShowInfo } from "./ShowInfo";
 
 export const OneMovie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
-  //--------------------
+
   useEffect(() => {
     dispatch(fetchMovieOne(id));
+  }, [dispatch, id]);
+  //--------------------
+  useEffect(() => {
+    dispatch(fetchMovieCrew({ id, type: "movie" }));
   }, [dispatch, id]);
 
   const movie = useSelector((state) => state.movie);
@@ -74,6 +80,11 @@ export const OneMovie = () => {
     );
     return formattedDate;
   };
+  //CASTS
+  let MovieCrew = useSelector((state) =>
+    state.movieCrew.movieCrew.cast?.slice(0, 10)
+  );
+
   /* ---------------- */
 
   function checkIsFavs(movie) {
@@ -95,7 +106,6 @@ export const OneMovie = () => {
   };
 
   let OneMovie = checkIsFavs(movie.movie);
-
   //-------------------Update the document title----------------------------
   useEffect(() => {
     document.title = OneMovie.title ? OneMovie.title : "Movies App";
@@ -146,7 +156,7 @@ export const OneMovie = () => {
                     : null}
                   {" • " + formatRuntime(OneMovie.runtime)}
                 </p>
-                <div>{OneMovie.tagline}</div>
+                <i>{OneMovie.tagline}</i>
                 <p>{OneMovie.overview}</p>
                 <p>
                   {OneMovie.original_language
@@ -233,11 +243,9 @@ export const OneMovie = () => {
               </div>
             </div>
           </div>
-          <div>
-            {/* 
-              // OTHER CODE
-            */}
-          </div>
+          {MovieCrew && OneMovie ? (
+            <ShowInfo casts={MovieCrew} show={OneMovie} type={"movie"} />
+          ) : null}
         </div>
       ) : null}
     </div>

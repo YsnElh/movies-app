@@ -14,6 +14,11 @@ import topRatedSeriesSlice from "../features/series/topRatedSeriesSlice";
 import movieOneGetAllBackdrops from "../features/movies/movieOneGetAllBackdrops";
 import serieOneGetAllBackdrops from "../features/series/serieOneGetAllBackdrops";
 import darkModeSlice from "../features/favourites/darkModeSlice";
+import getMovieCrewSlice from "../features/movies/getMovieCrewSlice";
+import moviesReviews from "../features/movies/moviesReviews";
+import showRecommendations from "../features/movies/showRecommendations";
+import showExtrIds from "../features/movies/showExtrIds";
+import getKeywords from "../features/movies/getKeywords";
 
 const store = configureStore({
   reducer: {
@@ -31,6 +36,11 @@ const store = configureStore({
     movieAllBackdrops: movieOneGetAllBackdrops,
     serieAllBackdrops: serieOneGetAllBackdrops,
     darkMode: darkModeSlice,
+    movieCrew: getMovieCrewSlice,
+    movieReviews: moviesReviews,
+    showRecommendations: showRecommendations,
+    showExternalIDs: showExtrIds,
+    keywords: getKeywords,
   },
 });
 
