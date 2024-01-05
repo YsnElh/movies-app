@@ -51,14 +51,8 @@ export const OneMovie = () => {
     };
   }, [movieBackDrops]);
 
-  let movieBackDrop = "";
-  if (
-    movieBackDrops &&
-    Object.keys(movieBackDrops).length > 0 &&
-    movieBackDrops.constructor !== Object
-  ) {
-    movieBackDrop = movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
-  }
+  let movieBackDrop =
+    movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
   //----------------------
 
   //--------------
