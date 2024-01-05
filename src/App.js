@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
+      <Routes basename="/movies-app/">
         <Route path="movies-app" element={<HomePage />} />
         <Route path="movies-app/movies-react-app" element={<HomePage />} />
         <Route path="movies-app/movies" element={<MoviesPopular />} />
