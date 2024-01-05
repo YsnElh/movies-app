@@ -21,7 +21,7 @@ export const HomePage = () => {
   const [moviePoster, setMoviePoster] = useState(false);
 
   useEffect(() => {
-    if (movieBackDrops?.backdrops.length > 0) {
+    if (movieBackDrops?.backdrops?.length > 0) {
       const maxIndex = Math.min(10, movieBackDrops.backdrops.length);
       const randomIndex = Math.floor(Math.random() * maxIndex);
       setCurrentBackdropIndex(randomIndex);

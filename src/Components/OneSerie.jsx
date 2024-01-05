@@ -186,7 +186,11 @@ export const OneSerie = () => {
                     : null}
                 </p>
                 <StarRating
-                  rating={OneSerie.vote_average ? OneSerie.vote_average : 0}
+                  rating={
+                    OneSerie.vote_average
+                      ? OneSerie.vote_average?.toFixed(1)
+                      : 0
+                  }
                 />
                 <span>
                   Votes Number:{" "}

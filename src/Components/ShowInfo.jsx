@@ -77,18 +77,21 @@ export const ShowInfo = (props) => {
   };
 
   //----------------------------
-  let formattedDate = null;
-  let createdDate = new Date("2023-11-18T00:23:13.374Z");
+  const returnFormatDate = (datetime) => {
+    let createdDate = new Date(datetime);
 
-  if (!isNaN(createdDate)) {
-    formattedDate = createdDate.toLocaleString("en-US", {
-      dateStyle: "long",
-      timeStyle: "medium",
-      timeZone: "UTC",
-    });
-  } else {
-    console.error("Invalid date format date");
-  }
+    if (!isNaN(createdDate)) {
+      let formattedDate = createdDate.toLocaleString("en-US", {
+        dateStyle: "long",
+        timeStyle: "medium",
+        timeZone: "UTC",
+      });
+      return formattedDate;
+    } else {
+      return null;
+    }
+  };
+
   function getLanguageName(languageCode) {
     const languageNames = {
       en: "English",
@@ -251,7 +254,11 @@ export const ShowInfo = (props) => {
                     : 0
                 }
               />
-              <p>{formattedDate ? formattedDate : null}</p>
+              <p>
+                {returnFormatDate(currentReview?.created_at)
+                  ? returnFormatDate(currentReview?.created_at)
+                  : "DateTime not available"}
+              </p>
             </div>
           ) : (
             <div className="review">

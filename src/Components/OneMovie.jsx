@@ -38,7 +38,7 @@ export const OneMovie = () => {
 
     const updateBackdropIndex = () => {
       const newBackdropIndex = Math.floor(
-        Math.random() * (movieBackDrops?.backdrops.length || 0)
+        Math.random() * (movieBackDrops?.backdrops?.length || 0)
       );
       setCurrentBackdropIndex(newBackdropIndex);
     };
@@ -51,8 +51,14 @@ export const OneMovie = () => {
     };
   }, [movieBackDrops]);
 
-  let movieBackDrop =
-    movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
+  let movieBackDrop = "";
+  if (
+    movieBackDrops &&
+    Object.keys(movieBackDrops).length > 0 &&
+    movieBackDrops.constructor !== Object
+  ) {
+    movieBackDrop = movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
+  }
   //----------------------
 
   //--------------
@@ -187,7 +193,13 @@ export const OneMovie = () => {
                 <i>{OneMovie.tagline}</i>
                 <p>{OneMovie.overview}</p>
 
-                <StarRating rating={OneMovie.vote_average} />
+                <StarRating
+                  rating={
+                    OneMovie?.vote_average
+                      ? OneMovie?.vote_average?.toFixed(1)
+                      : 0
+                  }
+                />
                 <span>Votes Number: {OneMovie.vote_count}</span>
                 <div className="addToFavourites-heart mt-2">
                   <div className="con-like">
