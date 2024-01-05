@@ -28,9 +28,18 @@ export const ComedyMovies = () => {
 
   const handleCheckboxChange = (isChecked, elem) => {
     if (isChecked) {
-      dispatch(addToFavourites(elem));
+      dispatch(
+        addToFavourites({
+          id: elem.id,
+          title: elem.title,
+          poster_path: elem.poster_path,
+          vote_average: elem.vote_average,
+          adult: elem.adult,
+          show_type: "movie",
+        })
+      );
     } else {
-      dispatch(removeFromFavourites(elem.id));
+      dispatch(removeFromFavourites({ id: elem.id, show_type: "movie" }));
     }
   };
   function checkIsFavs(movies) {
@@ -39,7 +48,9 @@ export const ComedyMovies = () => {
       return;
     }
     const updatedMovies = movies.map((movie) => {
-      const isFavourite = favouriteShows.some((show) => show.id === movie.id);
+      const isFavourite = favouriteShows.some(
+        (show) => show.id === movie.id && show.show_type === "movie"
+      );
       return { ...movie, ischecked: isFavourite };
     });
     return updatedMovies;

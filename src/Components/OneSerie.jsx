@@ -78,16 +78,28 @@ export const OneSerie = () => {
     }
 
     const isFavourite = favouriteShows.some(
-      (show) => show.id === serie.id && show.name === serie.name
+      (show) =>
+        show.id === serie.id &&
+        show.name === serie.name &&
+        show.show_type === "serie"
     );
     return { ...serie, ischecked: isFavourite };
   }
 
   const handleCheckboxChange = (isChecked, elem) => {
     if (isChecked) {
-      dispatch(addToFavourites(elem));
+      dispatch(
+        addToFavourites({
+          id: elem.id,
+          name: elem.name,
+          poster_path: elem.poster_path,
+          vote_average: elem.vote_average,
+          adult: elem.adult,
+          show_type: "serie",
+        })
+      );
     } else {
-      dispatch(removeFromFavourites(elem.id));
+      dispatch(removeFromFavourites({ id: elem.id, show_type: "serie" }));
     }
   };
 

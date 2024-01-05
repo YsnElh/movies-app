@@ -11,7 +11,8 @@ const favouritesShowSlice = createSlice({
   reducers: {
     addToFavourites: (state, action) => {
       const arrDup = state.favouritesShow.filter(
-        (e) => e.id === action.payload.id
+        (e) =>
+          e.id === action.payload.id && e.show_type === action.payload.show_type
       );
       if (arrDup.length === 0) {
         state.favouritesShow.push(action.payload);
@@ -20,7 +21,9 @@ const favouritesShowSlice = createSlice({
     },
     removeFromFavourites: (state, action) => {
       state.favouritesShow = state.favouritesShow.filter(
-        (show) => show.id !== action.payload
+        (show) =>
+          show.id !== action.payload.id ||
+          show.show_type !== action.payload.show_type
       );
       Cookies.set("favouritesShow", JSON.stringify(state.favouritesShow));
     },

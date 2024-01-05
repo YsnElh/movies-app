@@ -59,7 +59,14 @@ export const FavouritesShows = () => {
                 </NavLink>
                 <div className="addToFavourites-heart">
                   <button
-                    onClick={() => dispatch(removeFromFavourites(elem.id))}
+                    onClick={() =>
+                      dispatch(
+                        removeFromFavourites({
+                          id: elem.id,
+                          show_type: elem.show_type,
+                        })
+                      )
+                    }
                     className="Btn"
                   >
                     <div className="sign">
