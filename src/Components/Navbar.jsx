@@ -45,7 +45,11 @@ function Navbar() {
           to="/movies-app/"
           style={{ color: "#fff", textDecoration: "none", fontSize: "1.3rem" }}
         >
-          <img src="logo.png" style={{ width: "30px" }} alt="Movies App Logo" />
+          <img
+            src="/movies-app/logo.png"
+            style={{ width: "30px" }}
+            alt="movies app logo"
+          />
           <strong>MOVIES APP</strong>
         </NavLink>
         <div>

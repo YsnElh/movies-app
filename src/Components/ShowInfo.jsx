@@ -98,6 +98,7 @@ export const ShowInfo = (props) => {
 
     return languageNames[languageCode] || languageCode;
   }
+  console.log(show?.seasons);
   return (
     <div className="movie-other-info">
       <div className="other-info1">
@@ -107,7 +108,11 @@ export const ShowInfo = (props) => {
             {movieCasts?.map((cast) => (
               <div key={cast.id} className="cats-card-one">
                 <img
-                  src={`https://image.tmdb.org/t/p/original/${cast.profile_path}`}
+                  src={
+                    cast.profile_path
+                      ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
+                      : "/movies-app/cast-img-not-found.jpg"
+                  }
                   alt={"image of the actor: " + cast.original_name}
                 />
                 <div className="casts-card-details">
@@ -120,31 +125,37 @@ export const ShowInfo = (props) => {
         </div>
         <div className="other-info1-reviews">
           <h3 className="mt-3">Reviews</h3>
-          <div className="review">
-            <h4>
-              A review by: {currentReview?.author + " "}
-              <i
-                title="load other review"
-                onClick={handleReloadReview}
-                className="fas fa-redo button-review"
-              ></i>
-            </h4>
-            {renderText()}
-            <StarRating
-              rating={
-                currentReview?.author_details?.rating
-                  ? currentReview?.author_details?.rating
-                  : 0
-              }
-            />
-            <p>{formattedDate ? formattedDate : null}</p>
-          </div>
+          {MovieReviews?.length > 0 ? (
+            <div className="review">
+              <h4>
+                A review by: {currentReview?.author + " "}
+                <i
+                  title="load other review"
+                  onClick={handleReloadReview}
+                  className="fas fa-redo button-review"
+                ></i>
+              </h4>
+              {renderText()}
+              <StarRating
+                rating={
+                  currentReview?.author_details?.rating
+                    ? currentReview?.author_details?.rating
+                    : 0
+                }
+              />
+              <p>{formattedDate ? formattedDate : null}</p>
+            </div>
+          ) : (
+            <div className="review">
+              <h4>Reviews Are not Available</h4>
+            </div>
+          )}
         </div>
         <div className="other-info1-recommendations">
           <h3 className="mt-3">Recommendations:</h3>
           <div className="recommendations-cards">
-            {showRecommendations?.map((show) =>
-              show.poster_path ? (
+            {showRecommendations?.length > 0 ? (
+              showRecommendations?.map((show) => (
                 <NavLink
                   key={show.id}
                   to={
@@ -155,7 +166,11 @@ export const ShowInfo = (props) => {
                 >
                   <div className="recommendations-card-one">
                     <img
-                      src={`https://image.tmdb.org/t/p/original/${show.poster_path}`}
+                      src={
+                        show.poster_path
+                          ? `https://image.tmdb.org/t/p/original/${show.poster_path}`
+                          : "/movies-app/poster-not-found.jpg"
+                      }
                       alt={
                         "poster of the show: " + show.title
                           ? show.title
@@ -167,7 +182,9 @@ export const ShowInfo = (props) => {
                     </div>
                   </div>
                 </NavLink>
-              ) : null
+              ))
+            ) : (
+              <h4>Recommendations are not available</h4>
             )}
           </div>
         </div>
@@ -269,28 +286,34 @@ export const ShowInfo = (props) => {
           <div className="other-info1-saisons">
             <h3 className="mt-3">Saisons:</h3>
             <div className="saisons-cards">
-              {show?.seasons?.map((sais) => (
-                <div key={sais.id} className="saisons-card-one">
-                  {sais.poster_path ? (
+              {show?.seasons?.length > 0 ? (
+                show?.seasons?.map((sais) => (
+                  <div key={sais.id} className="saisons-card-one">
                     <img
-                      src={`https://image.tmdb.org/t/p/original/${sais.poster_path}`}
+                      src={
+                        sais.poster_path
+                          ? `https://image.tmdb.org/t/p/original/${sais.poster_path}`
+                          : "/movies-app/poster-not-found.jpg"
+                      }
                       alt={"poster of: " + show?.name + sais.name}
                     />
-                  ) : null}
-                  <div className="saisons-card-details">
-                    <p>{sais.name}</p>
-                    <p>Number Eps: {sais.episode_count}</p>
-                    <p>
-                      {sais.air_date &&
-                        new Date(sais.air_date).toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                    </p>
+                    <div className="saisons-card-details">
+                      <p>{sais.name}</p>
+                      <p>Number Eps: {sais.episode_count}</p>
+                      <p>
+                        {sais.air_date &&
+                          new Date(sais.air_date).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <h4>Saisons informations are not available</h4>
+              )}
             </div>
           </div>
         ) : null}
