@@ -120,7 +120,20 @@ export const OneSerie = () => {
           className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
           style={{ textAlign: "center" }}
         >
-          loading...
+          <div className="spinner-container">
+            <div className="spinner">
+              <div className="spinner">
+                <div className="spinner">
+                  <div className="spinner">
+                    <div className="spinner">
+                      <div className="spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>LOADING...</div>
         </div>
       )}
       {!serie.loading && serie.error ? (
@@ -136,7 +149,11 @@ export const OneSerie = () => {
                 <img
                   title={OneSerie.name}
                   style={{ cursor: "pointer" }}
-                  src={`https://image.tmdb.org/t/p/original${OneSerie.poster_path}`}
+                  src={
+                    OneSerie.poster_path
+                      ? `https://image.tmdb.org/t/p/original${OneSerie.poster_path}`
+                      : "/movies-app/poster-not-found.jpg"
+                  }
                   alt={`${OneSerie.name} poster`}
                 />
               </div>
@@ -159,11 +176,7 @@ export const OneSerie = () => {
                     ? OneSerie.tagline
                     : null}
                 </i>
-                <p>
-                  {OneSerie.original_language
-                    ? "language: " + OneSerie.original_language + " "
-                    : null}
-                </p>
+
                 <p>
                   {OneSerie.number_of_seasons && OneSerie.number_of_episodes
                     ? OneSerie.number_of_seasons +
@@ -240,19 +253,21 @@ export const OneSerie = () => {
                   </div>
                 </div>
                 <div>
-                  <a className="menu__link" href={OneSerie.homepage}>
-                    Serie HomePage
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-caret-right-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                    </svg>
-                  </a>
+                  {OneSerie.homepage ? (
+                    <a className="menu__link" href={OneSerie.homepage}>
+                      Serie HomePage
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        className="bi bi-caret-right-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                      </svg>
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </div>

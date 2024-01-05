@@ -133,7 +133,20 @@ export const OneMovie = () => {
           className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
           style={{ textAlign: "center" }}
         >
-          loading...
+          <div className="spinner-container">
+            <div className="spinner">
+              <div className="spinner">
+                <div className="spinner">
+                  <div className="spinner">
+                    <div className="spinner">
+                      <div className="spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>LOADING...</div>
         </div>
       )}
       {!movie.loading && movie.error ? (
@@ -149,7 +162,11 @@ export const OneMovie = () => {
               <div className="image-card">
                 <img
                   title={OneMovie.title}
-                  src={`https://image.tmdb.org/t/p/original/${OneMovie.poster_path}`}
+                  src={
+                    OneMovie.poster_path
+                      ? `https://image.tmdb.org/t/p/original/${OneMovie.poster_path}`
+                      : "/movies-app/poster-not-found.jpg"
+                  }
                   alt="OneMovie poster"
                 />
               </div>
@@ -169,14 +186,10 @@ export const OneMovie = () => {
                 </p>
                 <i>{OneMovie.tagline}</i>
                 <p>{OneMovie.overview}</p>
-                <p>
-                  {OneMovie.original_language
-                    ? "language: " + OneMovie.original_language + " "
-                    : null}
-                </p>
+
                 <StarRating rating={OneMovie.vote_average} />
                 <span>Votes Number: {OneMovie.vote_count}</span>
-                <div className="addToFavourites-heart">
+                <div className="addToFavourites-heart mt-2">
                   <div className="con-like">
                     <input
                       onChange={(e) =>
@@ -237,19 +250,21 @@ export const OneMovie = () => {
                   </div>
                 </div>
                 <div>
-                  <a className="menu__link" href={OneMovie.homepage}>
-                    Movie HomePage
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-caret-right-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                    </svg>
-                  </a>
+                  {OneMovie.homepage ? (
+                    <a className="menu__link" href={OneMovie.homepage}>
+                      Movie HomePage
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        className="bi bi-caret-right-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                      </svg>
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </div>

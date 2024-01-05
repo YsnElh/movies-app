@@ -151,7 +151,20 @@ export const HomePage = () => {
           className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
           style={{ textAlign: "center" }}
         >
-          loading...
+          <div className="spinner-container">
+            <div className="spinner">
+              <div className="spinner">
+                <div className="spinner">
+                  <div className="spinner">
+                    <div className="spinner">
+                      <div className="spinner"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>LOADING...</div>
         </div>
       )}
       {!loading && !error ? (

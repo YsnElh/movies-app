@@ -99,7 +99,20 @@ export const MoviesPopular = () => {
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
             style={{ textAlign: "center" }}
           >
-            loading...
+            <div className="spinner-container">
+              <div className="spinner">
+                <div className="spinner">
+                  <div className="spinner">
+                    <div className="spinner">
+                      <div className="spinner">
+                        <div className="spinner"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>LOADING...</div>
           </div>
         )}
         {movies && movies.length === 0 && searchValue.length > 0 && !loading ? (
@@ -115,7 +128,11 @@ export const MoviesPopular = () => {
               <div className="movie-card mt-2" key={elem.id}>
                 <img
                   className="card-img"
-                  src={`https://image.tmdb.org/t/p/original${elem.poster_path}`}
+                  src={
+                    elem.poster_path
+                      ? `https://image.tmdb.org/t/p/original${elem.poster_path}`
+                      : "/movies-app/poster-not-found.jpg"
+                  }
                   alt={elem.title + " movie poster"}
                 />
                 <div className="details">

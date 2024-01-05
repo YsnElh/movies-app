@@ -30,8 +30,14 @@ export const FavouritesShows = () => {
             <div className="movie-card mt-2" key={elem.id}>
               <img
                 className="card-img"
-                src={`https://image.tmdb.org/t/p/original${elem.poster_path}`}
-                alt="Movie poster"
+                src={
+                  elem.poster_path
+                    ? `https://image.tmdb.org/t/p/original${elem.poster_path}`
+                    : "/movies-app/poster-not-found.jpg"
+                }
+                alt={
+                  "poster of the show: " + elem.title ? elem.title : elem.name
+                }
               />
               <div className="details">
                 <div className="title">

@@ -93,10 +93,27 @@ export const Series = () => {
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
             style={{ textAlign: "center" }}
           >
-            loading...
+            <div className="spinner-container">
+              <div className="spinner">
+                <div className="spinner">
+                  <div className="spinner">
+                    <div className="spinner">
+                      <div className="spinner">
+                        <div className="spinner"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>LOADING...</div>
           </div>
         )}
-        {series && series.length === 0 && searchValue.length > 0 && !loading ? (
+        {!loading &&
+        series &&
+        series.length === 0 &&
+        searchValue.length > 0 &&
+        !loading ? (
           <div
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
             style={{ textAlign: "center" }}
@@ -109,7 +126,11 @@ export const Series = () => {
               <div className="movie-card mt-2" key={c.id}>
                 <img
                   className="card-img"
-                  src={`https://image.tmdb.org/t/p/original/${c.poster_path}`}
+                  src={
+                    c.poster_path
+                      ? `https://image.tmdb.org/t/p/original/${c.poster_path}`
+                      : "/movies-app/poster-not-found.jpg"
+                  }
                   alt="Movie poster"
                 />
                 <div className="details">

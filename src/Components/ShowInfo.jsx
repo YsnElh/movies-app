@@ -94,11 +94,119 @@ export const ShowInfo = (props) => {
       en: "English",
       ar: "Arabic",
       fr: "French",
+      ja: "Japanese",
+      es: "Spanish",
+      de: "German",
+      it: "Italian",
+      pt: "Portuguese",
+      zh: "Chinese",
+      ru: "Russian",
+      hi: "Hindi",
+      ko: "Korean",
+      tr: "Turkish",
+      nl: "Dutch",
+      sv: "Swedish",
+      pl: "Polish",
+      id: "Indonesian",
+      vi: "Vietnamese",
+      th: "Thai",
+      he: "Hebrew",
+      el: "Greek",
+      cs: "Czech",
+      da: "Danish",
+      fi: "Finnish",
+      no: "Norwegian",
+      ro: "Romanian",
+      hu: "Hungarian",
+      bg: "Bulgarian",
+      hr: "Croatian",
+      sl: "Slovenian",
+      sk: "Slovak",
+      ms: "Malay",
+      fil: "Filipino",
+      uk: "Ukrainian",
+      et: "Estonian",
+      lv: "Latvian",
+      lt: "Lithuanian",
+      sr: "Serbian",
+      mk: "Macedonian",
+      sq: "Albanian",
+      bs: "Bosnian",
+      mt: "Maltese",
+      is: "Icelandic",
+      ga: "Irish",
+      cy: "Welsh",
+      gd: "Scottish Gaelic",
+      mi: "Māori",
+      haw: "Hawaiian",
+      to: "Tongan",
+      sm: "Samoan",
+      fj: "Fijian",
+      ur: "Urdu",
+      bn: "Bengali",
+      gu: "Gujarati",
+      te: "Telugu",
+      ta: "Tamil",
+      ml: "Malayalam",
+      kn: "Kannada",
+      mr: "Marathi",
+      pa: "Punjabi",
+      ne: "Nepali",
+      si: "Sinhalese",
+      km: "Khmer",
+      lo: "Lao",
+      my: "Burmese",
+      ka: "Georgian",
+      hy: "Armenian",
+      az: "Azerbaijani",
+      uz: "Uzbek",
+      ky: "Kyrgyz",
+      tk: "Turkmen",
+      tg: "Tajik",
+      kk: "Kazakh",
+      mn: "Mongolian",
+      ps: "Pashto",
+      fa: "Persian",
+      ku: "Kurdish",
+      arq: "Algerian Arabic",
+      ars: "Najdi Arabic",
+      arc: "Aramaic",
+      am: "Amharic",
+      tig: "Tigrinya",
+      or: "Odia",
+      as: "Assamese",
+      kok: "Konkani",
+      mai: "Maithili",
+      mni: "Manipuri",
+      kokborok: "Kokborok",
+      dz: "Dzongkha",
+      kmr: "Kurmanji",
+      ty: "Tahitian",
+      moh: "Mohawk",
+      kaw: "Kawi",
+      chr: "Cherokee",
+      cho: "Choctaw",
+      iro: "Iroquoian languages",
+      nhu: "Nahuatl",
+      yua: "Yucatec Maya",
+      quc: "K'iche'",
+      qut: "Q'eqchi'",
+      aym: "Aymara",
+      grn: "Guarani",
+      tup: "Tupi",
+      cai: "Central American Indian languages",
+      nai: "North American Indian languages",
+      sai: "South American Indian languages",
     };
 
     return languageNames[languageCode] || languageCode;
   }
-  console.log(show?.seasons);
+
+  const svgStyle = {
+    fill: "white",
+    width: "53px",
+    marginBottom: "7px",
+  };
   return (
     <div className="movie-other-info">
       <div className="other-info1">
@@ -190,43 +298,51 @@ export const ShowInfo = (props) => {
         </div>
       </div>
       <div className="other-info2">
+        <h3>Social Links:</h3>
         <div className="other-info2-socialmedia">
-          <a
-            href={
-              externalIDs?.facebook_id
-                ? `https://web.facebook.com/${externalIDs?.facebook_id}/`
-                : null
-            }
-          >
-            <i className="fab fa-facebook"></i>
-          </a>
-          <a
-            href={
-              externalIDs?.instagram_id
-                ? `https://www.instagram.com/${externalIDs?.instagram_id}/`
-                : null
-            }
-          >
-            <i className="fab fa-instagram"></i>
-          </a>
-          <a
-            href={
-              externalIDs?.twitter_id
-                ? `https://twitter.com/${externalIDs?.twitter_id}/`
-                : null
-            }
-          >
-            <i className="fab fa-twitter"></i>
-          </a>
-          <a
-            href={
-              externalIDs?.imdb_id
-                ? `https://www.imdb.com/title/${externalIDs?.imdb_id}/`
-                : null
-            }
-          >
-            <i className="fab fa-imdb"></i>
-          </a>
+          {externalIDs?.facebook_id ? (
+            <a href={`https://web.facebook.com/${externalIDs?.facebook_id}/`}>
+              <i className="fab fa-facebook"></i>
+            </a>
+          ) : null}
+          {externalIDs?.instagram_id ? (
+            <a href={`https://www.instagram.com/${externalIDs?.instagram_id}/`}>
+              <i className="fab fa-instagram"></i>
+            </a>
+          ) : null}
+          {externalIDs?.twitter_id ? (
+            <a
+              href={`https://twitter.com/${externalIDs?.twitter_id}/`}
+              style={{ margin: "1px" }}
+            >
+              <svg
+                version="1.1"
+                id="svg5"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 1668.56 1221.19"
+                style={{
+                  enableBackground: "new 0 0 1668.56 1221.19",
+                  ...svgStyle,
+                }}
+                xmlSpace="preserve"
+              >
+                <g id="layer1" transform="translate(52.390088,-25.058597)">
+                  <path
+                    id="path1009"
+                    d="M283.94,167.31l386.39,516.64L281.5,1104h87.51l340.42-367.76L984.48,1104h297.8L874.15,558.3l361.92-390.99 h-87.51l-313.51,338.7l-253.31-338.7H283.94z M412.63,231.77h136.81l604.13,807.76h-136.81L412.63,231.77z"
+                  />
+                </g>
+              </svg>
+            </a>
+          ) : null}
+          {externalIDs?.imdb_id ? (
+            <a href={`https://www.imdb.com/title/${externalIDs?.imdb_id}/`}>
+              <i className="fab fa-imdb"></i>
+            </a>
+          ) : null}
         </div>
         <hr />
         <div className="other-info2-usd">
@@ -251,7 +367,7 @@ export const ShowInfo = (props) => {
         <hr />
         {type === "movie" ? (
           <div className="other-info2-keywords">
-            <h3>KeyWords</h3>
+            <h3>KeyWords:</h3>
             {movieKeywords && movieKeywords?.length > 0
               ? movieKeywords?.map((keyword, index) => (
                   <span key={keyword.id} className="keyword">
@@ -269,7 +385,11 @@ export const ShowInfo = (props) => {
                 show?.created_by?.map((e) => (
                   <div key={e.id}>
                     <img
-                      src={`https://image.tmdb.org/t/p/original/${e.profile_path}`}
+                      src={
+                        e.profile_path
+                          ? `https://image.tmdb.org/t/p/original/${e.profile_path}`
+                          : "/movies-app/cast-img-not-found.jpg"
+                      }
                       style={{ width: "120px" }}
                       alt={"Profile image of: " + e.name}
                     />
@@ -318,7 +438,7 @@ export const ShowInfo = (props) => {
           </div>
         ) : null}
         <div className="other-info1-prodcom">
-          <h4 className="mt-3">Production Companies</h4>
+          <h4 className="mt-3">Production Companies:</h4>
           {show?.production_companies?.length > 0
             ? show?.production_companies?.map((e) => (
                 <div key={e.id} className="prodcom-single">
