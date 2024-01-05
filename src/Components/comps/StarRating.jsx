@@ -12,7 +12,7 @@ const StarRating = ({ rating }) => {
           className={index < stars ? "star-filled" : "star-empty"}
         ></div>
       ))}
-      <span className="rating-label">{rating}</span>
+      <span className="rating-label">{rating}/10</span>
     </div>
   );
 };

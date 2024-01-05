@@ -142,11 +142,11 @@ export const OneSerie = () => {
                     : null}
                 </p>
                 <p>{OneSerie.overview}</p>
-                <div>
+                <i>
                   {OneSerie.tagline && OneSerie.tagline.length > 0
                     ? OneSerie.tagline
                     : null}
-                </div>
+                </i>
                 <p>
                   {OneSerie.original_language
                     ? "language: " + OneSerie.original_language + " "

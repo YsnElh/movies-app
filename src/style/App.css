@@ -458,6 +458,20 @@ nav ul li a.active::before {
   font-size: 20px;
 }
 
+.movie-other-info .other-info1 .other-info1-reviews .review .button-review {
+  color: white;
+  outline: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.movie-other-info .other-info1 .other-info1-reviews .review .button-review:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+}
+
+
+
 .movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards a {
   text-decoration: none;
   color: #fff;

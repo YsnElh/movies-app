@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchmovieReviews } from "../features/movies/moviesReviews";
 import { fetchshowRecommendations } from "../features/movies/showRecommendations";
@@ -6,9 +6,11 @@ import { fetchshowshowExternalIDS } from "../features/movies/showExtrIds";
 import { fetchshowkeywords } from "../features/movies/getKeywords";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
+import StarRating from "./comps/StarRating";
 
 export const ShowInfo = (props) => {
   const { casts, show, type } = props;
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -39,12 +41,18 @@ export const ShowInfo = (props) => {
   let movieKeywords = useSelector((state) => state.keywords.keywords.keywords);
 
   let movieCasts = casts;
-  let currentReview = null;
+  //let currentReview = null;
 
-  if (MovieReviews && MovieReviews?.length > 0) {
-    const randomIndex = Math.floor(Math.random() * MovieReviews?.length);
-    currentReview = MovieReviews[randomIndex];
-  }
+  const currentReview = useMemo(() => {
+    if (MovieReviews && MovieReviews.length > 0) {
+      return MovieReviews[currentReviewIndex % MovieReviews.length];
+    }
+    return null;
+  }, [MovieReviews, currentReviewIndex]);
+
+  const handleReloadReview = () => {
+    setCurrentReviewIndex((prevIndex) => prevIndex + 1);
+  };
 
   //-----------TEXT REVIEW HANDLE-----------
   const MAX_CHARACTERS = 1050;
@@ -113,8 +121,22 @@ export const ShowInfo = (props) => {
         <div className="other-info1-reviews">
           <h3 className="mt-3">Reviews</h3>
           <div className="review">
-            <h4>A review by: {currentReview?.author}</h4>
+            <h4>
+              A review by: {currentReview?.author + " "}
+              <i
+                title="load other review"
+                onClick={handleReloadReview}
+                className="fas fa-redo button-review"
+              ></i>
+            </h4>
             {renderText()}
+            <StarRating
+              rating={
+                currentReview?.author_details?.rating
+                  ? currentReview?.author_details?.rating
+                  : 0
+              }
+            />
             <p>{formattedDate ? formattedDate : null}</p>
           </div>
         </div>
