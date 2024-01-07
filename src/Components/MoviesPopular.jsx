@@ -19,8 +19,8 @@ export const MoviesPopular = () => {
   const moviesPopular = useSelector((state) => state.moviesPopular);
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   let favouriteShows = useSelector(
-    (state) => state.favouritesShow
-  ).favouritesShow;
+    (state) => state.favouritesShow.favouritesShow
+  );
 
   //------------
 
@@ -52,7 +52,6 @@ export const MoviesPopular = () => {
       dispatch(fetchMoviesSearch(searchValue));
     }
   }, [searchValue, dispatch]);
-
   //-------------
 
   if (searchValue.length > 0) {
@@ -64,7 +63,6 @@ export const MoviesPopular = () => {
     loading = moviesPopular.loading;
     error = moviesPopular.error;
   }
-
   function checkIsFavs(movies) {
     if (!Array.isArray(favouriteShows)) {
       console.error("favouriteShows is not an array");
@@ -143,7 +141,7 @@ export const MoviesPopular = () => {
                       : null}
                   </div>
                   <div className="rating">
-                    <StarRating rating={elem.vote_average} />
+                    <StarRating rating={elem.vote_average?.toFixed(1)} />
                   </div>
                   <NavLink
                     to={`/movies-app/movies/${elem.id}`}

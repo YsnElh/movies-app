@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import { destroyFavourites } from "../features/favourites/favouritesShowSlice";
@@ -6,27 +6,64 @@ import { NavLink } from "react-router-dom";
 import StarRating from "./comps/StarRating";
 
 export const FavouritesShows = () => {
+  const [selectedValue, setSelectedValue] = useState("0");
   const dispatch = useDispatch();
+
+  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   const favouritesShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
   );
 
-  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
-
+  const filterFavs = () => {
+    switch (selectedValue) {
+      case "0":
+        return favouritesShows;
+      case "1":
+        return [...favouritesShows].reverse();
+      case "2":
+        return [...favouritesShows].sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+      case "3":
+        return [...favouritesShows].sort(
+          (a, b) => b.vote_average - a.vote_average
+        );
+      default:
+        return favouritesShows;
+    }
+  };
   return (
     <>
-      {favouritesShows.length > 0 ? (
-        <button
-          className="btn btn-outline-danger m-1"
-          onClick={() => dispatch(destroyFavourites())}
-        >
-          Clear favourites
-        </button>
+      {filterFavs().length > 0 ? (
+        <>
+          <button
+            className="btn btn-outline-danger m-1"
+            onClick={() => dispatch(destroyFavourites())}
+          >
+            Clear favourites
+          </button>
+          <div className="filter-container">
+            <label className="filter-select-label" htmlFor="selectfilter">
+              Sort By:
+            </label>
+            <select
+              className="filter-select"
+              name="selectfilter"
+              id="selectfilter"
+              onChange={(e) => setSelectedValue(e.target.value)}
+            >
+              <option value="0">First Added</option>
+              <option value="1">Last Added</option>
+              <option value="2">Title</option>
+              <option value="3">Best Rating</option>
+            </select>
+          </div>
+        </>
       ) : null}
 
       <div className="movies-container">
-        {favouritesShows?.length > 0 ? (
-          favouritesShows?.map((elem) => (
+        {filterFavs()?.length > 0 ? (
+          filterFavs()?.map((elem) => (
             <div className="movie-card mt-2" key={elem.id}>
               <img
                 className="card-img"
@@ -35,14 +72,10 @@ export const FavouritesShows = () => {
                     ? `https://image.tmdb.org/t/p/original${elem.poster_path}`
                     : "/movies-app/poster-not-found.jpg"
                 }
-                alt={
-                  "poster of the show: " + elem.title ? elem.title : elem.name
-                }
+                alt={"poster of the show: " + elem.title}
               />
               <div className="details">
-                <div className="title">
-                  {elem.title ? elem.title : elem.name}
-                </div>
+                <div className="title">{elem.title}</div>
                 <div className="genres">
                   <img
                     src={elem.adult ? "./R18-rating.png" : "./PG.png"}
@@ -51,11 +84,11 @@ export const FavouritesShows = () => {
                   />
                 </div>
                 <div className="rating">
-                  <StarRating rating={elem.vote_average} />
+                  <StarRating rating={elem.vote_average?.toFixed(1)} />
                 </div>
                 <NavLink
                   to={
-                    elem.title === undefined
+                    elem.show_type === "serie"
                       ? `/movies-app/series/${elem.id}`
                       : `/movies-app/movies/${elem.id}`
                   }

@@ -13,6 +13,7 @@ export const OneMovie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
 
   useEffect(() => {
@@ -194,6 +195,17 @@ export const OneMovie = () => {
                       : 0
                   }
                 />
+                <div>
+                  <img
+                    src="/movies-app/tmdb-logo.png"
+                    alt="tmdb logo"
+                    style={{
+                      width: "50px",
+                      border: "none",
+                      margin: "0 0 20px 0",
+                    }}
+                  />
+                </div>
                 <span>Votes Number: {OneMovie.vote_count}</span>
                 <div className="addToFavourites-heart mt-2">
                   <div className="con-like">
@@ -254,6 +266,9 @@ export const OneMovie = () => {
                       </svg>
                     </div>
                   </div>
+                </div>
+                <div>
+                  <div></div>
                 </div>
                 <div>
                   {OneMovie.homepage ? (

@@ -80,7 +80,7 @@ export const OneSerie = () => {
     const isFavourite = favouriteShows.some(
       (show) =>
         show.id === serie.id &&
-        show.name === serie.name &&
+        show.title === serie.name &&
         show.show_type === "serie"
     );
     return { ...serie, ischecked: isFavourite };
@@ -91,7 +91,7 @@ export const OneSerie = () => {
       dispatch(
         addToFavourites({
           id: elem.id,
-          name: elem.name,
+          title: elem.name,
           poster_path: elem.poster_path,
           vote_average: elem.vote_average,
           adult: elem.adult,
@@ -192,6 +192,17 @@ export const OneSerie = () => {
                       : 0
                   }
                 />
+                <div>
+                  <img
+                    src="/movies-app/tmdb-logo.png"
+                    alt="tmdb logo"
+                    style={{
+                      width: "50px",
+                      border: "none",
+                      margin: "0 0 20px 0",
+                    }}
+                  />
+                </div>
                 <span>
                   Votes Number:{" "}
                   {OneSerie.vote_count ? OneSerie.vote_count : null}

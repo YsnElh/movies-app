@@ -46,7 +46,7 @@ export const Series = () => {
       dispatch(
         addToFavourites({
           id: elem.id,
-          name: elem.name,
+          title: elem.name,
           poster_path: elem.poster_path,
           vote_average: elem.vote_average,
           adult: elem.adult,
@@ -66,7 +66,7 @@ export const Series = () => {
       const isFavourite = favouriteShows.some(
         (show) =>
           show.id === serie.id &&
-          show.name === serie.name &&
+          show.title === serie.name &&
           show.show_type === "serie"
       );
       return { ...serie, ischecked: isFavourite };
@@ -139,7 +139,7 @@ export const Series = () => {
                     Year: {c.first_air_date.slice(0, 4)}
                   </div>
                   <div className="rating">
-                    <StarRating rating={c.vote_average} />
+                    <StarRating rating={c.vote_average?.toFixed(1)} />
                   </div>
                   <NavLink
                     to={`/movies-app/series/${c.id}`}

@@ -93,3 +93,46 @@
 }
 
 /* ----------------------------------- */
+
+.filter-container {
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-select-label {
+    color: #fff;
+    font-size: 25px;
+}
+
+.filter-select {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    font-size: 20px;
+    width: 131px;
+}
+
+.filter-select option {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter-select::-ms-expand {
+    display: none;
+}
+
+.filter-select::before {
+    content: '▼';
+    color: #fff;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}

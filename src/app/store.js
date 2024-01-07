@@ -19,6 +19,7 @@ import moviesReviews from "../features/movies/moviesReviews";
 import showRecommendations from "../features/movies/showRecommendations";
 import showExtrIds from "../features/movies/showExtrIds";
 import getKeywords from "../features/movies/getKeywords";
+import showVedios from "../features/movies/showVedios";
 
 const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ const store = configureStore({
     showRecommendations: showRecommendations,
     showExternalIDs: showExtrIds,
     keywords: getKeywords,
+    showVedios: showVedios,
   },
 });
 

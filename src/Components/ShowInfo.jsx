@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import YouTube from "react-youtube";
 import { fetchmovieReviews } from "../features/movies/moviesReviews";
 import { fetchshowRecommendations } from "../features/movies/showRecommendations";
 import { fetchshowshowExternalIDS } from "../features/movies/showExtrIds";
 import { fetchshowkeywords } from "../features/movies/getKeywords";
+import { fetchshowVedios } from "../features/movies/showVedios";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import StarRating from "./comps/StarRating";
@@ -28,6 +30,9 @@ export const ShowInfo = (props) => {
   useEffect(() => {
     dispatch(fetchshowkeywords({ id, type: type }));
   }, [dispatch, id, type]);
+  useEffect(() => {
+    dispatch(fetchshowVedios({ id, type: type }));
+  }, [dispatch, id, type]);
 
   let MovieReviews = useSelector(
     (state) => state.movieReviews.movieReviews.results
@@ -39,6 +44,9 @@ export const ShowInfo = (props) => {
     (state) => state.showExternalIDs.showExternalIDS
   );
   let movieKeywords = useSelector((state) => state.keywords.keywords.keywords);
+  const videos = useSelector((state) =>
+    state.showVedios.videos.results?.filter((v) => v.type === "Trailer")
+  );
 
   let movieCasts = casts;
   //let currentReview = null;
@@ -210,6 +218,12 @@ export const ShowInfo = (props) => {
     width: "53px",
     marginBottom: "7px",
   };
+  const opts = {
+    playerVars: {
+      autoplay: 0, // 1 for autoplay
+    },
+  };
+
   return (
     <div className="movie-other-info">
       <div className="other-info1">
@@ -262,7 +276,7 @@ export const ShowInfo = (props) => {
             </div>
           ) : (
             <div className="review">
-              <h4>Reviews Are not Available</h4>
+              <h6>Reviews Are not Available!!</h6>
             </div>
           )}
         </div>
@@ -299,9 +313,30 @@ export const ShowInfo = (props) => {
                 </NavLink>
               ))
             ) : (
-              <h4>Recommendations are not available</h4>
+              <h6>Recommendations are not available!!</h6>
             )}
           </div>
+        </div>
+        <div className="other-info1-trailer">
+          {videos && videos.length > 0 ? (
+            <>
+              <h3 className="mt-3">Tarilers:</h3>
+              <div className="trailer-vids">
+                {videos?.map((vid) => (
+                  <YouTube
+                    key={vid.id}
+                    videoId={vid.key}
+                    opts={opts}
+                    onReady={(event) => {
+                      event.target.pauseVideo();
+                    }}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <h6>Trailers are not available!!</h6>
+          )}
         </div>
       </div>
       <div className="other-info2">
@@ -375,14 +410,16 @@ export const ShowInfo = (props) => {
         {type === "movie" ? (
           <div className="other-info2-keywords">
             <h3>KeyWords:</h3>
-            {movieKeywords && movieKeywords?.length > 0
-              ? movieKeywords?.map((keyword, index) => (
-                  <span key={keyword.id} className="keyword">
-                    {keyword.name}
-                    {index < movieKeywords?.length - 1 && ","}{" "}
-                  </span>
-                ))
-              : null}
+            {movieKeywords && movieKeywords?.length > 0 ? (
+              movieKeywords?.map((keyword, index) => (
+                <span key={keyword.id} className="keyword">
+                  {keyword.name}
+                  {index < movieKeywords?.length - 1 && ","}{" "}
+                </span>
+              ))
+            ) : (
+              <h6>Keywords not available!!</h6>
+            )}
           </div>
         ) : (
           <div className="other-info2-createdby">
@@ -439,27 +476,29 @@ export const ShowInfo = (props) => {
                   </div>
                 ))
               ) : (
-                <h4>Saisons informations are not available</h4>
+                <h6>Saisons informations are not available!!</h6>
               )}
             </div>
           </div>
         ) : null}
         <div className="other-info1-prodcom">
           <h4 className="mt-3">Production Companies:</h4>
-          {show?.production_companies?.length > 0
-            ? show?.production_companies?.map((e) => (
-                <div key={e.id} className="prodcom-single">
-                  {e.logo_path ? (
-                    <img
-                      src={`https://image.tmdb.org/t/p/original/${e.logo_path}`}
-                      alt={"logo of: " + e.name}
-                    />
-                  ) : null}
-                  <span>{" " + e.name}</span>
-                  <span>{" - " + e.origin_country}</span>
-                </div>
-              ))
-            : null}
+          {show?.production_companies?.length > 0 ? (
+            show?.production_companies?.map((e) => (
+              <div key={e.id} className="prodcom-single">
+                {e.logo_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/original/${e.logo_path}`}
+                    alt={"logo of: " + e.name}
+                  />
+                ) : null}
+                <span>{" " + e.name}</span>
+                <span>{" - " + e.origin_country}</span>
+              </div>
+            ))
+          ) : (
+            <h6>Production Companies Not Available!!</h6>
+          )}
         </div>
       </div>
     </div>

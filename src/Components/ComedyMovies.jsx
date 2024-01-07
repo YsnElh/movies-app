@@ -95,7 +95,7 @@ export const ComedyMovies = () => {
                     : null}
                 </div>
                 <div className="rating">
-                  <StarRating rating={elem.vote_average} />
+                  <StarRating rating={elem.vote_average?.toFixed(1)} />
                 </div>
                 <NavLink
                   to={`/movies-app/movies/${elem.id}`}
