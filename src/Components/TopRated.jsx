@@ -14,11 +14,12 @@ export const TopRated = (props) => {
         />
         <NavLink
           to={
-            props.title !== undefined
+            props.title
               ? `/movies-app/movies/${props.id}`
               : `/movies-app/series/${props.id}`
           }
           className="img-btn"
+          title={props.title ? props.title : props.name}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

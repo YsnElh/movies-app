@@ -384,13 +384,13 @@ nav ul li a.active::before {
   }
 }
 
-.movie-other-info .other-info1 .casts-cards .cats-card-one {
+.movie-other-info .other-info1 .casts-cards .casts-card-one {
   position: relative;
   margin: 5px;
-  cursor: pointer;
+  text-align: center;
 }
 
-.movie-other-info .other-info1 .casts-cards .cats-card-one .casts-card-details {
+.movie-other-info .other-info1 .casts-cards .casts-card-one .casts-card-details {
   display: none;
   position: absolute;
   top: 50%;
@@ -407,30 +407,28 @@ nav ul li a.active::before {
   transition: opacity 0.3s ease-out;
 }
 
-.movie-other-info .other-info1 .casts-cards .cats-card-one .casts-card-details p {
+.movie-other-info .other-info1 .casts-cards .casts-card-one .casts-card-details p {
   font-size: 20px;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.movie-other-info .other-info1 .casts-cards .cats-card-one img {
+.movie-other-info .other-info1 .casts-cards .casts-card-one img {
   width: 120px;
   object-fit: cover;
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff52;
   border-radius: 5px;
-  filter: grayscale(100%);
 
 }
 
-.movie-other-info .other-info1 .casts-cards .cats-card-one:hover .casts-card-details {
+.movie-other-info .other-info1 .casts-cards .casts-card-one:hover .casts-card-details {
   display: flex;
   opacity: 1;
 }
 
-.movie-other-info .other-info1 .casts-cards .cats-card-one:hover img {
+.movie-other-info .other-info1 .casts-cards .casts-card-one:hover img {
   transform: scale(1.05);
-  filter: grayscale(0%);
-  filter: brightness(0.7);
+  filter: brightness(0.4);
   transition: opacity 0.3s ease-out;
 }
 
@@ -522,6 +520,7 @@ nav ul li a.active::before {
   color: #fff;
   opacity: 0;
   transition: opacity 0.3s ease-out;
+  text-align: center;
 }
 
 .movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards .recommendations-card-details p {
@@ -555,6 +554,7 @@ nav ul li a.active::before {
   flex-direction: row;
   justify-content: flex-start;
   overflow: auto;
+  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   user-select: none;
   scrollbar-width: thin;
@@ -575,6 +575,7 @@ nav ul li a.active::before {
 }
 
 .movie-other-info .other-info1 .other-info1-trailer .trailer-vids iframe {
+  scroll-snap-align: start;
   margin: 5px;
   width: 500px;
   height: 275px;
@@ -694,6 +695,7 @@ nav ul li a.active::before {
 .movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-one {
   position: relative;
   margin: 5px;
+  text-align: center;
 }
 
 .movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-details {
@@ -976,16 +978,9 @@ nav ul li a.active::before {
   left: 13%;
   color: #fff;
   transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.flip-card:hover,
-.img-btn {
-  display: block;
   opacity: 1;
-  transition: 0.3s;
   z-index: 90;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .top-rated-pad {

@@ -231,7 +231,7 @@ export const ShowInfo = (props) => {
           <h3>Top Billed Cast</h3>
           <div className="casts-cards">
             {movieCasts?.map((cast) => (
-              <div key={cast.id} className="cats-card-one">
+              <div key={cast.id} className="casts-card-one">
                 <img
                   src={
                     cast.profile_path
@@ -307,7 +307,20 @@ export const ShowInfo = (props) => {
                       }
                     />
                     <div className="recommendations-card-details">
-                      <p>{show.title ? show.title : show.name}</p>
+                      <p>
+                        {show.title ? show.title : show.name}
+
+                        {show.release_date ? (
+                          <>
+                            <br /> {show.release_date.slice(0, 4)}
+                          </>
+                        ) : null}
+                        {show.first_air_date ? (
+                          <>
+                            <br /> {show.first_air_date.slice(0, 4)}
+                          </>
+                        ) : null}
+                      </p>
                     </div>
                   </div>
                 </NavLink>

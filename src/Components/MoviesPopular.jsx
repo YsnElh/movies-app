@@ -136,7 +136,7 @@ export const MoviesPopular = () => {
                 <div className="details">
                   <div className="title">{elem.title}</div>
                   <div className="genres">
-                    {elem.release_date !== undefined
+                    {elem.release_date
                       ? "Year: " + elem.release_date.slice(0, 4)
                       : null}
                   </div>

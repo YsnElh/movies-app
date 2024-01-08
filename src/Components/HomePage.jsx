@@ -260,7 +260,7 @@ export const HomePage = () => {
               key={m.id}
               id={m.id}
               poster_path={m.poster_path}
-              title={m.title}
+              name={m.name}
               loading={topRatedS_Loading}
               error={topRatedS_Error}
             />

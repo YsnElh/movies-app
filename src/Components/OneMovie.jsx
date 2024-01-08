@@ -196,15 +196,20 @@ export const OneMovie = () => {
                   }
                 />
                 <div>
-                  <img
-                    src="/movies-app/tmdb-logo.png"
-                    alt="tmdb logo"
-                    style={{
-                      width: "50px",
-                      border: "none",
-                      margin: "0 0 20px 0",
-                    }}
-                  />
+                  <a
+                    href={`https://www.themoviedb.org/movie/${OneMovie.id}`}
+                    target="blank"
+                  >
+                    <img
+                      src="/movies-app/tmdb-logo.png"
+                      alt="tmdb logo"
+                      style={{
+                        width: "50px",
+                        border: "none",
+                        margin: "0 0 20px 0",
+                      }}
+                    />
+                  </a>
                 </div>
                 <span>Votes Number: {OneMovie.vote_count}</span>
                 <div className="addToFavourites-heart mt-2">
