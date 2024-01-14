@@ -9,3 +9,7 @@ Create a new file in the project and name it '.env', open it and type:REACT_APP_
 ### `Step 3: run the command 'npm i'`
 
 ### `Step 4: run the command 'npm start'`
+
+### Licence
+
+[MIT License](LICENSE)
