@@ -12,6 +12,9 @@ export const HomePage = () => {
   const moviesPopular = useSelector((state) => state.moviesPopular);
   const movieBackDrops = useSelector((state) => state.movieAllBackdrops.movie);
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
+  let favouriteShows = useSelector(
+    (state) => state.favouritesShow
+  ).favouritesShow;
 
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
@@ -82,7 +85,7 @@ export const HomePage = () => {
   const topRatedMoviesS = useSelector((state) => state.topRatedMovies);
   //console.log(topRatedMoviesS.topRatedMovies[0]);
 
-  topRatedMovies = topRatedMoviesS.topRatedMovies;
+  topRatedMovies = checkIsFavs(topRatedMoviesS.topRatedMovies, "movie");
   topRated_Loading = topRatedMoviesS.loading;
   topRated_Error = topRatedMoviesS.error;
   //---------fetch TOp rated series ----------------
@@ -90,12 +93,26 @@ export const HomePage = () => {
   let [topRatedS_Loading] = useState(false);
   let [topRatedS_Error] = useState("");
 
+  function checkIsFavs(movies, type) {
+    if (!Array.isArray(favouriteShows)) {
+      console.error("favouriteShows is not an array");
+      return;
+    }
+    const updatedMovies = movies.map((movie) => {
+      const isFavourite = favouriteShows.some(
+        (show) => show.id === movie.id && show.show_type === type
+      );
+      return { ...movie, ischecked: isFavourite };
+    });
+    return updatedMovies;
+  }
+
   useEffect(() => {
     dispatch(fetchTopRatedSeries());
   }, [dispatch]);
   const topRatedSeriesS = useSelector((state) => state.topRatedSeries);
   //console.log(topRatedSeriesS.topRatedSeries[0]);
-  topRatedSeries = topRatedSeriesS.topRatedSeries;
+  topRatedSeries = checkIsFavs(topRatedSeriesS.topRatedSeries, "serie");
   topRated_Loading = topRatedSeriesS.loading;
   topRated_Error = topRatedSeriesS.error;
 
@@ -224,6 +241,8 @@ export const HomePage = () => {
               id={m.id}
               poster_path={m.poster_path}
               title={m.title}
+              ischecked={m.ischecked}
+              year={m.release_date.slice(0, 4)}
               loading={topRated_Loading}
               error={topRated_Error}
             />
@@ -261,6 +280,8 @@ export const HomePage = () => {
               id={m.id}
               poster_path={m.poster_path}
               name={m.name}
+              year={m.first_air_date.slice(0, 4)}
+              ischecked={m.ischecked}
               loading={topRatedS_Loading}
               error={topRatedS_Error}
             />
