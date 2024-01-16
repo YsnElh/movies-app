@@ -121,10 +121,10 @@ function Navbar() {
                 to="movies-app/favourite-shows"
               >
                 Favourites Shows{" "}
-                {favouritesShows.length > 0 ? (
-                  <span className="badgeME">{favouritesShows.length}</span>
-                ) : null}
               </NavLink>
+              {favouritesShows.length > 0 ? (
+                <span className="badgeME">{favouritesShows.length}</span>
+              ) : null}
             </li>
           </ul>
         </div>

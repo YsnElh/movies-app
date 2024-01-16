@@ -10,7 +10,3 @@ REACT_APP_MOVIES_API={YOUR API CODE HERE}
 ### `Step 3: run the command 'npm i'`
 
 ### `Step 4: run the command 'npm start'`
-
-### Licence
-
-[MIT License](LICENSE)
