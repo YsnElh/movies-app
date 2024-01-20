@@ -1,12 +1,32 @@
-### `Step 1: Get your API code from themoviedb.org`
+# Movies-App
 
-Create an Account or login on [themoviedb.org](https://www.themoviedb.org/), copy the API code from settings.
+Welcome to Movies-App, your go-to source for comprehensive information about movies and series. This application is designed to provide you with detailed insights into your favorite films and TV shows.
 
-### `Step 2: Create '.env' file`
+## Getting Started
+
+### Step 1: Get your API code from themoviedb.org
+
+Create an Account or log in on [themoviedb.org](https://www.themoviedb.org/), copy the API code from settings.
+
+### Step 2: Create '.env' file
 
 Create a new file in the project and name it '.env', open it and type:  
 REACT_APP_MOVIES_API={YOUR API CODE HERE}
 
-### `Step 3: run the command 'npm i'`
+### Step 3: Install Dependencies
 
-### `Step 4: run the command 'npm start'`
+Run the following command to install the necessary dependencies:
+
+```bash
+npm i
+```
+
+### Step 4: Start the Application
+
+Launch the application by running the following command:
+
+```bash
+npm start
+```
+The application will start running, and you can access it in your web browser at  
+http://localhost:3000.
