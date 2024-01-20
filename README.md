@@ -28,5 +28,4 @@ Launch the application by running the following command:
 ```bash
 npm start
 ```
-The application will start running, and you can access it in your web browser at  
-http://localhost:3000.
+The application will start running, and you can access it in your web browser at http://localhost:3000.
