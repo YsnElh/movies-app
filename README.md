@@ -15,7 +15,9 @@ Create an Account or log in on [themoviedb.org](https://www.themoviedb.org/), co
 ### Step 2: Create '.env' file
 
 Create a new file in the project and name it '.env', open it and type:  
-REACT_APP_MOVIES_API={YOUR API CODE HERE}
+```bash
+REACT_APP_MOVIES_API=YOUR API CODE HERE
+```
 
 ### Step 3: Install Dependencies
 
