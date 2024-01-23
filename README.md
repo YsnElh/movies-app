@@ -4,24 +4,25 @@ Welcome to Movies-App, your go-to source for comprehensive information about mov
 
 ## Prerequisites
 
-Before you get started, make sure you have Node.js installed on your machine. If not, you can download and install it from [nodejs.org](https://nodejs.org/).
+Before you get started, make sure you have Node.js installed on your machine. If not, you can download and install it from [nodejs.org](https://nodejs.org/){:target="\_blank"}.
 
 ## Getting Started
 
-### Step 1: Get your API code from themoviedb.org
+### Step 1: Get your API KEY from themoviedb.org
 
-Create an Account or log in on [themoviedb.org](https://www.themoviedb.org/), copy the API code from settings.
+Create an Account or log in on [themoviedb.org](https://www.themoviedb.org/){:target="\_blank"}, copy the API KEY from settings > API.
 
-### Step 2: Create '.env' file
+### Step 2: Set the API KEY in _.env_ file
 
-Create a new file in the project and name it '.env', open it and type:  
+Go to the `.env` file, change 'your_actual_api_key' with your API KEY:
+
 ```bash
-REACT_APP_MOVIES_API=YOUR API CODE HERE
+REACT_APP_MOVIES_API=your_actual_api_key
 ```
 
 ### Step 3: Install Dependencies
 
-Run the following command to install the necessary dependencies:
+Open the terminal and run the following command to install the necessary dependencies:
 
 ```bash
 npm i
@@ -34,4 +35,5 @@ Launch the application by running the following command:
 ```bash
 npm start
 ```
+
 The application will start running, and you can access it in your web browser at http://localhost:3000.
