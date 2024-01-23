@@ -4,13 +4,13 @@ Welcome to Movies-App, your go-to source for comprehensive information about mov
 
 ## Prerequisites
 
-Before you get started, make sure you have Node.js installed on your machine. If not, you can download and install it from [nodejs.org](https://nodejs.org/){:target="\_blank"}.
+Before you get started, make sure you have Node.js installed on your machine. If not, you can download and install it from <a href="https://nodejs.org/" target="_blank">nodejs.org</a>.
 
 ## Getting Started
 
 ### Step 1: Get your API KEY from themoviedb.org
 
-Create an Account or log in on [themoviedb.org](https://www.themoviedb.org/){:target="\_blank"}, copy the API KEY from settings > API.
+Create an Account or log in on <a href="https://www.themoviedb.org/" target="_blank">themoviedb.org</a>, copy the API KEY from settings > API.
 
 ### Step 2: Set the API KEY in _.env_ file
 
