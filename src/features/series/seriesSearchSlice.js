@@ -11,9 +11,9 @@ export const fetchSeriesSearch = createAsyncThunk(
   async (searchValue) => {
     return await axios
       .get(
-        `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIES_API}&query=${searchValue}`
+        `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_MOVIES_API}&query=${searchValue}`
       )
-      .then((res) => res.data.results.filter((e) => e.media_type === "tv"));
+      .then((res) => res.data.results);
   }
 );
 

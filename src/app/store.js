@@ -6,8 +6,6 @@ import seriesSearchSlice from "../features/series/seriesSearchSlice";
 import moviesSearchSlice from "../features/movies/moviesSearchSlice";
 import movieOneSlice from "../features/movies/movieOneSlice";
 import serieOneSlice from "../features/series/serieOneSlice";
-import actionMoviesSlice from "../features/movies/actionMoviesSlice";
-import comedyMoviesSlice from "../features/movies/comedyMoviesSlice";
 import favouritesShowSlice from "../features/favourites/favouritesShowSlice";
 import topRatedMoviesSlice from "../features/movies/topRatedMoviesSlice";
 import topRatedSeriesSlice from "../features/series/topRatedSeriesSlice";
@@ -20,6 +18,7 @@ import showRecommendations from "../features/movies/showRecommendations";
 import showExtrIds from "../features/movies/showExtrIds";
 import getKeywords from "../features/movies/getKeywords";
 import showVedios from "../features/movies/showVedios";
+import ShowsByGenreSlice from "../features/shows/ShowsByGenreSlice";
 
 const store = configureStore({
   reducer: {
@@ -29,8 +28,7 @@ const store = configureStore({
     seriesSearch: seriesSearchSlice,
     movie: movieOneSlice,
     serie: serieOneSlice,
-    actionMovies: actionMoviesSlice,
-    comedyMovies: comedyMoviesSlice,
+    showsByGenre: ShowsByGenreSlice,
     favouritesShow: favouritesShowSlice,
     topRatedMovies: topRatedMoviesSlice,
     topRatedSeries: topRatedSeriesSlice,

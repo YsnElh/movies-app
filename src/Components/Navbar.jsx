@@ -67,34 +67,7 @@ function Navbar() {
                 style={{ fontSize: "1.3rem" }}
                 to="movies-app/movies"
               >
-                Popular movies
-              </NavLink>
-            </li>
-            <li
-              onClick={() => {
-                handleClick();
-              }}
-            >
-              <NavLink
-                activeclassname="active"
-                style={{ fontSize: "1.3rem" }}
-                to="movies-app/action-movies"
-              >
-                Action movies
-              </NavLink>
-            </li>
-
-            <li
-              onClick={() => {
-                handleClick();
-              }}
-            >
-              <NavLink
-                activeclassname="active"
-                style={{ fontSize: "1.3rem" }}
-                to="movies-app/comedy-movies"
-              >
-                Comedy movies
+                Movies
               </NavLink>
             </li>
             <li

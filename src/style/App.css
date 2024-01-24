@@ -24,7 +24,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background-color: #000;
+  background-color: #121212;
   border-bottom: #fff 1px solid;
 }
 
@@ -102,9 +102,9 @@ nav ul li a.active::before {
     right: -200px;
     width: 200px;
     height: auto;
-    background-color: #000;
+    background-color: #121212;
     box-shadow: 0 40px 40px rgba(0, 0, 0, 0.1);
-    padding: 40px 0 0 10px;
+    padding: 0;
     transition: 0.3s ease-in-out;
     z-index: 100;
     border-left: 1px solid #fff;
@@ -245,7 +245,6 @@ nav ul li a.active::before {
 
 .movie-info,
 .home-movie-pop {
-  animation: background-flow 40s linear infinite;
   position: relative;
   background-size: cover;
   width: 100%;
@@ -254,6 +253,10 @@ nav ul li a.active::before {
   flex-direction: column;
   color: white;
   padding: 10px;
+}
+
+.movie-info {
+  /* animation: background-flow 40s linear infinite; */
 }
 
 .movie-info::before,
@@ -274,11 +277,7 @@ nav ul li a.active::before {
   left: 0;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.8),
-    inset 0 -20px 40px rgba(0, 0, 0, 0.7),
-    inset 0 -30px 60px rgba(0, 0, 0, 0.6),
-    inset 0 -40px 80px rgba(0, 0, 0, 0.5),
-    inset 0 -50px 100px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 -70px 50px rgb(18, 18, 18);
 }
 
 .movie-info .image-card,
@@ -340,7 +339,6 @@ nav ul li a.active::before {
 }
 
 .movie-other-info {
-  background-color: #000;
   color: #fff;
   width: 100%;
   height: auto;
@@ -433,6 +431,7 @@ nav ul li a.active::before {
 }
 
 .movie-other-info .other-info1 .other-info1-reviews .review {
+  position: relative;
   border: 1px solid #fff;
   padding: 10px;
   border-radius: 6px;
@@ -457,6 +456,9 @@ nav ul li a.active::before {
 }
 
 .movie-other-info .other-info1 .other-info1-reviews .review .button-review {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   color: white;
   outline: none;
   font-size: 30px;
@@ -773,11 +775,7 @@ nav ul li a.active::before {
   background-image: url(./footer-bg.jpg);
   color: #fff;
   padding: 120px 0;
-  box-shadow: inset 0 10px 20px rgba(0, 0, 0, 1),
-    inset 0 20px 40px rgba(0, 0, 0, 0.9),
-    inset 0 30px 60px rgba(0, 0, 0, 0.8),
-    inset 0 40px 80px rgba(0, 0, 0, 0.7),
-    inset 0 50px 100px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 40px 50px rgb(18, 18, 18);
 }
 
 .footer-basic ul {
@@ -898,7 +896,7 @@ nav ul li a.active::before {
   left: 0;
   width: 100%;
   height: 50px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(18, 18, 18));
   pointer-events: none;
 }
 
@@ -927,6 +925,7 @@ nav ul li a.active::before {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .top-rated-movies-container {
@@ -968,6 +967,7 @@ nav ul li a.active::before {
   border: 1px solid #ffffff4f;
   border-radius: 6px;
   transition: filter 0.3s ease;
+  width: 150px;
 }
 
 .flip-card {
@@ -1040,6 +1040,8 @@ nav ul li a.active::before {
 
 .top-rated-pad {
   padding: 10px;
+  background-color: #121212;
+  color: #fff;
 }
 
 
@@ -1135,7 +1137,29 @@ nav ul li a.active::before {
   }
 }
 
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+
+  .home-movie-pop .display-6 {
+    font-size: 20px;
+  }
+
+  .top-rated-movies-container .flip-card img {
+    width: 100px;
+  }
+
+  .link-top-rated-more {
+    font-size: 15px;
+  }
+
+  .top-rated-movies-tite {
+
+    font-size: 20px;
+  }
+
+  .addToFavourites-heart {
+    padding: 8px 10px;
+  }
+}
 
 @media only screen and (max-width: 820px) {
   .home-movie-pop img {

@@ -160,7 +160,7 @@ export const OneSerie = () => {
               <div className="info-movieOne">
                 <h1>{OneSerie.name}</h1>
                 <p>
-                  {formatDate(OneSerie.first_air_date) + " •"}
+                  {formatDate(OneSerie.first_air_date) + " • "}
                   {OneSerie.genres && OneSerie.genres.length > 0
                     ? OneSerie.genres.map((g, index) => (
                         <span key={g.id}>
@@ -168,6 +168,10 @@ export const OneSerie = () => {
                           {index < OneSerie.genres.length - 1 && ","}{" "}
                         </span>
                       ))
+                    : null}
+                  {OneSerie.episode_run_time &&
+                  OneSerie.episode_run_time?.length > 0
+                    ? " • " + OneSerie.episode_run_time[0] + "min"
                     : null}
                 </p>
                 <p>{OneSerie.overview}</p>

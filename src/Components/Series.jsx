@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { fetchSeries } from "../features/series/seriesSlice";
 import { fetchSeriesSearch } from "../features/series/seriesSearchSlice";
+import { fetchSerieGenres } from "../features/series/seriesSlice";
+import { fetchShowsByGenre } from "../features/shows/ShowsByGenreSlice";
 import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import StarRating from "./comps/StarRating";
@@ -10,6 +12,8 @@ import StarRating from "./comps/StarRating";
 export const Series = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
+  const [genreValue, setGenreValue] = useState("");
+
   let [series] = useState([]);
   let [loading] = useState(false);
   let [error] = useState("");
@@ -18,8 +22,20 @@ export const Series = () => {
   useEffect(() => {
     dispatch(fetchSeries());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchSerieGenres());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchShowsByGenre({ type: "tv", genre: genreValue }));
+  }, [dispatch, genreValue]);
   //--------
-  const seriesState = useSelector((state) => state.series);
+
+  const seriesState = useSelector((state) => state.showsByGenre);
+
+  const seriesGenres = useSelector((state) => state.series.serieGenres.genres);
+
   let favouriteShows = useSelector(
     (state) => state.favouritesShow
   ).favouritesShow;
@@ -32,11 +48,11 @@ export const Series = () => {
   const seriesSearch = useSelector((state) => state.seriesSearch);
   //console.log(seriesSearch);
   if (searchValue.length > 0) {
-    series = checkIsFavs(seriesSearch.seriesSearch);
+    series = checkIsFavs(seriesSearch.seriesSearch, true, genreValue);
     loading = seriesSearch.loading;
     error = seriesSearch.error;
   } else {
-    series = checkIsFavs(seriesState.series);
+    series = checkIsFavs(seriesState.shows, false, genreValue);
     loading = seriesState.loading;
     error = seriesState.error;
   }
@@ -57,7 +73,7 @@ export const Series = () => {
       dispatch(removeFromFavourites({ id: elem.id, show_type: "serie" }));
     }
   };
-  function checkIsFavs(series) {
+  function checkIsFavs(series, searchValExist, genre) {
     if (!Array.isArray(favouriteShows)) {
       console.error("favouriteShows is not an array");
       return;
@@ -71,6 +87,12 @@ export const Series = () => {
       );
       return { ...serie, ischecked: isFavourite };
     });
+    if (searchValExist && genre.length > 0) {
+      const updatedMovies2 = updatedMovies.filter((movie) =>
+        movie.genre_ids.includes(parseInt(genre))
+      );
+      return updatedMovies2;
+    }
     return updatedMovies;
   }
   return (
@@ -83,6 +105,19 @@ export const Series = () => {
           required=""
           onChange={(e) => setSearchValue(e.target.value)}
         />
+        <select
+          className="filter-select mt-2"
+          name="selectfilter"
+          id="selectfilter"
+          onChange={(e) => setGenreValue(e.target.value)}
+        >
+          <option value="">All</option>
+          {seriesGenres?.map((gn) => (
+            <option key={gn.id} value={`${gn.id}`}>
+              {gn.name}
+            </option>
+          ))}
+        </select>
         <label htmlFor="name" className="form__label">
           Title
         </label>
@@ -136,7 +171,8 @@ export const Series = () => {
                 <div className="details">
                   <div className="title">{c.name}</div>
                   <div className="genres">
-                    Year: {c.first_air_date.slice(0, 4)}
+                    Year:{" "}
+                    {c.first_air_date ? c.first_air_date.slice(0, 4) : "N/A"}
                   </div>
                   <div className="rating">
                     <StarRating rating={c.vote_average?.toFixed(1)} />

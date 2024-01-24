@@ -10,7 +10,6 @@ export const TopRated = (props) => {
       <img
         src={`https://image.tmdb.org/t/p/original${props.poster_path}`}
         alt={`Poster of the show: ${props.name ? props.name : props.title}`}
-        style={{ width: "150px" }}
         draggable="false"
       />
       <p className="card-flip-text">

@@ -222,39 +222,22 @@
     width: 141px;
 }
 
-/* ------------------------ */
-.btn-see-more-homepage {
-    padding: 0.1em 0.25em;
-    width: 13em;
-    height: 4.2em;
-    background-color: #212121;
-    border: 0.08em solid #fff;
-    border-radius: 0.3em;
-    font-size: 12px;
+/* ---------------------- */
+.link-top-rated-more {
+    color: white;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 25px;
 }
 
-.btn-see-more-homepage a {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    bottom: 0.4em;
-    width: 8.25em;
-    height: 2.5em;
-    background-color: #212121;
-    border-radius: 0.2em;
-    font-size: 1.5em;
-    color: #fff;
-    border: 0.08em solid #fff;
-    box-shadow: 0 0.4em 0.1em 0.019em #fff;
+.link-top-rated-more:hover {
+    text-decoration: underline;
+    vertical-align: middle;
 }
 
-.btn-see-more-homepage a:hover {
-    transition: all 0.5s;
-    transform: translate(0, 0.4em);
-    box-shadow: 0 0 0 0 #fff;
-}
-
-.btn-see-more-homepage a:not(hover) {
-    transition: all 1s;
+@media only screen and (max-width: 600px) {
+    .Btn {
+        width: 30px;
+        height: 30px;
+    }
 }

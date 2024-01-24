@@ -8,12 +8,15 @@ const initialState = {
 };
 export const fetchMoviesSearch = createAsyncThunk(
   "moviesSearch/fetchMoviesSearch",
-  async (searchValue) => {
+  async (info) => {
     return await axios
-      .get(
-        `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIES_API}&query=${searchValue}`
-      )
-      .then((res) => res.data.results.filter((e) => e.media_type !== "tv"));
+      .get(`https://api.themoviedb.org/3/search/movie`, {
+        params: {
+          api_key: process.env.REACT_APP_MOVIES_API,
+          query: info.searchValue,
+        },
+      })
+      .then((res) => res.data.results);
   }
 );
 

@@ -211,20 +211,16 @@ export const HomePage = () => {
       ) : (
         <div></div>
       )}
-      <div
-        style={{ background: "#000", color: "#fff" }}
-        className="top-rated-pad"
-      >
+      <div className="top-rated-pad">
         <div className="top-rated-movies-tite">
           <div className="display-6">Top Rated Movies</div>
-          <button className="btn-see-more-homepage">
-            <NavLink
-              to={`/movies-app/movies`}
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Explore more Movies
-            </NavLink>
-          </button>
+          <NavLink
+            className="link-top-rated-more"
+            to={`/movies-app/movies`}
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Explore more Movies <i className="fas fa-caret-right"></i>
+          </NavLink>
         </div>
 
         <div
@@ -250,20 +246,16 @@ export const HomePage = () => {
         </div>
       </div>
       {/* SERIES */}
-      <div
-        style={{ background: "#000", color: "#fff" }}
-        className="top-rated-pad"
-      >
+      <div className="top-rated-pad">
         <div className="top-rated-movies-tite">
           <div className="display-6">Top Rated Series</div>
-          <button className="btn-see-more-homepage">
-            <NavLink
-              to={`/movies-app/series`}
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              Explore more Series
-            </NavLink>
-          </button>
+          <NavLink
+            className="link-top-rated-more"
+            to={`/movies-app/series`}
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Explore more Series <i className="fas fa-caret-right"></i>
+          </NavLink>
         </div>
 
         <div

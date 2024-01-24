@@ -105,7 +105,12 @@
     font-size: 25px;
 }
 
-.filter-select {
+.filter-select-favs {
+    width: 131px
+}
+
+.filter-select,
+.filter-select-favs {
     background-color: transparent;
     border: 1px solid #fff;
     color: #fff;
@@ -114,11 +119,12 @@
     cursor: pointer;
     outline: none;
     font-size: 20px;
-    width: 131px;
 }
 
-.filter-select option {
-    background-color: #000;
+
+.filter-select option,
+.filter-select-favs option {
+    background-color: #121212;
     color: #fff;
     cursor: pointer;
 }
@@ -135,4 +141,19 @@
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 600px) {
+
+    .filter-select,
+    .filter-select-favs {
+        padding: 4px;
+        border-radius: 4px;
+        font-size: 15px;
+    }
+
+    .form__field {
+        font-size: 12px;
+        padding: 5px 0;
+    }
 }

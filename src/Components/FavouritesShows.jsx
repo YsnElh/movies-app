@@ -47,7 +47,7 @@ export const FavouritesShows = () => {
               Sort By:
             </label>
             <select
-              className="filter-select"
+              className="filter-select-favs"
               name="selectfilter"
               id="selectfilter"
               onChange={(e) => setSelectedValue(e.target.value)}

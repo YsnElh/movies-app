@@ -6,8 +6,6 @@ import { MoviesPopular } from "./Components/MoviesPopular";
 import { Series } from "./Components/Series";
 import { OneMovie } from "./Components/OneMovie";
 import { OneSerie } from "./Components/OneSerie";
-import { ActionMovies } from "./Components/ActionMovies";
-import { ComedyMovies } from "./Components/ComedyMovies";
 import { FavouritesShows } from "./Components/FavouritesShows";
 import { Footer } from "./Components/Footer";
 import "./style/style-heart.css";
@@ -21,8 +19,6 @@ function App() {
         <Route path="movies-app" element={<HomePage />} />
         <Route path="movies-app/movies-react-app" element={<HomePage />} />
         <Route path="movies-app/movies" element={<MoviesPopular />} />
-        <Route path="movies-app/action-movies" element={<ActionMovies />} />
-        <Route path="movies-app/comedy-movies" element={<ComedyMovies />} />
         <Route path="movies-app/series" element={<Series />} />
         <Route
           path="movies-app/favourite-shows"

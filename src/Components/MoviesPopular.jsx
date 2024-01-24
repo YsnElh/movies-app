@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMoviesPop } from "../features/movies/moviesPopularSlice";
 import { fetchMoviesSearch } from "../features/movies/moviesSearchSlice";
+import { fetchShowsByGenre } from "../features/shows/ShowsByGenreSlice";
+import { fetchMovieGenres } from "../features/movies/moviesPopularSlice";
 import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import { NavLink } from "react-router-dom";
@@ -10,22 +11,29 @@ import StarRating from "./comps/StarRating";
 export const MoviesPopular = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
+  const [genreValue, setGenreValue] = useState("");
 
   let [movies] = useState([]);
   let [loading] = useState(false);
   let [error] = useState("");
 
   const moviesSearch = useSelector((state) => state.moviesSearch);
-  const moviesPopular = useSelector((state) => state.moviesPopular);
+  const moviesPopular = useSelector((state) => state.showsByGenre);
+  const movieGenres = useSelector(
+    (state) => state.moviesPopular?.movieGenres?.genres
+  );
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   let favouriteShows = useSelector(
     (state) => state.favouritesShow.favouritesShow
   );
 
   //------------
+  useEffect(() => {
+    dispatch(fetchShowsByGenre({ type: "movie", genre: genreValue }));
+  }, [dispatch, genreValue]);
 
   useEffect(() => {
-    dispatch(fetchMoviesPop());
+    dispatch(fetchMovieGenres());
   }, [dispatch]);
 
   //--------
@@ -49,21 +57,21 @@ export const MoviesPopular = () => {
 
   useEffect(() => {
     if (searchValue.length > 0) {
-      dispatch(fetchMoviesSearch(searchValue));
+      dispatch(fetchMoviesSearch({ searchValue }));
     }
   }, [searchValue, dispatch]);
   //-------------
 
   if (searchValue.length > 0) {
-    movies = checkIsFavs(moviesSearch.moviesSearch);
+    movies = checkIsFavs(moviesSearch.moviesSearch, true, genreValue);
     loading = moviesSearch.loading;
     error = moviesSearch.error;
   } else {
-    movies = checkIsFavs(moviesPopular.moviesPopular);
+    movies = checkIsFavs(moviesPopular.shows, false, genreValue);
     loading = moviesPopular.loading;
     error = moviesPopular.error;
   }
-  function checkIsFavs(movies) {
+  function checkIsFavs(movies, searchValExist, genre) {
     if (!Array.isArray(favouriteShows)) {
       console.error("favouriteShows is not an array");
       return;
@@ -74,6 +82,12 @@ export const MoviesPopular = () => {
       );
       return { ...movie, ischecked: isFavourite };
     });
+    if (searchValExist && genre.length > 0) {
+      const updatedMovies2 = updatedMovies.filter((movie) =>
+        movie.genre_ids.includes(parseInt(genre))
+      );
+      return updatedMovies2;
+    }
     return updatedMovies;
   }
 
@@ -85,11 +99,25 @@ export const MoviesPopular = () => {
           className="form__field"
           placeholder="Title"
           required=""
+          value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <label htmlFor="name" className="form__label">
           Title
         </label>
+        <select
+          className="filter-select mt-2"
+          name="selectfilter"
+          id="selectfilter"
+          onChange={(e) => setGenreValue(e.target.value)}
+        >
+          <option value="">All</option>
+          {movieGenres?.map((gn) => (
+            <option key={gn.id} value={`${gn.id}`}>
+              {gn.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="movies-container">
         {loading && (
