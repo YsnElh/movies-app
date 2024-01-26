@@ -162,11 +162,11 @@ export const MoviesPopular = () => {
                   alt={elem.title + " movie poster"}
                 />
                 <div className="details">
-                  <div className="title">{elem.title}</div>
-                  <div className="genres">
-                    {elem.release_date
-                      ? "Year: " + elem.release_date.slice(0, 4)
-                      : null}
+                  <div className="title">
+                    {elem.title +
+                      (elem.release_date
+                        ? " (" + elem.release_date.slice(0, 4) + ")"
+                        : null)}
                   </div>
                   <div className="rating">
                     <StarRating rating={elem.vote_average?.toFixed(1)} />

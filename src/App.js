@@ -8,6 +8,7 @@ import { OneMovie } from "./Components/OneMovie";
 import { OneSerie } from "./Components/OneSerie";
 import { FavouritesShows } from "./Components/FavouritesShows";
 import { Footer } from "./Components/Footer";
+import "./style/App.css";
 import "./style/style-heart.css";
 import "./style/style-search.css";
 

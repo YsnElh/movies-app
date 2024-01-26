@@ -169,10 +169,11 @@ export const Series = () => {
                   alt="Movie poster"
                 />
                 <div className="details">
-                  <div className="title">{c.name}</div>
-                  <div className="genres">
-                    Year:{" "}
-                    {c.first_air_date ? c.first_air_date.slice(0, 4) : "N/A"}
+                  <div className="title">
+                    {c.name +
+                      (c.first_air_date
+                        ? " (" + c.first_air_date.slice(0, 4) + ")"
+                        : null)}
                   </div>
                   <div className="rating">
                     <StarRating rating={c.vote_average?.toFixed(1)} />
