@@ -14,10 +14,17 @@ export const Series = () => {
   const [searchValue, setSearchValue] = useState("");
   const [genreValue, setGenreValue] = useState("");
 
-  let [series] = useState([]);
-  let [loading] = useState(false);
-  let [error] = useState("");
+  let [series, setSeries] = useState([]);
+  let [loading, setLoading] = useState(false);
+  let [error, setError] = useState("");
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
+  const seriesGenres = useSelector((state) => state.series.serieGenres.genres);
+  const seriesState = useSelector((state) => state.showsByGenre);
+  const popSeries = useSelector((state) => state.series.series);
+  const seriesSearch = useSelector((state) => state.seriesSearch);
+  let favouriteShows = useSelector(
+    (state) => state.favouritesShow
+  ).favouritesShow;
 
   useEffect(() => {
     dispatch(fetchSeries());
@@ -30,32 +37,64 @@ export const Series = () => {
   useEffect(() => {
     dispatch(fetchShowsByGenre({ type: "tv", genre: genreValue }));
   }, [dispatch, genreValue]);
+
+  useEffect(() => {
+    dispatch(fetchSeriesSearch({ searchValue }));
+  }, [searchValue, dispatch]);
+  useEffect(() => {
+    function checkIsFavs(series, searchValExist, genre) {
+      if (!Array.isArray(favouriteShows)) {
+        console.error("favouriteShows is not an array");
+        return;
+      }
+      const updatedMovies = series.map((serie) => {
+        const isFavourite = favouriteShows.some(
+          (show) =>
+            show.id === serie.id &&
+            show.title === serie.name &&
+            show.show_type === "serie"
+        );
+        return { ...serie, ischecked: isFavourite };
+      });
+      if (searchValExist && genre.length > 0) {
+        const updatedMovies2 = updatedMovies.filter((movie) =>
+          movie.genre_ids.includes(parseInt(genre))
+        );
+        return updatedMovies2;
+      }
+      return updatedMovies;
+    }
+    if (searchValue.length > 0) {
+      setSeries(checkIsFavs(seriesSearch.seriesSearch, true, genreValue));
+      setLoading(seriesSearch.loading);
+      setError(seriesSearch.error);
+    } else {
+      if (genreValue === "") {
+        setSeries(checkIsFavs(popSeries, false, genreValue));
+      } else {
+        setSeries(checkIsFavs(seriesState.shows, false, genreValue));
+      }
+      setLoading(seriesState.loading);
+      setError(seriesState.error);
+    }
+  }, [
+    searchValue,
+    seriesState,
+    genreValue,
+    seriesSearch.error,
+    seriesSearch.loading,
+    seriesSearch.seriesSearch,
+    popSeries,
+    favouriteShows,
+  ]);
+
   //--------
 
-  const seriesState = useSelector((state) => state.showsByGenre);
+  // if (genreValue.length === 0) {
+  //   seriesState = popSeries;
+  // }
 
-  const seriesGenres = useSelector((state) => state.series.serieGenres.genres);
-
-  let favouriteShows = useSelector(
-    (state) => state.favouritesShow
-  ).favouritesShow;
   //-------------
-  useEffect(() => {
-    if (searchValue.length > 0) {
-      dispatch(fetchSeriesSearch(searchValue));
-    }
-  }, [searchValue, dispatch]);
-  const seriesSearch = useSelector((state) => state.seriesSearch);
-  //console.log(seriesSearch);
-  if (searchValue.length > 0) {
-    series = checkIsFavs(seriesSearch.seriesSearch, true, genreValue);
-    loading = seriesSearch.loading;
-    error = seriesSearch.error;
-  } else {
-    series = checkIsFavs(seriesState.shows, false, genreValue);
-    loading = seriesState.loading;
-    error = seriesState.error;
-  }
 
   const handleCheckboxChange = (isChecked, elem) => {
     if (isChecked) {
@@ -73,28 +112,7 @@ export const Series = () => {
       dispatch(removeFromFavourites({ id: elem.id, show_type: "serie" }));
     }
   };
-  function checkIsFavs(series, searchValExist, genre) {
-    if (!Array.isArray(favouriteShows)) {
-      console.error("favouriteShows is not an array");
-      return;
-    }
-    const updatedMovies = series.map((serie) => {
-      const isFavourite = favouriteShows.some(
-        (show) =>
-          show.id === serie.id &&
-          show.title === serie.name &&
-          show.show_type === "serie"
-      );
-      return { ...serie, ischecked: isFavourite };
-    });
-    if (searchValExist && genre.length > 0) {
-      const updatedMovies2 = updatedMovies.filter((movie) =>
-        movie.genre_ids.includes(parseInt(genre))
-      );
-      return updatedMovies2;
-    }
-    return updatedMovies;
-  }
+
   return (
     <div>
       <div className="form__group field">
@@ -111,7 +129,7 @@ export const Series = () => {
           id="selectfilter"
           onChange={(e) => setGenreValue(e.target.value)}
         >
-          <option value="">All</option>
+          <option value="">Popular</option>
           {seriesGenres?.map((gn) => (
             <option key={gn.id} value={`${gn.id}`}>
               {gn.name}
@@ -128,20 +146,14 @@ export const Series = () => {
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
             style={{ textAlign: "center" }}
           >
-            <div className="spinner-container">
-              <div className="spinner">
-                <div className="spinner">
-                  <div className="spinner">
-                    <div className="spinner">
-                      <div className="spinner">
-                        <div className="spinner"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <img
+                src="/movies-app/loading.gif"
+                style={{ width: "100px" }}
+                alt="loading GIF"
+              />
             </div>
-            <div>LOADING...</div>
+            <div>LOADING</div>
           </div>
         )}
         {!loading &&

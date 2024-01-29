@@ -240,4 +240,8 @@
         width: 30px;
         height: 30px;
     }
+
+    .link-top-rated-more {
+        font-size: 15px;
+    }
 }

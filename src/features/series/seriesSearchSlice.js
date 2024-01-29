@@ -8,10 +8,10 @@ const initialState = {
 };
 export const fetchSeriesSearch = createAsyncThunk(
   "seriesSearch/fetchSeriesSearch",
-  async (searchValue) => {
+  async (info) => {
     return await axios
       .get(
-        `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_MOVIES_API}&query=${searchValue}`
+        `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_MOVIES_API}&query=${info.searchValue}`
       )
       .then((res) => res.data.results);
   }

@@ -447,7 +447,6 @@ export const ShowInfo = (props) => {
                           ? `https://image.tmdb.org/t/p/original/${e.profile_path}`
                           : "/movies-app/cast-img-not-found.jpg"
                       }
-                      style={{ width: "120px" }}
                       alt={"Profile image of: " + e.name}
                     />
                     <p>{e.name}</p>

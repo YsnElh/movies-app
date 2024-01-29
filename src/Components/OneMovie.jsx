@@ -134,20 +134,14 @@ export const OneMovie = () => {
           className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
           style={{ textAlign: "center" }}
         >
-          <div className="spinner-container">
-            <div className="spinner">
-              <div className="spinner">
-                <div className="spinner">
-                  <div className="spinner">
-                    <div className="spinner">
-                      <div className="spinner"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <img
+              src="/movies-app/loading.gif"
+              style={{ width: "100px" }}
+              alt="loading GIF"
+            />
           </div>
-          <div>LOADING...</div>
+          <div>LOADING</div>
         </div>
       )}
       {!movie.loading && movie.error ? (

@@ -105,13 +105,14 @@ export const MoviesPopular = () => {
         <label htmlFor="name" className="form__label">
           Title
         </label>
+        <label htmlFor="selectfilter" className="text-light"></label>
         <select
           className="filter-select mt-2"
           name="selectfilter"
           id="selectfilter"
           onChange={(e) => setGenreValue(e.target.value)}
         >
-          <option value="">All</option>
+          <option value="">Popular</option>
           {movieGenres?.map((gn) => (
             <option key={gn.id} value={`${gn.id}`}>
               {gn.name}
@@ -125,20 +126,14 @@ export const MoviesPopular = () => {
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
             style={{ textAlign: "center" }}
           >
-            <div className="spinner-container">
-              <div className="spinner">
-                <div className="spinner">
-                  <div className="spinner">
-                    <div className="spinner">
-                      <div className="spinner">
-                        <div className="spinner"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <img
+                src="/movies-app/loading.gif"
+                style={{ width: "100px" }}
+                alt="loading GIF"
+              />
             </div>
-            <div>LOADING...</div>
+            <div>LOADING</div>
           </div>
         )}
         {movies && movies.length === 0 && searchValue.length > 0 && !loading ? (

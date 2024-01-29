@@ -662,6 +662,7 @@ nav ul li a.active::before {
 
 .movie-other-info .other-info2 .other-info2-createdby .directors img {
   border-radius: 6px;
+  width: 120px;
 }
 
 .movie-other-info .other-info2 .other-info2-createdby .directors p {
@@ -1157,6 +1158,17 @@ nav ul li a.active::before {
   .addToFavourites-heart {
     padding: 8px 10px;
   }
+
+  .movie-other-info .other-info1 .casts-cards .casts-card-one img,
+  .movie-other-info .other-info1 .other-info1-recommendations .recommendations-cards img,
+  .movie-other-info .other-info2 .other-info2-createdby .directors img,
+  .movie-other-info .other-info2 .other-info1-saisons .saisons-cards img {
+    width: 90px;
+  }
+
+  .movie-other-info .other-info1 .other-info1-reviews .review h4 {
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 820px) {
@@ -1307,8 +1319,6 @@ nav ul li a.active::before {
   .menu__link {
     font-size: 15px;
   }
-
-
 }
 
 /*  */

@@ -19,13 +19,8 @@ export const Footer = () => {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item">
-            <NavLink className="menu__link" to="/movies-app/">
-              Home
-            </NavLink>
-          </li>
-          <li className="list-inline-item">
             <a className="menu__link" href="https://www.themoviedb.org/">
-              API Source
+              API
             </a>
           </li>
 
@@ -34,7 +29,7 @@ export const Footer = () => {
               className="menu__link"
               href="https://github.com/YsnElh/movies-app"
             >
-              Source code
+              Repository
             </a>
           </li>
         </ul>

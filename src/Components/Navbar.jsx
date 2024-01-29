@@ -65,7 +65,7 @@ function Navbar() {
               <NavLink
                 activeclassname="active"
                 style={{ fontSize: "1.3rem" }}
-                to="movies-app/movies"
+                to="/movies-app/movies"
               >
                 Movies
               </NavLink>
@@ -83,6 +83,19 @@ function Navbar() {
                 Series
               </NavLink>
             </li>
+            {/* <li
+              onClick={() => {
+                handleClick();
+              }}
+            >
+              <NavLink
+                activeclassname="active"
+                style={{ fontSize: "1.3rem" }}
+                to="movies-app/persons"
+              >
+                Persons
+              </NavLink>
+            </li> */}
             <li
               onClick={() => {
                 handleClick();

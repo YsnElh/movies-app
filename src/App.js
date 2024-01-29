@@ -11,6 +11,8 @@ import { Footer } from "./Components/Footer";
 import "./style/App.css";
 import "./style/style-heart.css";
 import "./style/style-search.css";
+import Person from "./Components/Person";
+import { PopularPersons } from "./Components/PopularPersons";
 
 function App() {
   return (
@@ -25,8 +27,10 @@ function App() {
           path="movies-app/favourite-shows"
           element={<FavouritesShows />}
         />
+        <Route path="movies-app/person" element={<PopularPersons />} />
         <Route path="movies-app/movies/:id" element={<OneMovie />} />
         <Route path="movies-app/series/:id" element={<OneSerie />} />
+        <Route path="movies-app/person/:id" element={<Person />} />
       </Routes>
       <Footer />
     </>
