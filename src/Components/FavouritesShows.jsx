@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
-import { destroyFavourites } from "../features/favourites/favouritesShowSlice";
 import { NavLink } from "react-router-dom";
 import StarRating from "./comps/StarRating";
+import {
+  removeFromFavourites,
+  destroyFavourites,
+} from "../features/favourites/favouritesShowSlice";
 
 export const FavouritesShows = () => {
   const [selectedValue, setSelectedValue] = useState("0");
