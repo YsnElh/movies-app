@@ -22,6 +22,7 @@ export const HomePage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
   const [moviePoster, setMoviePoster] = useState(false);
+  const [countdown, setCountdown] = useState(15);
 
   useEffect(() => {
     if (movieBackDrops?.backdrops?.length > 0) {
@@ -44,14 +45,25 @@ export const HomePage = () => {
       const randomIndex = Math.floor(
         Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
       );
+      handleCountDown();
       setMovie(moviesPopular.moviesPopular[randomIndex]);
-      setCurrentBackdropIndex(0); // Reset backdrop index when a new movie is set
+      setCurrentBackdropIndex(0);
     }
 
     setLoading(moviesPopular.loading);
     setError(moviesPopular.error);
 
+    function handleCountDown() {
+      setCountdown(15);
+      for (let i = 16; i >= 0; i--) {
+        setTimeout(() => {
+          setCountdown(i);
+        }, (15 - i) * 1000);
+      }
+    }
+
     const intervalId = setInterval(() => {
+      handleCountDown();
       if (moviesPopular.moviesPopular.length > 0) {
         const randomIndex = Math.floor(
           Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
@@ -59,7 +71,7 @@ export const HomePage = () => {
         setIsTransitioning(true);
         setTimeout(() => {
           setMovie(moviesPopular.moviesPopular[randomIndex]);
-          setCurrentBackdropIndex(0); // Reset backdrop index when a new movie is set
+          setCurrentBackdropIndex(0);
           setIsTransitioning(false);
         }, 500);
       }
@@ -194,6 +206,14 @@ export const HomePage = () => {
           <div className="home-movie-pop-text">
             <h1 className="display-1">{movie?.title}</h1>
             <p className="display-6">{movie?.overview}</p>
+            <div className="countdown-homepage">
+              <div className="c²ountdown-hompage">
+                <div className="m-1">{countdown}</div>
+                {/* <div class="progress-loader m-1">
+                  <div class="progress"></div>
+                </div> */}
+              </div>
+            </div>
             <NavLink
               to={`/movies-app/movies/${movie?.id}`}
               className="btn-homepage"
