@@ -207,7 +207,7 @@ export const HomePage = () => {
             <h1 className="display-1">{movie?.title}</h1>
             <p className="display-6">{movie?.overview}</p>
             <div className="countdown-homepage">
-              <div className="c²ountdown-hompage">
+              <div className="countdown-hompage">
                 <div className="m-1">{countdown}</div>
                 {/* <div class="progress-loader m-1">
                   <div class="progress"></div>
