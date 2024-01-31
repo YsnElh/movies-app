@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesPop } from "../features/movies/moviesPopularSlice";
 import { fetchTopRatedMovies } from "../features/movies/topRatedMoviesSlice";
 import { fetchTopRatedSeries } from "../features/series/topRatedSeriesSlice";
-import { fetchAllBackDropsMovie } from "../features/movies/movieOneGetAllBackdrops";
 import { TopRated } from "./TopRated";
 import { NavLink } from "react-router-dom";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const moviesPopular = useSelector((state) => state.moviesPopular);
-  const movieBackDrops = useSelector((state) => state.movieAllBackdrops.movie);
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   let favouriteShows = useSelector(
     (state) => state.favouritesShow
@@ -20,21 +18,6 @@ export const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
-  const [moviePoster, setMoviePoster] = useState(false);
-  const [countdown, setCountdown] = useState(15);
-
-  useEffect(() => {
-    if (movieBackDrops?.backdrops?.length > 0) {
-      const maxIndex = Math.min(10, movieBackDrops.backdrops.length);
-      const randomIndex = Math.floor(Math.random() * maxIndex);
-      setCurrentBackdropIndex(randomIndex);
-    }
-  }, [movieBackDrops]);
-
-  useEffect(() => {
-    setMoviePoster(movieBackDrops?.backdrops[currentBackdropIndex]?.file_path);
-  }, [currentBackdropIndex, movieBackDrops]);
 
   useEffect(() => {
     dispatch(fetchMoviesPop());
@@ -43,35 +26,22 @@ export const HomePage = () => {
   useEffect(() => {
     if (moviesPopular.moviesPopular.length > 0) {
       const randomIndex = Math.floor(
-        Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
+        Math.random() * Math.min(5, moviesPopular.moviesPopular.length)
       );
-      handleCountDown();
       setMovie(moviesPopular.moviesPopular[randomIndex]);
-      setCurrentBackdropIndex(0);
     }
 
     setLoading(moviesPopular.loading);
     setError(moviesPopular.error);
 
-    function handleCountDown() {
-      setCountdown(15);
-      for (let i = 16; i >= 0; i--) {
-        setTimeout(() => {
-          setCountdown(i);
-        }, (15 - i) * 1000);
-      }
-    }
-
     const intervalId = setInterval(() => {
-      handleCountDown();
       if (moviesPopular.moviesPopular.length > 0) {
         const randomIndex = Math.floor(
-          Math.random() * Math.min(8, moviesPopular.moviesPopular.length)
+          Math.random() * Math.min(5, moviesPopular.moviesPopular.length)
         );
         setIsTransitioning(true);
         setTimeout(() => {
           setMovie(moviesPopular.moviesPopular[randomIndex]);
-          setCurrentBackdropIndex(0);
           setIsTransitioning(false);
         }, 500);
       }
@@ -79,12 +49,6 @@ export const HomePage = () => {
 
     return () => clearInterval(intervalId);
   }, [moviesPopular]);
-
-  useEffect(() => {
-    if (movie.id) {
-      dispatch(fetchAllBackDropsMovie(movie.id));
-    }
-  }, [dispatch, movie.id]);
 
   //---------fetch TOp rated movies ----------------
   let [topRatedMovies] = useState([]);
@@ -95,7 +59,6 @@ export const HomePage = () => {
     dispatch(fetchTopRatedMovies());
   }, [dispatch]);
   const topRatedMoviesS = useSelector((state) => state.topRatedMovies);
-  //console.log(topRatedMoviesS.topRatedMovies[0]);
 
   topRatedMovies = checkIsFavs(topRatedMoviesS.topRatedMovies, "movie");
   topRated_Loading = topRatedMoviesS.loading;
@@ -173,6 +136,17 @@ export const HomePage = () => {
   let handleMouseUpS = () => {
     setIsDraggingS(false);
   };
+  //----------RENDER Top Page text---------------------
+  const renderText = (text) => {
+    let MAX_CHARACTERS = 435;
+    if (text && text?.length > MAX_CHARACTERS) {
+      const truncatedText = text.substring(0, MAX_CHARACTERS);
+      return truncatedText + "... ";
+    } else {
+      return text;
+    }
+  };
+
   return (
     <div className="homepage-container">
       {loading && (
@@ -194,7 +168,7 @@ export const HomePage = () => {
         <div
           className={`home-movie-pop ${isTransitioning ? "transitioning" : ""}`}
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${moviePoster})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
           }}
         >
           <img
@@ -205,15 +179,7 @@ export const HomePage = () => {
           />
           <div className="home-movie-pop-text">
             <h1 className="display-1">{movie?.title}</h1>
-            <p className="display-6">{movie?.overview}</p>
-            <div className="countdown-homepage">
-              <div className="countdown-hompage">
-                <div className="m-1">{countdown}</div>
-                {/* <div class="progress-loader m-1">
-                  <div class="progress"></div>
-                </div> */}
-              </div>
-            </div>
+            <p className="display-6">{renderText(movie?.overview)}</p>
             <NavLink
               to={`/movies-app/movies/${movie?.id}`}
               className="btn-homepage"

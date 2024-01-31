@@ -885,6 +885,7 @@ nav ul li a.active::before {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  height: 600px;
   padding: 50px;
   background-repeat: no-repeat;
   background-position: center;
@@ -919,7 +920,7 @@ nav ul li a.active::before {
   margin-left: 40px;
 }
 
-.home-movie-pop-text .countdown-hompage {
+.home-movie-pop-text .countdown-homepage {
   position: absolute;
   bottom: 2%;
   right: 1%;
@@ -927,7 +928,7 @@ nav ul li a.active::before {
   align-items: center;
 }
 
-.progress-loader {
+/* .progress-loader {
   width: 100px;
   background: rgba(236, 236, 238, 0.253);
   border-radius: 7px;
@@ -939,7 +940,7 @@ nav ul li a.active::before {
   border-radius: 7px;
   background: #ffffff;
   animation: loadingReverse 15.5s linear infinite;
-}
+} */
 
 .button-homepage {
   width: 110px;

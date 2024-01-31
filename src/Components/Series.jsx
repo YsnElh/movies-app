@@ -17,6 +17,41 @@ export const Series = () => {
   let [series, setSeries] = useState([]);
   let [loading, setLoading] = useState(false);
   let [error, setError] = useState("");
+
+  useEffect(() => {
+    const storedSearchValue = sessionStorage.getItem("searchvalue");
+    const storedSeries = sessionStorage.getItem("series");
+    const storedGenreValue = sessionStorage.getItem("genrevalue");
+
+    if (storedSearchValue) {
+      setSearchValue(storedSearchValue);
+    }
+    if (storedSeries) {
+      setSeries(JSON.parse(storedSeries));
+    }
+    if (storedGenreValue) {
+      setGenreValue(storedGenreValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("searchvalue", searchValue);
+    sessionStorage.setItem("genrevalue", genreValue);
+    sessionStorage.setItem("series", JSON.stringify(series));
+  }, [searchValue, series, genreValue]);
+
+  useEffect(() => {
+    const removeSessionData = () => {
+      sessionStorage.removeItem("searchvalue");
+      sessionStorage.removeItem("series");
+      sessionStorage.removeItem("genrevalue");
+    };
+    window.addEventListener("beforeunload", removeSessionData);
+    return () => {
+      window.removeEventListener("beforeunload", removeSessionData);
+    };
+  }, []);
+
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   const seriesGenres = useSelector((state) => state.series.serieGenres.genres);
   const seriesState = useSelector((state) => state.showsByGenre);
@@ -87,13 +122,6 @@ export const Series = () => {
     popSeries,
     favouriteShows,
   ]);
-
-  //--------
-
-  // if (genreValue.length === 0) {
-  //   seriesState = popSeries;
-  // }
-
   //-------------
 
   const handleCheckboxChange = (isChecked, elem) => {
@@ -117,10 +145,10 @@ export const Series = () => {
     <div>
       <div className="form__group field">
         <input
-          type="input"
+          type="search"
           className="form__field"
           placeholder="Title"
-          required=""
+          value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <select
@@ -128,6 +156,7 @@ export const Series = () => {
           name="selectfilter"
           id="selectfilter"
           onChange={(e) => setGenreValue(e.target.value)}
+          value={genreValue}
         >
           <option value="">Popular</option>
           {seriesGenres?.map((gn) => (

@@ -13,9 +13,9 @@ export const MoviesPopular = () => {
   const [searchValue, setSearchValue] = useState("");
   const [genreValue, setGenreValue] = useState("");
 
-  let [movies] = useState([]);
-  let [loading] = useState(false);
-  let [error] = useState("");
+  let [movies, setMovies] = useState([]);
+  let [loading, setLoading] = useState(false);
+  let [error, setError] = useState("");
 
   const moviesSearch = useSelector((state) => state.moviesSearch);
   const moviesPopular = useSelector((state) => state.showsByGenre);
@@ -27,6 +27,39 @@ export const MoviesPopular = () => {
     (state) => state.favouritesShow.favouritesShow
   );
 
+  useEffect(() => {
+    const storedSearchValue = sessionStorage.getItem("searchvalueMovie");
+    const storedGenreValue = sessionStorage.getItem("genrevalueMovie");
+    const storedMovies = sessionStorage.getItem("movies");
+
+    if (storedSearchValue) {
+      setSearchValue(storedSearchValue);
+    }
+    if (storedGenreValue) {
+      setGenreValue(storedGenreValue);
+    }
+    if (storedMovies) {
+      setMovies(JSON.parse(storedMovies));
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("searchvalueMovie", searchValue);
+    sessionStorage.setItem("genrevalueMovie", genreValue);
+    sessionStorage.setItem("movies", JSON.stringify(movies));
+  }, [searchValue, movies, genreValue]);
+
+  useEffect(() => {
+    const removeSessionData = () => {
+      sessionStorage.removeItem("searchvalueMovie");
+      sessionStorage.removeItem("genrevalueMovie");
+      sessionStorage.removeItem("movies");
+    };
+    window.addEventListener("beforeunload", removeSessionData);
+    return () => {
+      window.removeEventListener("beforeunload", removeSessionData);
+    };
+  }, []);
   //------------
   useEffect(() => {
     dispatch(fetchShowsByGenre({ type: "movie", genre: genreValue }));
@@ -62,40 +95,52 @@ export const MoviesPopular = () => {
   }, [searchValue, dispatch]);
   //-------------
 
-  if (searchValue.length > 0) {
-    movies = checkIsFavs(moviesSearch.moviesSearch, true, genreValue);
-    loading = moviesSearch.loading;
-    error = moviesSearch.error;
-  } else {
-    movies = checkIsFavs(moviesPopular.shows, false, genreValue);
-    loading = moviesPopular.loading;
-    error = moviesPopular.error;
-  }
-  function checkIsFavs(movies, searchValExist, genre) {
-    if (!Array.isArray(favouriteShows)) {
-      console.error("favouriteShows is not an array");
-      return;
+  useEffect(() => {
+    if (searchValue.length > 0) {
+      setMovies(checkIsFavs(moviesSearch.moviesSearch, true, genreValue));
+      setLoading(moviesSearch.loading);
+      setError(moviesSearch.error);
+    } else {
+      setMovies(checkIsFavs(moviesPopular.shows, false, genreValue));
+      setLoading(moviesPopular.loading);
+      setError(moviesPopular.error);
     }
-    const updatedMovies = movies.map((movie) => {
-      const isFavourite = favouriteShows.some(
-        (show) => show.id === movie.id && show.show_type === "movie"
-      );
-      return { ...movie, ischecked: isFavourite };
-    });
-    if (searchValExist && genre.length > 0) {
-      const updatedMovies2 = updatedMovies.filter((movie) =>
-        movie.genre_ids.includes(parseInt(genre))
-      );
-      return updatedMovies2;
+    function checkIsFavs(movies, searchValExist, genre) {
+      if (!Array.isArray(favouriteShows)) {
+        console.error("favouriteShows is not an array");
+        return;
+      }
+      const updatedMovies = movies.map((movie) => {
+        const isFavourite = favouriteShows.some(
+          (show) => show.id === movie.id && show.show_type === "movie"
+        );
+        return { ...movie, ischecked: isFavourite };
+      });
+      if (searchValExist && genre.length > 0) {
+        const updatedMovies2 = updatedMovies.filter((movie) =>
+          movie.genre_ids.includes(parseInt(genre))
+        );
+        return updatedMovies2;
+      }
+      return updatedMovies;
     }
-    return updatedMovies;
-  }
+  }, [
+    favouriteShows,
+    genreValue,
+    moviesPopular.error,
+    moviesPopular.loading,
+    moviesPopular.shows,
+    moviesSearch.error,
+    moviesSearch.loading,
+    moviesSearch.moviesSearch,
+    searchValue,
+  ]);
 
   return (
     <div className="movies-general-container">
       <div className="form__group field">
         <input
-          type="input"
+          type="search"
           className="form__field"
           placeholder="Title"
           required=""
@@ -111,6 +156,7 @@ export const MoviesPopular = () => {
           name="selectfilter"
           id="selectfilter"
           onChange={(e) => setGenreValue(e.target.value)}
+          value={genreValue}
         >
           <option value="">Popular</option>
           {movieGenres?.map((gn) => (
