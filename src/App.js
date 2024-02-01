@@ -13,6 +13,7 @@ import { Person } from "./Components/Person";
 import "./style/App.css";
 import "./style/style-heart.css";
 import "./style/style-search.css";
+import { Slider } from "./Components/Slider";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="movies-app/movies/:id" element={<OneMovie />} />
         <Route path="movies-app/series/:id" element={<OneSerie />} />
         <Route path="movies-app/person/:id" element={<Person />} />
+        <Route path="movies-app/slider" element={<Slider />} />
       </Routes>
       <Footer />
     </>

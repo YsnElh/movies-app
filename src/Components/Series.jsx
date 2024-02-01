@@ -153,31 +153,6 @@ export const Series = () => {
       setLoading(seriesState.loading);
       setError(seriesState.error);
     }
-
-    // function sortShows(shows, sortVal) {
-    //   switch (sortVal) {
-    //     case "1":
-    //       return shows.slice().sort((a, b) => a.name.localeCompare(b.name));
-    //     case "2":
-    //       return shows.slice().sort((a, b) => b.name.localeCompare(a.name));
-    //     case "3":
-    //       return shows.slice().sort((a, b) => b.vote_average - a.vote_average);
-    //     case "4":
-    //       return shows
-    //         .slice()
-    //         .sort(
-    //           (a, b) => new Date(a.first_air_date) - new Date(b.first_air_date)
-    //         );
-    //     case "5":
-    //       return shows
-    //         .slice()
-    //         .sort(
-    //           (a, b) => new Date(b.first_air_date) - new Date(a.first_air_date)
-    //         );
-    //     default:
-    //       return shows;
-    //   }
-    // }
   }, [
     searchValue,
     seriesState,
@@ -222,9 +197,6 @@ export const Series = () => {
           Title
         </label>
         <div className="d-flex flex-column">
-          {/* <label className="text-light" htmlFor="selectfilter">
-            Genre:
-          </label> */}
           <select
             className="filter-select"
             name="selectfilter"
@@ -291,7 +263,7 @@ export const Series = () => {
                       ? `https://image.tmdb.org/t/p/original/${c.poster_path}`
                       : "/movies-app/poster-not-found.jpg"
                   }
-                  alt="Movie poster"
+                  alt={c.name + " serie poster"}
                 />
                 <div className="details">
                   <div className="title">

@@ -49,7 +49,6 @@ export const ShowInfo = (props) => {
   );
 
   let movieCasts = casts;
-  //let currentReview = null;
 
   const currentReview = useMemo(() => {
     if (MovieReviews && MovieReviews.length > 0) {
@@ -220,7 +219,7 @@ export const ShowInfo = (props) => {
   };
   const opts = {
     playerVars: {
-      autoplay: 0, // 1 for autoplay
+      autoplay: 0,
     },
   };
 
@@ -238,7 +237,7 @@ export const ShowInfo = (props) => {
                       ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
                       : "/movies-app/cast-img-not-found.jpg"
                   }
-                  alt={"image of the actor: " + cast.original_name}
+                  alt={cast.original_name + " picture"}
                 />
                 <div className="casts-card-details">
                   <p>{cast.original_name}</p>
@@ -300,11 +299,7 @@ export const ShowInfo = (props) => {
                           ? `https://image.tmdb.org/t/p/original/${show.poster_path}`
                           : "/movies-app/poster-not-found.jpg"
                       }
-                      alt={
-                        "poster of the show: " + show.title
-                          ? show.title
-                          : show.name
-                      }
+                      alt={(show.title ? show.title : show.name) + " poster"}
                     />
                     <div className="recommendations-card-details">
                       <p>
@@ -447,7 +442,7 @@ export const ShowInfo = (props) => {
                           ? `https://image.tmdb.org/t/p/original/${e.profile_path}`
                           : "/movies-app/cast-img-not-found.jpg"
                       }
-                      alt={"Profile image of: " + e.name}
+                      alt={e.name + " picture"}
                     />
                     <p>{e.name}</p>
                   </div>
@@ -471,7 +466,7 @@ export const ShowInfo = (props) => {
                           ? `https://image.tmdb.org/t/p/original/${sais.poster_path}`
                           : "/movies-app/poster-not-found.jpg"
                       }
-                      alt={"poster of: " + show?.name + sais.name}
+                      alt={"poster of: " + show?.name + "/" + sais.name}
                     />
                     <div className="saisons-card-details">
                       <p>{sais.name}</p>
@@ -501,7 +496,7 @@ export const ShowInfo = (props) => {
                 {e.logo_path ? (
                   <img
                     src={`https://image.tmdb.org/t/p/original/${e.logo_path}`}
-                    alt={"logo of: " + e.name}
+                    alt={e.name + " logo"}
                   />
                 ) : null}
                 <span>{" " + e.name}</span>

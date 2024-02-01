@@ -74,7 +74,7 @@ export const FavouritesShows = () => {
                     ? `https://image.tmdb.org/t/p/original${elem.poster_path}`
                     : "/movies-app/poster-not-found.jpg"
                 }
-                alt={"poster of the show: " + elem.title}
+                alt={elem.title + " poster"}
               />
               <div className="details">
                 <div className="title">{elem.title}</div>

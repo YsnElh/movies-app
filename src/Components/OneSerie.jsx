@@ -135,7 +135,7 @@ export const OneSerie = () => {
                       ? `https://image.tmdb.org/t/p/original${OneSerie.poster_path}`
                       : "/movies-app/poster-not-found.jpg"
                   }
-                  alt={`${OneSerie.name} poster`}
+                  alt={OneSerie.name + " serie poster"}
                 />
               </div>
               <div className="info-movieOne">

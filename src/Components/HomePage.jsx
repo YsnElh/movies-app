@@ -6,6 +6,7 @@ import { fetchTopRatedSeries } from "../features/series/topRatedSeriesSlice";
 import { TopRated } from "./TopRated";
 import { NavLink } from "react-router-dom";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { Slider } from "./Slider";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,10 +15,9 @@ export const HomePage = () => {
     (state) => state.favouritesShow
   ).favouritesShow;
 
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   let [topRatedMovies, setTopRatedMovies] = useState([]);
   let [topRatedM_Loading, setTopRatedM_Loading] = useState(false);
@@ -32,30 +32,9 @@ export const HomePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (moviesPopular.moviesPopular.length > 0) {
-      const randomIndex = Math.floor(
-        Math.random() * Math.min(5, moviesPopular.moviesPopular.length)
-      );
-      setMovie(moviesPopular.moviesPopular[randomIndex]);
-    }
-
+    setMovie(moviesPopular.moviesPopular.slice(0, 8));
     setLoading(moviesPopular.loading);
     setError(moviesPopular.error);
-
-    const intervalId = setInterval(() => {
-      if (moviesPopular.moviesPopular.length > 0) {
-        const randomIndex = Math.floor(
-          Math.random() * Math.min(5, moviesPopular.moviesPopular.length)
-        );
-        setIsTransitioning(true);
-        setTimeout(() => {
-          setMovie(moviesPopular.moviesPopular[randomIndex]);
-          setIsTransitioning(false);
-        }, 500);
-      }
-    }, 15000);
-
-    return () => clearInterval(intervalId);
   }, [moviesPopular]);
 
   //---------fetch TOp rated movies ----------------
@@ -150,16 +129,6 @@ export const HomePage = () => {
   let handleMouseUpS = () => {
     setIsDraggingS(false);
   };
-  //----------RENDER Top Page text---------------------
-  const renderText = (text) => {
-    let MAX_CHARACTERS = 435;
-    if (text && text?.length > MAX_CHARACTERS) {
-      const truncatedText = text.substring(0, MAX_CHARACTERS);
-      return truncatedText + "... ";
-    } else {
-      return text;
-    }
-  };
 
   return (
     <div className="homepage-container">
@@ -167,31 +136,7 @@ export const HomePage = () => {
         <LoadingOverlay />
       ) : null}
 
-      {!loading && !error ? (
-        <div
-          className={`home-movie-pop ${isTransitioning ? "transitioning" : ""}`}
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
-          }}
-        >
-          <img
-            className="image-card"
-            title={"poster of the movie: " + movie?.title}
-            src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
-            alt={`Poster of the movie ${movie?.title}`}
-          />
-          <div className="home-movie-pop-text">
-            <h1 className="display-1">{movie?.title}</h1>
-            <p className="display-6">{renderText(movie?.overview)}</p>
-            <NavLink
-              to={`/movies-app/movies/${movie?.id}`}
-              className="btn-homepage"
-            >
-              View details
-            </NavLink>
-          </div>
-        </div>
-      ) : null}
+      {!loading && !error ? <Slider slides={movie} /> : null}
 
       <div className="top-rated-pad">
         <div className="top-rated-movies-tite">
