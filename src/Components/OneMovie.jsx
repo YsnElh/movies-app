@@ -52,7 +52,7 @@ export const OneMovie = () => {
       clearInterval(intervalId);
     };
   }, [movieBackDrops]);
-
+  console.log(movieBackDrops);
   let movieBackDrop =
     movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
   //----------------------

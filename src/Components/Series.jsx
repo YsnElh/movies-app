@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { fetchSeries } from "../features/series/seriesSlice";
@@ -14,6 +14,14 @@ export const Series = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
   const [genreValue, setGenreValue] = useState("");
+  const [sortby, setSortBy] = useState("");
+  const sortByvalues = [
+    { id: 1, value: "Title Asc &uarr;" },
+    { id: 2, value: "Title Desc &darr;" },
+    { id: 3, value: "Best Rating &#x269D;" },
+    { id: 4, value: "Release Date Asc &uarr;" },
+    { id: 5, value: "Release Date Desc &darr;" },
+  ];
 
   let [series, setSeries] = useState([]);
   let [loading, setLoading] = useState(false);
@@ -23,6 +31,7 @@ export const Series = () => {
     const storedSearchValue = sessionStorage.getItem("searchvalue");
     const storedSeries = sessionStorage.getItem("series");
     const storedGenreValue = sessionStorage.getItem("genrevalue");
+    const storedSortby = sessionStorage.getItem("sortbySeries");
 
     if (storedSearchValue) {
       setSearchValue(storedSearchValue);
@@ -33,20 +42,26 @@ export const Series = () => {
     if (storedGenreValue) {
       setGenreValue(storedGenreValue);
     }
+    if (storedSortby) {
+      setSortBy(storedSortby);
+    }
   }, []);
 
   useEffect(() => {
     sessionStorage.setItem("searchvalue", searchValue);
     sessionStorage.setItem("genrevalue", genreValue);
+    sessionStorage.setItem("sortbySeries", sortby);
     sessionStorage.setItem("series", JSON.stringify(series));
-  }, [searchValue, series, genreValue]);
+  }, [searchValue, series, genreValue, sortby]);
 
   const removeSessionData = () => {
     sessionStorage.removeItem("searchvalue");
     sessionStorage.removeItem("series");
     sessionStorage.removeItem("genrevalue");
+    sessionStorage.removeItem("sortbySeries");
     setSearchValue("");
     setGenreValue("");
+    setSortBy("");
   };
 
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
@@ -73,6 +88,34 @@ export const Series = () => {
   useEffect(() => {
     dispatch(fetchSeriesSearch({ searchValue }));
   }, [searchValue, dispatch]);
+
+  const sortShows = useCallback(
+    (shows) => {
+      const compareStrings = (a, b) => (a && b ? a.localeCompare(b) : 0);
+      const compareDates = (a, b) => (a && b ? new Date(a) - new Date(b) : 0);
+
+      switch (sortby) {
+        case "1":
+          return shows.slice().sort((a, b) => compareStrings(a.name, b.name));
+        case "2":
+          return shows.slice().sort((a, b) => compareStrings(b.name, a.name));
+        case "3":
+          return shows.slice().sort((a, b) => b.vote_average - a.vote_average);
+        case "4":
+          return shows
+            .slice()
+            .sort((a, b) => compareDates(a.first_air_date, b.first_air_date));
+        case "5":
+          return shows
+            .slice()
+            .sort((a, b) => compareDates(b.first_air_date, a.first_air_date));
+        default:
+          return shows;
+      }
+    },
+    [sortby]
+  );
+
   useEffect(() => {
     function checkIsFavs(series, searchValExist, genre) {
       if (!Array.isArray(favouriteShows)) {
@@ -92,10 +135,11 @@ export const Series = () => {
         const updatedMovies2 = updatedMovies.filter((movie) =>
           movie.genre_ids.includes(parseInt(genre))
         );
-        return updatedMovies2;
+        return sortShows(updatedMovies2, sortby);
       }
-      return updatedMovies;
+      return sortShows(updatedMovies, sortby);
     }
+
     if (searchValue.length > 0) {
       setSeries(checkIsFavs(seriesSearch.seriesSearch, true, genreValue));
       setLoading(seriesSearch.loading);
@@ -109,16 +153,42 @@ export const Series = () => {
       setLoading(seriesState.loading);
       setError(seriesState.error);
     }
+
+    // function sortShows(shows, sortVal) {
+    //   switch (sortVal) {
+    //     case "1":
+    //       return shows.slice().sort((a, b) => a.name.localeCompare(b.name));
+    //     case "2":
+    //       return shows.slice().sort((a, b) => b.name.localeCompare(a.name));
+    //     case "3":
+    //       return shows.slice().sort((a, b) => b.vote_average - a.vote_average);
+    //     case "4":
+    //       return shows
+    //         .slice()
+    //         .sort(
+    //           (a, b) => new Date(a.first_air_date) - new Date(b.first_air_date)
+    //         );
+    //     case "5":
+    //       return shows
+    //         .slice()
+    //         .sort(
+    //           (a, b) => new Date(b.first_air_date) - new Date(a.first_air_date)
+    //         );
+    //     default:
+    //       return shows;
+    //   }
+    // }
   }, [
     searchValue,
     seriesState,
     genreValue,
-    seriesSearch.error,
-    seriesSearch.loading,
-    seriesSearch.seriesSearch,
+    seriesSearch,
     popSeries,
     favouriteShows,
+    sortby,
+    sortShows,
   ]);
+
   //-------------
 
   const handleCheckboxChange = (isChecked, elem) => {
@@ -171,6 +241,22 @@ export const Series = () => {
             ))}
           </select>
         </div>
+        <select
+          name="sortby"
+          id="sortby"
+          className="filter-select"
+          value={sortby}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="">Sort By:</option>
+          {sortByvalues.map((e) => (
+            <option
+              key={e.id}
+              value={e.id}
+              dangerouslySetInnerHTML={{ __html: e.value }}
+            ></option>
+          ))}
+        </select>
         {!loading && (searchValue.length > 0 || genreValue.length > 0) ? (
           <button
             className="btn btn-outline-light"

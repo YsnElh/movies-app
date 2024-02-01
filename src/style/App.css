@@ -1198,6 +1198,10 @@ nav ul li a.active::before {
     font-size: 20px;
   }
 
+  .home-movie-pop {
+    height: auto;
+  }
+
   .top-rated-movies-container .flip-card img {
     width: 100px;
   }

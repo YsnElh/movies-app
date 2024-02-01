@@ -24,14 +24,17 @@ const favouritesShowSlice = createSlice({
     removeFromFavourites: (state, action) => {
       state.favouritesShow = state.favouritesShow.filter(
         (show) =>
-          show.id !== action.payload.id ||
-          show.show_type !== action.payload.show_type
+          !(
+            show.id === action.payload.id &&
+            show.show_type === action.payload.show_type
+          )
       );
       localStorage.setItem(
         "favouritesShow",
         JSON.stringify(state.favouritesShow)
       );
     },
+
     destroyFavourites: (state) => {
       state.favouritesShow = [];
       localStorage.removeItem("favouritesShow");

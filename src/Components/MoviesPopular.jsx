@@ -16,20 +16,13 @@ export const MoviesPopular = () => {
   const [searchValue, setSearchValue] = useState("");
   const [genreValue, setGenreValue] = useState("");
   const [sortBy, setSortBy] = useState("");
-  const [sortByValues] = useState([
+  const sortByValues = [
     { id: 1, value: "Title Asc &uarr;" },
     { id: 2, value: "Title Desc &darr;" },
     { id: 3, value: "Best Rating &#x269D;" },
     { id: 4, value: "Release Date Asc &uarr;" },
     { id: 5, value: "Release Date Desc &darr;" },
-  ]);
-  /* 
-  <option value="1">Title Asc &uarr;</option>
-  <option value="2">Title Desc &darr;</option>
-  <option value="3">Best Rating &#x269D;</option>
-  <option value="4">Release Date Asc &uarr;</option>
-  <option value="5">Release Date Desc &darr;</option>
-  */
+  ];
 
   let [movies, setMovies] = useState([]);
   let [loading, setLoading] = useState(false);
@@ -148,33 +141,30 @@ export const MoviesPopular = () => {
       }
       return sortShows(updatedMovies, sortVal);
     }
-    console.table(movies);
     function sortShows(shows, sortVal) {
+      const compareStrings = (a, b) => (a && b ? a.localeCompare(b) : 0);
+      const compareDates = (a, b) => (a && b ? new Date(a) - new Date(b) : 0);
+
       switch (sortVal) {
         case "1":
-          return shows.slice().sort((a, b) => a.title.localeCompare(b.title));
+          return shows.slice().sort((a, b) => compareStrings(a.title, b.title));
         case "2":
-          return shows.slice().sort((a, b) => b.title.localeCompare(a.title));
+          return shows.slice().sort((a, b) => compareStrings(b.title, a.title));
         case "3":
           return shows.slice().sort((a, b) => b.vote_average - a.vote_average);
         case "4":
           return shows
             .slice()
-            .sort(
-              (a, b) => new Date(a.release_date) - new Date(b.release_date)
-            );
+            .sort((a, b) => compareDates(a.release_date, b.release_date));
         case "5":
           return shows
             .slice()
-            .sort(
-              (a, b) => new Date(b.release_date) - new Date(a.release_date)
-            );
+            .sort((a, b) => compareDates(b.release_date, a.release_date));
         default:
           return shows;
       }
     }
   }, [
-    movies,
     favouriteShows,
     genreValue,
     moviesPopular,
