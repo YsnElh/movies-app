@@ -8,6 +8,7 @@ import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import { fetchMovieCrew } from "../features/movies/getMovieCrewSlice";
 import { ShowInfo } from "./ShowInfo";
+import { LoadingOverlay } from "./LoadingOverlay";
 
 export const OneSerie = () => {
   const dispatch = useDispatch();
@@ -115,21 +116,7 @@ export const OneSerie = () => {
   }, [OneSerie.name]);
   return (
     <div>
-      {serie.loading && (
-        <div
-          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
-          style={{ textAlign: "center" }}
-        >
-          <div>
-            <img
-              src="/movies-app/loading.gif"
-              style={{ width: "100px" }}
-              alt="loading GIF"
-            />
-          </div>
-          <div>LOADING</div>
-        </div>
-      )}
+      {serie.loading ? <LoadingOverlay /> : null}
       {!serie.loading && serie.error ? (
         <div className={`display-4 ${!darkModeStatu ? "text-light" : null}`}>
           Error : {serie.error}

@@ -8,11 +8,11 @@ import { OneMovie } from "./Components/OneMovie";
 import { OneSerie } from "./Components/OneSerie";
 import { FavouritesShows } from "./Components/FavouritesShows";
 import { Footer } from "./Components/Footer";
+import { PopularPersons } from "./Components/PopularPersons";
+import { Person } from "./Components/Person";
 import "./style/App.css";
 import "./style/style-heart.css";
 import "./style/style-search.css";
-import Person from "./Components/Person";
-import { PopularPersons } from "./Components/PopularPersons";
 
 function App() {
   return (

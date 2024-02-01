@@ -8,6 +8,7 @@ import { fetchShowsByGenre } from "../features/shows/ShowsByGenreSlice";
 import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import StarRating from "./comps/StarRating";
+import { LoadingOverlay } from "./LoadingOverlay";
 
 export const Series = () => {
   const dispatch = useDispatch();
@@ -40,17 +41,13 @@ export const Series = () => {
     sessionStorage.setItem("series", JSON.stringify(series));
   }, [searchValue, series, genreValue]);
 
-  useEffect(() => {
-    const removeSessionData = () => {
-      sessionStorage.removeItem("searchvalue");
-      sessionStorage.removeItem("series");
-      sessionStorage.removeItem("genrevalue");
-    };
-    window.addEventListener("beforeunload", removeSessionData);
-    return () => {
-      window.removeEventListener("beforeunload", removeSessionData);
-    };
-  }, []);
+  const removeSessionData = () => {
+    sessionStorage.removeItem("searchvalue");
+    sessionStorage.removeItem("series");
+    sessionStorage.removeItem("genrevalue");
+    setSearchValue("");
+    setGenreValue("");
+  };
 
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   const seriesGenres = useSelector((state) => state.series.serieGenres.genres);
@@ -151,40 +148,41 @@ export const Series = () => {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-        <select
-          className="filter-select mt-2"
-          name="selectfilter"
-          id="selectfilter"
-          onChange={(e) => setGenreValue(e.target.value)}
-          value={genreValue}
-        >
-          <option value="">Popular</option>
-          {seriesGenres?.map((gn) => (
-            <option key={gn.id} value={`${gn.id}`}>
-              {gn.name}
-            </option>
-          ))}
-        </select>
         <label htmlFor="name" className="form__label">
           Title
         </label>
+        <div className="d-flex flex-column">
+          {/* <label className="text-light" htmlFor="selectfilter">
+            Genre:
+          </label> */}
+          <select
+            className="filter-select"
+            name="selectfilter"
+            id="selectfilter"
+            title="Serie Genres"
+            onChange={(e) => setGenreValue(e.target.value)}
+            value={genreValue}
+          >
+            <option value="">Popular</option>
+            {seriesGenres?.map((gn) => (
+              <option key={gn.id} value={`${gn.id}`}>
+                {gn.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        {!loading && (searchValue.length > 0 || genreValue.length > 0) ? (
+          <button
+            className="btn btn-outline-light"
+            title="Clear Search data"
+            onClick={() => removeSessionData()}
+          >
+            Clear Search
+          </button>
+        ) : null}
       </div>
       <div className="movies-container">
-        {loading && (
-          <div
-            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
-            style={{ textAlign: "center" }}
-          >
-            <div>
-              <img
-                src="/movies-app/loading.gif"
-                style={{ width: "100px" }}
-                alt="loading GIF"
-              />
-            </div>
-            <div>LOADING</div>
-          </div>
-        )}
+        {loading && <LoadingOverlay />}
         {!loading &&
         series &&
         series.length === 0 &&

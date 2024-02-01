@@ -3,15 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesSearch } from "../features/movies/moviesSearchSlice";
 import { fetchShowsByGenre } from "../features/shows/ShowsByGenreSlice";
 import { fetchMovieGenres } from "../features/movies/moviesPopularSlice";
-import { addToFavourites } from "../features/favourites/favouritesShowSlice";
-import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "../features/favourites/favouritesShowSlice";
 import { NavLink } from "react-router-dom";
 import StarRating from "./comps/StarRating";
+import { LoadingOverlay } from "./LoadingOverlay";
 
 export const MoviesPopular = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
   const [genreValue, setGenreValue] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [sortByValues] = useState([
+    { id: 1, value: "Title Asc &uarr;" },
+    { id: 2, value: "Title Desc &darr;" },
+    { id: 3, value: "Best Rating &#x269D;" },
+    { id: 4, value: "Release Date Asc &uarr;" },
+    { id: 5, value: "Release Date Desc &darr;" },
+  ]);
+  /* 
+  <option value="1">Title Asc &uarr;</option>
+  <option value="2">Title Desc &darr;</option>
+  <option value="3">Best Rating &#x269D;</option>
+  <option value="4">Release Date Asc &uarr;</option>
+  <option value="5">Release Date Desc &darr;</option>
+  */
 
   let [movies, setMovies] = useState([]);
   let [loading, setLoading] = useState(false);
@@ -30,6 +48,7 @@ export const MoviesPopular = () => {
   useEffect(() => {
     const storedSearchValue = sessionStorage.getItem("searchvalueMovie");
     const storedGenreValue = sessionStorage.getItem("genrevalueMovie");
+    const storedSortby = sessionStorage.getItem("sortbyMovie");
     const storedMovies = sessionStorage.getItem("movies");
 
     if (storedSearchValue) {
@@ -41,25 +60,28 @@ export const MoviesPopular = () => {
     if (storedMovies) {
       setMovies(JSON.parse(storedMovies));
     }
+    if (storedSortby) {
+      setSortBy(storedSortby);
+    }
   }, []);
 
   useEffect(() => {
     sessionStorage.setItem("searchvalueMovie", searchValue);
     sessionStorage.setItem("genrevalueMovie", genreValue);
+    sessionStorage.setItem("sortbyMovie", sortBy);
     sessionStorage.setItem("movies", JSON.stringify(movies));
-  }, [searchValue, movies, genreValue]);
+  }, [searchValue, movies, genreValue, sortBy]);
 
-  useEffect(() => {
-    const removeSessionData = () => {
-      sessionStorage.removeItem("searchvalueMovie");
-      sessionStorage.removeItem("genrevalueMovie");
-      sessionStorage.removeItem("movies");
-    };
-    window.addEventListener("beforeunload", removeSessionData);
-    return () => {
-      window.removeEventListener("beforeunload", removeSessionData);
-    };
-  }, []);
+  const removeSessionData = () => {
+    sessionStorage.removeItem("searchvalueMovie");
+    sessionStorage.removeItem("genrevalueMovie");
+    sessionStorage.removeItem("sortbyMovie");
+    sessionStorage.removeItem("movies");
+
+    setSearchValue("");
+    setGenreValue("");
+    setSortBy("");
+  };
   //------------
   useEffect(() => {
     dispatch(fetchShowsByGenre({ type: "movie", genre: genreValue }));
@@ -97,15 +119,17 @@ export const MoviesPopular = () => {
 
   useEffect(() => {
     if (searchValue.length > 0) {
-      setMovies(checkIsFavs(moviesSearch.moviesSearch, true, genreValue));
+      setMovies(
+        checkIsFavs(moviesSearch.moviesSearch, true, genreValue, sortBy)
+      );
       setLoading(moviesSearch.loading);
       setError(moviesSearch.error);
     } else {
-      setMovies(checkIsFavs(moviesPopular.shows, false, genreValue));
+      setMovies(checkIsFavs(moviesPopular.shows, false, genreValue, sortBy));
       setLoading(moviesPopular.loading);
       setError(moviesPopular.error);
     }
-    function checkIsFavs(movies, searchValExist, genre) {
+    function checkIsFavs(movies, searchValExist, genre, sortVal) {
       if (!Array.isArray(favouriteShows)) {
         console.error("favouriteShows is not an array");
         return;
@@ -120,21 +144,45 @@ export const MoviesPopular = () => {
         const updatedMovies2 = updatedMovies.filter((movie) =>
           movie.genre_ids.includes(parseInt(genre))
         );
-        return updatedMovies2;
+        return sortShows(updatedMovies2, sortVal);
       }
-      return updatedMovies;
+      return sortShows(updatedMovies, sortVal);
+    }
+    console.table(movies);
+    function sortShows(shows, sortVal) {
+      switch (sortVal) {
+        case "1":
+          return shows.slice().sort((a, b) => a.title.localeCompare(b.title));
+        case "2":
+          return shows.slice().sort((a, b) => b.title.localeCompare(a.title));
+        case "3":
+          return shows.slice().sort((a, b) => b.vote_average - a.vote_average);
+        case "4":
+          return shows
+            .slice()
+            .sort(
+              (a, b) => new Date(a.release_date) - new Date(b.release_date)
+            );
+        case "5":
+          return shows
+            .slice()
+            .sort(
+              (a, b) => new Date(b.release_date) - new Date(a.release_date)
+            );
+        default:
+          return shows;
+      }
     }
   }, [
+    movies,
     favouriteShows,
     genreValue,
-    moviesPopular.error,
-    moviesPopular.loading,
-    moviesPopular.shows,
-    moviesSearch.error,
-    moviesSearch.loading,
-    moviesSearch.moviesSearch,
+    moviesPopular,
+    moviesSearch,
     searchValue,
+    sortBy,
   ]);
+  //console.table(movies);
 
   return (
     <div className="movies-general-container">
@@ -143,18 +191,19 @@ export const MoviesPopular = () => {
           type="search"
           className="form__field"
           placeholder="Title"
-          required=""
+          id="movie-title-search"
+          title="search movie by title"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-        <label htmlFor="name" className="form__label">
+        <label htmlFor="movie-title-search" className="form__label">
           Title
         </label>
-        <label htmlFor="selectfilter" className="text-light"></label>
         <select
-          className="filter-select mt-2"
+          className="filter-select"
           name="selectfilter"
           id="selectfilter"
+          title="Movie genres"
           onChange={(e) => setGenreValue(e.target.value)}
           value={genreValue}
         >
@@ -165,23 +214,38 @@ export const MoviesPopular = () => {
             </option>
           ))}
         </select>
+
+        <select
+          className="filter-select"
+          id="sortby"
+          title="Sort By"
+          onChange={(e) => setSortBy(e.target.value)}
+          value={sortBy}
+        >
+          <option value="">Sort By:</option>
+          {sortByValues.map((e) => (
+            <option
+              key={e.id}
+              value={e.id}
+              dangerouslySetInnerHTML={{ __html: e.value }}
+            ></option>
+          ))}
+        </select>
+        {!loading &&
+        (searchValue.length > 0 ||
+          genreValue.length > 0 ||
+          sortBy.length > 0) ? (
+          <button
+            className="btn btn-outline-light"
+            title="Clear Search data"
+            onClick={() => removeSessionData()}
+          >
+            Clear Search
+          </button>
+        ) : null}
       </div>
       <div className="movies-container">
-        {loading && (
-          <div
-            className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
-            style={{ textAlign: "center" }}
-          >
-            <div>
-              <img
-                src="/movies-app/loading.gif"
-                style={{ width: "100px" }}
-                alt="loading GIF"
-              />
-            </div>
-            <div>LOADING</div>
-          </div>
-        )}
+        {loading && <LoadingOverlay />}
         {movies && movies.length === 0 && searchValue.length > 0 && !loading ? (
           <div
             className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
@@ -193,6 +257,7 @@ export const MoviesPopular = () => {
         {!loading && error.length === 0
           ? movies?.map((elem) => (
               <div className="movie-card mt-2" key={elem.id}>
+                {/* <LoadingOverlay isLoading={false} /> */}
                 <img
                   className="card-img"
                   src={

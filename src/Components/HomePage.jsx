@@ -1,23 +1,31 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesPop } from "../features/movies/moviesPopularSlice";
 import { fetchTopRatedMovies } from "../features/movies/topRatedMoviesSlice";
 import { fetchTopRatedSeries } from "../features/series/topRatedSeriesSlice";
 import { TopRated } from "./TopRated";
 import { NavLink } from "react-router-dom";
+import { LoadingOverlay } from "./LoadingOverlay";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const moviesPopular = useSelector((state) => state.moviesPopular);
-  const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   let favouriteShows = useSelector(
     (state) => state.favouritesShow
   ).favouritesShow;
 
   const [movie, setMovie] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  let [topRatedMovies, setTopRatedMovies] = useState([]);
+  let [topRatedM_Loading, setTopRatedM_Loading] = useState(false);
+  let [topRatedM_Error, setTopRatedM_Error] = useState("");
+
+  let [topRatedSeries, setTopRatedSeries] = useState([]);
+  let [topRatedS_Loading, setTopRatedS_Loading] = useState(false);
+  let [topRatedS_Error, setTopRatedS_Error] = useState("");
 
   useEffect(() => {
     dispatch(fetchMoviesPop());
@@ -51,45 +59,51 @@ export const HomePage = () => {
   }, [moviesPopular]);
 
   //---------fetch TOp rated movies ----------------
-  let [topRatedMovies] = useState([]);
-  let [topRated_Loading] = useState(false);
-  let [topRated_Error] = useState("");
 
   useEffect(() => {
     dispatch(fetchTopRatedMovies());
   }, [dispatch]);
   const topRatedMoviesS = useSelector((state) => state.topRatedMovies);
 
-  topRatedMovies = checkIsFavs(topRatedMoviesS.topRatedMovies, "movie");
-  topRated_Loading = topRatedMoviesS.loading;
-  topRated_Error = topRatedMoviesS.error;
-  //---------fetch TOp rated series ----------------
-  let [topRatedSeries] = useState([]);
-  let [topRatedS_Loading] = useState(false);
-  let [topRatedS_Error] = useState("");
+  const checkIsFavs = useCallback(
+    (shows, type) => {
+      if (!Array.isArray(favouriteShows)) {
+        console.error("favouriteShows is not an array");
+        return;
+      }
+      const updatedMovies = shows.map((movie) => {
+        const isFavourite = favouriteShows.some(
+          (show) => show.id === movie.id && show.show_type === type
+        );
+        return { ...movie, ischecked: isFavourite };
+      });
+      return updatedMovies;
+    },
+    [favouriteShows]
+  );
 
-  function checkIsFavs(movies, type) {
-    if (!Array.isArray(favouriteShows)) {
-      console.error("favouriteShows is not an array");
-      return;
-    }
-    const updatedMovies = movies.map((movie) => {
-      const isFavourite = favouriteShows.some(
-        (show) => show.id === movie.id && show.show_type === type
-      );
-      return { ...movie, ischecked: isFavourite };
-    });
-    return updatedMovies;
-  }
+  useEffect(() => {
+    setTopRatedMovies(checkIsFavs(topRatedMoviesS.topRatedMovies, "movie"));
+    setTopRatedM_Loading(topRatedMoviesS.loading);
+    setTopRatedM_Error(topRatedMoviesS.error);
+  }, [topRatedMoviesS, checkIsFavs]);
+
+  //---------fetch TOp rated series ----------------
 
   useEffect(() => {
     dispatch(fetchTopRatedSeries());
   }, [dispatch]);
   const topRatedSeriesS = useSelector((state) => state.topRatedSeries);
-  //console.log(topRatedSeriesS.topRatedSeries[0]);
-  topRatedSeries = checkIsFavs(topRatedSeriesS.topRatedSeries, "serie");
-  topRated_Loading = topRatedSeriesS.loading;
-  topRated_Error = topRatedSeriesS.error;
+
+  useEffect(() => {
+    setTopRatedS_Loading(topRatedSeriesS.loading);
+  }, [topRatedSeriesS]);
+
+  useEffect(() => {
+    setTopRatedSeries(checkIsFavs(topRatedSeriesS.topRatedSeries, "serie"));
+    setTopRatedS_Loading(topRatedSeriesS.loading);
+    setTopRatedS_Error(topRatedSeriesS.loading);
+  }, [topRatedSeriesS, checkIsFavs]);
 
   //FOR THE TOP RATED (MOVIES)
   const containerRef = useRef(null);
@@ -149,21 +163,10 @@ export const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      {loading && (
-        <div
-          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
-          style={{ textAlign: "center" }}
-        >
-          <div>
-            <img
-              src="/movies-app/loading.gif"
-              style={{ width: "100px" }}
-              alt="loading GIF"
-            />
-          </div>
-          <div>LOADING</div>
-        </div>
-      )}
+      {loading || topRatedS_Loading || topRatedM_Loading ? (
+        <LoadingOverlay />
+      ) : null}
+
       {!loading && !error ? (
         <div
           className={`home-movie-pop ${isTransitioning ? "transitioning" : ""}`}
@@ -188,9 +191,8 @@ export const HomePage = () => {
             </NavLink>
           </div>
         </div>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
+
       <div className="top-rated-pad">
         <div className="top-rated-movies-tite">
           <div className="display-6">Top Rated Movies</div>
@@ -219,12 +221,13 @@ export const HomePage = () => {
               title={m.title}
               ischecked={m.ischecked}
               year={m.release_date.slice(0, 4)}
-              loading={topRated_Loading}
-              error={topRated_Error}
+              loading={topRatedM_Loading}
+              error={topRatedM_Error}
             />
           ))}
         </div>
       </div>
+
       {/* SERIES */}
       <div className="top-rated-pad">
         <div className="top-rated-movies-tite">

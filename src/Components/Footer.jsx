@@ -18,17 +18,11 @@ export const Footer = () => {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item">
-            <a className="menu__link" href="https://www.themoviedb.org/">
-              API
-            </a>
-          </li>
-
-          <li className="list-inline-item">
             <a
               className="menu__link"
               href="https://github.com/YsnElh/movies-app"
             >
-              Repository
+              repository
             </a>
           </li>
         </ul>

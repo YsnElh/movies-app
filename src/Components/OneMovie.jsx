@@ -8,6 +8,7 @@ import { fetchMovieCrew } from "../features/movies/getMovieCrewSlice";
 import { useParams } from "react-router-dom";
 import StarRating from "./comps/StarRating";
 import { ShowInfo } from "./ShowInfo";
+import { LoadingOverlay } from "./LoadingOverlay";
 
 export const OneMovie = () => {
   const dispatch = useDispatch();
@@ -129,21 +130,7 @@ export const OneMovie = () => {
   }, [OneMovie.title]);
   return (
     <div>
-      {movie.loading && (
-        <div
-          className={`display-4 ${!darkModeStatu ? "text-light" : null}`}
-          style={{ textAlign: "center" }}
-        >
-          <div>
-            <img
-              src="/movies-app/loading.gif"
-              style={{ width: "100px" }}
-              alt="loading GIF"
-            />
-          </div>
-          <div>LOADING</div>
-        </div>
-      )}
+      {movie.loading && <LoadingOverlay />}
       {!movie.loading && movie.error ? (
         <div className={`display-4 ${!darkModeStatu ? "text-light" : null}`}>
           Error : {movie.error}
