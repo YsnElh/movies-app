@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMoviesPop } from "../features/movies/moviesPopularSlice";
 import { fetchTopRatedMovies } from "../features/movies/topRatedMoviesSlice";
 import { fetchTopRatedSeries } from "../features/series/topRatedSeriesSlice";
+import { fetchSeries } from "../features/series/seriesSlice";
 import { TopRated } from "./TopRated";
 import { NavLink } from "react-router-dom";
 import { LoadingOverlay } from "./LoadingOverlay";
@@ -11,13 +12,18 @@ import { Slider } from "./Slider";
 export const HomePage = () => {
   const dispatch = useDispatch();
   const moviesPopular = useSelector((state) => state.moviesPopular);
+  const seriesPopular = useSelector((state) => state.series);
   let favouriteShows = useSelector(
     (state) => state.favouritesShow
   ).favouritesShow;
 
-  const [movie, setMovie] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const [series, setSeries] = useState([]);
+  const [loadingS, setLoadingS] = useState(true);
+  const [errorS, setErrorS] = useState(false);
 
   let [topRatedMovies, setTopRatedMovies] = useState([]);
   let [topRatedM_Loading, setTopRatedM_Loading] = useState(false);
@@ -32,10 +38,19 @@ export const HomePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setMovie(moviesPopular.moviesPopular.slice(0, 8));
+    dispatch(fetchSeries());
+  }, [dispatch]);
+
+  useEffect(() => {
+    //POP MOVIES
+    setMovies(moviesPopular.moviesPopular.slice(0, 5));
     setLoading(moviesPopular.loading);
     setError(moviesPopular.error);
-  }, [moviesPopular]);
+    //POP SERIES
+    setSeries(seriesPopular.series.slice(0, 5));
+    setLoadingS(seriesPopular.loading);
+    setErrorS(seriesPopular.error);
+  }, [moviesPopular, seriesPopular]);
 
   //---------fetch TOp rated movies ----------------
 
@@ -136,7 +151,9 @@ export const HomePage = () => {
         <LoadingOverlay />
       ) : null}
 
-      {!loading && !error ? <Slider slides={movie} /> : null}
+      {!loading && !error && !loadingS && !errorS ? (
+        <Slider movies={movies} series={series} />
+      ) : null}
 
       <div className="top-rated-pad">
         <div className="top-rated-movies-tite">

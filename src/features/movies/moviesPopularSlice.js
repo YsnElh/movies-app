@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   moviesPopular: [],
   movieGenres: {},
-  error: "",
+  error: false,
 };
 
 export const fetchMoviesPop = createAsyncThunk(
@@ -41,7 +41,7 @@ const moviesPopularSlice = createSlice({
     builder.addCase(fetchMoviesPop.fulfilled, (state, action) => {
       state.loading = false;
       state.moviesPopular = action.payload;
-      state.error = "";
+      state.error = false;
     });
     builder.addCase(fetchMoviesPop.rejected, (state, action) => {
       state.loading = false;

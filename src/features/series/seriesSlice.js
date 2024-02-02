@@ -11,7 +11,7 @@ const initialState = {
 export const fetchSeries = createAsyncThunk("series/fetchSeries", async () => {
   return await axios
     .get(
-      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_MOVIES_API}&language=en-US&page=1`
+      `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.REACT_APP_MOVIES_API}&language=en-US&page=1`
     )
     .then((res) => res.data.results);
 });

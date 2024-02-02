@@ -1,8 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router-dom";
 
-export const Slider = ({ slides }) => {
-  const [movies] = useState(slides);
+export const Slider = (props) => {
+  const [movies, setMovies] = useState([]);
+  const imgSrcTMDB = "https://image.tmdb.org/t/p/original";
+  const backgroundImgNotfound = "/movies-app/bg-not-found.jpg";
+
+  useEffect(() => {
+    const combined = [...props.movies, ...props.series];
+    const shuffledArray = combined.sort(() => Math.random() - 0.5);
+    setMovies(shuffledArray);
+  }, [props.movies, props.series]);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [maxCharacters, setMaxCharacters] = useState(435);
 
@@ -52,51 +61,82 @@ export const Slider = ({ slides }) => {
   }, [nextSlide, prevSlide, currentSlide]);
 
   return (
+    //movies-app/bg-not-found.jpg
     <>
-      <div
-        className="home-movie-pop"
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original${movies[currentSlide].backdrop_path})`,
-        }}
-      >
-        <span
-          className="btn-sildeshow btn-sildeshow-prev"
-          onClick={() => prevSlide()}
+      {movies.length > 0 ? (
+        <div
+          className="home-movie-pop"
+          style={{
+            backgroundImage: `url(${
+              movies[currentSlide].backdrop_path
+                ? imgSrcTMDB + movies[currentSlide].backdrop_path
+                : backgroundImgNotfound
+            })`,
+          }}
         >
-          <i className="fas fa-angle-left"></i>
-        </span>
-        <img
-          className="image-card"
-          title={movies[currentSlide].title + " movie poster"}
-          src={`https://image.tmdb.org/t/p/original${movies[currentSlide].poster_path}`}
-          alt={movies[currentSlide].title + " movie poster"}
-        />
-        <div className="home-movie-pop-text">
-          <h1 className="display-1">{movies[currentSlide].title}</h1>
-          <p className="display-6">
-            {renderText(movies[currentSlide].overview)}
-          </p>
-          <NavLink
-            to={`/movies-app/movies/${movies[currentSlide].id}`}
-            className="btn-homepage"
+          <span
+            className="btn-sildeshow btn-sildeshow-prev"
+            onClick={() => prevSlide()}
           >
-            View details
-          </NavLink>
+            <i className="fas fa-angle-left"></i>
+          </span>
+          <img
+            className="image-card"
+            title={
+              (movies[currentSlide].title
+                ? movies[currentSlide].title
+                : movies[currentSlide].name) + " movie poster"
+            }
+            src={`https://image.tmdb.org/t/p/original${movies[currentSlide].poster_path}`}
+            alt={
+              (movies[currentSlide].title
+                ? movies[currentSlide].title
+                : movies[currentSlide].name) + " movie poster"
+            }
+          />
+          <div className="home-movie-pop-text">
+            <div className="d-flex flex-row justify-content-start align-items-baseline">
+              <h1 className="display-1">
+                {movies[currentSlide].title
+                  ? movies[currentSlide].title
+                  : movies[currentSlide].name}
+              </h1>
+            </div>
+
+            <p className="display-6">
+              {renderText(movies[currentSlide].overview)}
+            </p>
+            <NavLink
+              to={`/movies-app/${
+                movies[currentSlide].title ? "movies" : "series"
+              }/${movies[currentSlide].id}`}
+              className="btn-homepage"
+            >
+              View details
+            </NavLink>
+          </div>
+          <span
+            className="btn-sildeshow btn-sildeshow-next"
+            onClick={nextSlide}
+          >
+            <i className="fas fa-chevron-right"></i>
+          </span>
+          <div className="navigation-indicators">
+            {movies.map((_, index) => (
+              <div
+                key={index}
+                className={`indicator ${
+                  index === currentSlide ? "active" : ""
+                }`}
+                onClick={() => handleIndicatorClick(index)}
+                title={
+                  movies[index].title ? movies[index].title : movies[index].name
+                }
+              />
+            ))}
+          </div>
         </div>
-        <span className="btn-sildeshow btn-sildeshow-next" onClick={nextSlide}>
-          <i className="fas fa-chevron-right"></i>
-        </span>
-        <div className="navigation-indicators">
-          {movies.map((_, index) => (
-            <div
-              key={index}
-              className={`indicator ${index === currentSlide ? "active" : ""}`}
-              onClick={() => handleIndicatorClick(index)}
-              title={movies[index].title}
-            />
-          ))}
-        </div>
-      </div>
+      ) : null}
     </>
   );
 };

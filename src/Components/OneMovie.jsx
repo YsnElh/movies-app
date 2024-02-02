@@ -14,6 +14,8 @@ export const OneMovie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+  const imgSrcTMDB = "https://image.tmdb.org/t/p/original";
+  const backgroundImgNotfound = "/movies-app/bg-not-found.jpg";
 
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
 
@@ -37,7 +39,6 @@ export const OneMovie = () => {
 
   useEffect(() => {
     let intervalId;
-
     const updateBackdropIndex = () => {
       const newBackdropIndex = Math.floor(
         Math.random() * (movieBackDrops?.backdrops?.length || 0)
@@ -52,14 +53,16 @@ export const OneMovie = () => {
       clearInterval(intervalId);
     };
   }, [movieBackDrops]);
-  console.log(movieBackDrops);
+
   let movieBackDrop =
     movieBackDrops?.backdrops[currentBackdropIndex]?.file_path;
   //----------------------
 
   //--------------
   const styleComp = {
-    backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieBackDrop})`,
+    backgroundImage: `url(${
+      movieBackDrop ? imgSrcTMDB + movieBackDrop : backgroundImgNotfound
+    })`,
   };
   //----------------------
   const formatRuntime = (minutes) => {

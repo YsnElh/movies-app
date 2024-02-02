@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 // import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 
 export const TopRated = (props) => {
-  //console.log(props.loading);
   return (
     <div className="flip-card">
       <img

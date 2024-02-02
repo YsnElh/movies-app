@@ -14,6 +14,8 @@ export const OneSerie = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentBackdropIndex, setCurrentBackdropIndex] = useState(0);
+  const imgSrcTMDB = "https://image.tmdb.org/t/p/original";
+  const backgroundImgNotfound = "/movies-app/bg-not-found.jpg";
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
   let tvCrew = useSelector((state) =>
     state.movieCrew.movieCrew.cast?.slice(0, 10)
@@ -60,7 +62,9 @@ export const OneSerie = () => {
   let serieBackDrop = serieBackDrops?.[currentBackdropIndex]?.file_path;
   //-------------
   const styleComp = {
-    backgroundImage: `url(https://image.tmdb.org/t/p/original${serieBackDrop})`,
+    backgroundImage: `url(${
+      serieBackDrop ? imgSrcTMDB + serieBackDrop : backgroundImgNotfound
+    })`,
   };
 
   const formatDate = (dateString) => {
