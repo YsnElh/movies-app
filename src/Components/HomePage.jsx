@@ -151,7 +151,12 @@ export const HomePage = () => {
         <LoadingOverlay />
       ) : null}
 
-      {!loading && !error && !loadingS && !errorS ? (
+      {!loading &&
+      !error &&
+      !loadingS &&
+      !errorS &&
+      !topRatedS_Loading &&
+      !topRatedM_Loading ? (
         <Slider movies={movies} series={series} />
       ) : null}
 

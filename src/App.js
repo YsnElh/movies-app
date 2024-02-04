@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import { HomePage } from "./Components/HomePage";
@@ -14,8 +14,16 @@ import "./style/App.css";
 import "./style/style-heart.css";
 import "./style/style-search.css";
 import { Slider } from "./Components/Slider";
+import ReactGA from "react-ga";
+import gaTrackingCode from "./Components/comps/gaConfig";
 
 function App() {
+  // google analytics tracking
+  ReactGA.initialize(gaTrackingCode);
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <>
       <Navbar />
