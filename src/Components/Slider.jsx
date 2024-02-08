@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 export const Slider = (props) => {
   const [movies, setMovies] = useState([]);
@@ -78,7 +79,18 @@ export const Slider = (props) => {
             className="btn-sildeshow btn-sildeshow-prev"
             onClick={() => prevSlide()}
           >
-            <i className="fas fa-angle-left"></i>
+            <i
+              className="fas fa-angle-left"
+              style={{ zIndex: "90" }}
+              data-tooltip-id={currentSlide + 1}
+              data-tooltip-content={
+                movies[currentSlide > 0 ? currentSlide - 1 : 9].title
+                  ? movies[currentSlide > 0 ? currentSlide - 1 : 9].title
+                  : movies[currentSlide > 0 ? currentSlide - 1 : 9].name
+              }
+            >
+              <Tooltip id={currentSlide + 1} />
+            </i>
           </span>
           <img
             className="image-card"
@@ -119,7 +131,17 @@ export const Slider = (props) => {
             className="btn-sildeshow btn-sildeshow-next"
             onClick={nextSlide}
           >
-            <i className="fas fa-chevron-right"></i>
+            <i
+              className="fas fa-chevron-right"
+              data-tooltip-id={currentSlide + 1}
+              data-tooltip-content={
+                movies[currentSlide < 9 ? currentSlide + 1 : 0].title
+                  ? movies[currentSlide < 9 ? currentSlide + 1 : 0].title
+                  : movies[currentSlide < 9 ? currentSlide + 1 : 0].name
+              }
+            >
+              <Tooltip id={currentSlide + 1} />
+            </i>
           </span>
           <div className="navigation-indicators">
             {movies.map((_, index) => (
@@ -129,10 +151,13 @@ export const Slider = (props) => {
                   index === currentSlide ? "active" : ""
                 }`}
                 onClick={() => handleIndicatorClick(index)}
-                title={
+                data-tooltip-id={index + 1}
+                data-tooltip-content={
                   movies[index].title ? movies[index].title : movies[index].name
                 }
-              />
+              >
+                {currentSlide === index ? null : <Tooltip id={index + 1} />}
+              </div>
             ))}
           </div>
         </div>

@@ -15,11 +15,11 @@ import "./style/style-heart.css";
 import "./style/style-search.css";
 import { Slider } from "./Components/Slider";
 import ReactGA from "react-ga";
-import gaTrackingCode from "./Components/comps/gaConfig";
 
 function App() {
   // google analytics tracking
-  ReactGA.initialize(gaTrackingCode);
+  const gaTrackCode = process.env.REACT_APP_GA_TRACKING_CODE;
+  ReactGA.initialize(gaTrackCode);
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);

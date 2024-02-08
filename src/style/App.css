@@ -28,6 +28,11 @@
   font-family: 'Oswald', sans-serif;
 }
 
+i .react-tooltip {
+  z-index: 100;
+  font-size: 15px;
+}
+
 /* ------------------------ HANDLE LOADING OVERLAY ------------------------*/
 
 .loading-overlay {
