@@ -42,15 +42,26 @@ export const HomePage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    //POP MOVIES
-    setMovies(moviesPopular.moviesPopular.slice(0, 5));
+    const moviesWithoutId = removeById(moviesPopular.moviesPopular, 1072790);
+    setMovies(shuffleArray(moviesWithoutId).slice(0, 3));
     setLoading(moviesPopular.loading);
     setError(moviesPopular.error);
     //POP SERIES
-    setSeries(seriesPopular.series.slice(0, 5));
+    setSeries(shuffleArray([...seriesPopular.series]).slice(0, 3));
     setLoadingS(seriesPopular.loading);
     setErrorS(seriesPopular.error);
   }, [moviesPopular, seriesPopular]);
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  const removeById = (array, idToRemove) => {
+    return array.filter((item) => item.id !== idToRemove);
+  };
 
   //---------fetch TOp rated movies ----------------
 

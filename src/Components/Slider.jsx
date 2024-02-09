@@ -84,9 +84,9 @@ export const Slider = (props) => {
               style={{ zIndex: "90" }}
               data-tooltip-id={currentSlide + 1}
               data-tooltip-content={
-                movies[currentSlide > 0 ? currentSlide - 1 : 9].title
-                  ? movies[currentSlide > 0 ? currentSlide - 1 : 9].title
-                  : movies[currentSlide > 0 ? currentSlide - 1 : 9].name
+                movies[currentSlide > 0 ? currentSlide - 1 : 5].title
+                  ? movies[currentSlide > 0 ? currentSlide - 1 : 5].title
+                  : movies[currentSlide > 0 ? currentSlide - 1 : 5].name
               }
             >
               <Tooltip id={currentSlide + 1} />
@@ -135,9 +135,9 @@ export const Slider = (props) => {
               className="fas fa-chevron-right"
               data-tooltip-id={currentSlide + 1}
               data-tooltip-content={
-                movies[currentSlide < 9 ? currentSlide + 1 : 0].title
-                  ? movies[currentSlide < 9 ? currentSlide + 1 : 0].title
-                  : movies[currentSlide < 9 ? currentSlide + 1 : 0].name
+                movies[currentSlide < 5 ? currentSlide + 1 : 0].title
+                  ? movies[currentSlide < 5 ? currentSlide + 1 : 0].title
+                  : movies[currentSlide < 5 ? currentSlide + 1 : 0].name
               }
             >
               <Tooltip id={currentSlide + 1} />

@@ -9,6 +9,7 @@ import { removeFromFavourites } from "../features/favourites/favouritesShowSlice
 import { fetchMovieCrew } from "../features/movies/getMovieCrewSlice";
 import { ShowInfo } from "./ShowInfo";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { Tooltip } from "react-tooltip";
 
 export const OneSerie = () => {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ export const OneSerie = () => {
                   alt={OneSerie.name + " serie poster"}
                 />
               </div>
-              <div className="info-movieOne">
+              <div className="info-movieOne d-flex flex-column justify-content-around">
                 <h1>{OneSerie.name}</h1>
                 <p>
                   {formatDate(OneSerie.first_air_date) + " • "}
@@ -211,7 +212,14 @@ export const OneSerie = () => {
                       type="checkbox"
                       title="Add to Favourites"
                       checked={OneSerie.ischecked}
+                      data-tooltip-id={OneSerie.id}
+                      data-tooltip-content={
+                        OneSerie.ischecked
+                          ? "Remove from Favourites"
+                          : "Add to Favourites"
+                      }
                     />
+                    <Tooltip id={OneSerie.id} place="right" />
                     <div className="checkmark">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -261,7 +269,7 @@ export const OneSerie = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   {OneSerie.homepage ? (
                     <a className="menu__link" href={OneSerie.homepage}>
                       Serie HomePage
@@ -277,7 +285,7 @@ export const OneSerie = () => {
                       </svg>
                     </a>
                   ) : null}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

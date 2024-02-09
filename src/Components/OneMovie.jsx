@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Tooltip } from "react-tooltip";
 import { fetchMovieOne } from "../features/movies/movieOneSlice";
 import { fetchAllBackDropsMovie } from "../features/movies/movieOneGetAllBackdrops";
 import { addToFavourites } from "../features/favourites/favouritesShowSlice";
@@ -155,7 +156,7 @@ export const OneMovie = () => {
                   alt={OneMovie.title + " movie poster"}
                 />
               </div>
-              <div className="info-movieOne">
+              <div className="info-movieOne d-flex flex-column justify-content-around">
                 <h1>{OneMovie.title}</h1>
                 <p>
                   {formatDate(OneMovie.release_date) + " • "}
@@ -204,9 +205,15 @@ export const OneMovie = () => {
                       }
                       className="like"
                       type="checkbox"
-                      title="Add to Favourites"
                       checked={OneMovie.ischecked}
+                      data-tooltip-id={OneMovie.id}
+                      data-tooltip-content={
+                        OneMovie.ischecked
+                          ? "Remove from Favourites"
+                          : "Add to Favourites"
+                      }
                     />
+                    <Tooltip id={OneMovie.id} place="right" />
                     <div className="checkmark">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +266,7 @@ export const OneMovie = () => {
                 <div>
                   <div></div>
                 </div>
-                <div>
+                {/* <div>
                   {OneMovie.homepage ? (
                     <a className="menu__link" href={OneMovie.homepage}>
                       Movie HomePage
@@ -275,7 +282,7 @@ export const OneMovie = () => {
                       </svg>
                     </a>
                   ) : null}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@ import {
 import { NavLink } from "react-router-dom";
 import StarRating from "./comps/StarRating";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { Tooltip } from "react-tooltip";
 
 export const MoviesPopular = () => {
   const dispatch = useDispatch();
@@ -273,10 +274,7 @@ export const MoviesPopular = () => {
                   >
                     More details
                   </NavLink>
-                  <div
-                    title="Add to favourites"
-                    className="addToFavourites-heart"
-                  >
+                  <div className="addToFavourites-heart">
                     <div className="con-like">
                       <input
                         onChange={(e) =>
@@ -284,9 +282,15 @@ export const MoviesPopular = () => {
                         }
                         className="like"
                         type="checkbox"
-                        title="like"
                         checked={elem.ischecked}
+                        data-tooltip-id={elem.id}
+                        data-tooltip-content={
+                          elem.ischecked
+                            ? "Remove from Favourites"
+                            : "Add to Favourites"
+                        }
                       />
+                      <Tooltip id={elem.id} place="right-end" />
                       <div className="checkmark">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

@@ -17,21 +17,25 @@ export const FavouritesShows = () => {
   );
 
   const filterFavs = () => {
+    const favouritesWithIds = favouritesShows.map((show, index) => {
+      return { ...show, id_local: index + 1 };
+    });
+
     switch (selectedValue) {
       case "0":
-        return favouritesShows;
+        return favouritesWithIds;
       case "1":
-        return [...favouritesShows].reverse();
+        return [...favouritesWithIds].reverse();
       case "2":
-        return [...favouritesShows].sort((a, b) =>
+        return [...favouritesWithIds].sort((a, b) =>
           a.title.localeCompare(b.title)
         );
       case "3":
-        return [...favouritesShows].sort(
+        return [...favouritesWithIds].sort(
           (a, b) => b.vote_average - a.vote_average
         );
       default:
-        return favouritesShows;
+        return favouritesWithIds;
     }
   };
   return (
@@ -63,10 +67,10 @@ export const FavouritesShows = () => {
         </>
       ) : null}
 
-      <div className="movies-container">
+      <div className="d-flex flex-row justify-content-around flex-wrap p-2">
         {filterFavs()?.length > 0 ? (
           filterFavs()?.map((elem) => (
-            <div className="movie-card mt-2" key={elem.id}>
+            <div className="movie-card m-2" key={elem.id_local}>
               <img
                 className="card-img"
                 src={

@@ -9,6 +9,7 @@ import { addToFavourites } from "../features/favourites/favouritesShowSlice";
 import { removeFromFavourites } from "../features/favourites/favouritesShowSlice";
 import StarRating from "./comps/StarRating";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { Tooltip } from "react-tooltip";
 
 export const Series = () => {
   const dispatch = useDispatch();
@@ -281,10 +282,7 @@ export const Series = () => {
                   >
                     More details
                   </NavLink>
-                  <div
-                    title="Add to favourites"
-                    className="addToFavourites-heart"
-                  >
+                  <div className="addToFavourites-heart">
                     <div className="con-like">
                       <input
                         onChange={(e) =>
@@ -292,9 +290,15 @@ export const Series = () => {
                         }
                         className="like"
                         type="checkbox"
-                        title="like"
                         checked={c.ischecked}
+                        data-tooltip-id={c.id}
+                        data-tooltip-content={
+                          c.ischecked
+                            ? "Remove from Favourites"
+                            : "Add to Favourites"
+                        }
                       />
+                      <Tooltip id={c.id} place="right-end" />
                       <div className="checkmark">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
