@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import StarRating from "./comps/StarRating";
@@ -8,7 +8,7 @@ import {
 } from "../features/favourites/favouritesShowSlice";
 
 export const FavouritesShows = () => {
-  const [selectedValue, setSelectedValue] = useState("0");
+  const [selectedValue, setSelectedValue] = useState("");
   const dispatch = useDispatch();
 
   const darkModeStatu = useSelector((state) => state.darkMode.darkMode);
@@ -16,14 +16,24 @@ export const FavouritesShows = () => {
     (state) => state.favouritesShow.favouritesShow
   );
 
+  useEffect(() => {
+    const storedSortbyFavs = localStorage.getItem("sortbyfavs");
+    if (storedSortbyFavs) {
+      setSelectedValue(storedSortbyFavs);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("sortbyfavs", selectedValue);
+    sessionStorage.removeItem("sortbyfavs");
+  }, [selectedValue]);
+
   const filterFavs = () => {
     const favouritesWithIds = favouritesShows.map((show, index) => {
       return { ...show, id_local: index + 1 };
     });
 
     switch (selectedValue) {
-      case "0":
-        return favouritesWithIds;
       case "1":
         return [...favouritesWithIds].reverse();
       case "2":
@@ -38,33 +48,35 @@ export const FavouritesShows = () => {
         return favouritesWithIds;
     }
   };
+
   return (
     <>
       {filterFavs().length > 0 ? (
-        <>
-          <button
-            className="btn btn-outline-danger m-1"
-            onClick={() => dispatch(destroyFavourites())}
-          >
-            Clear favourites
-          </button>
-          <div className="filter-container">
-            <label className="filter-select-label" htmlFor="selectfilter">
-              Sort By:
+        <div className="d-flex m-2">
+          <div className="filter-container d-flex">
+            <label htmlFor="selectfilter" className="filter-select-label m-1">
+              Sort by:
             </label>
             <select
               className="filter-select-favs"
               name="selectfilter"
               id="selectfilter"
               onChange={(e) => setSelectedValue(e.target.value)}
+              value={selectedValue}
             >
-              <option value="0">First Added</option>
+              <option>First Added</option>
               <option value="1">Last Added</option>
               <option value="2">Title</option>
               <option value="3">Best Rating</option>
             </select>
           </div>
-        </>
+          <button
+            className="btn btn-outline-danger m-1"
+            onClick={() => dispatch(destroyFavourites())}
+          >
+            Clear Favourites
+          </button>
+        </div>
       ) : null}
 
       <div className="d-flex flex-row justify-content-around flex-wrap p-2">

@@ -43,16 +43,12 @@ export const MoviesPopular = () => {
     const storedSearchValue = sessionStorage.getItem("searchvalueMovie");
     const storedGenreValue = sessionStorage.getItem("genrevalueMovie");
     const storedSortby = sessionStorage.getItem("sortbyMovie");
-    const storedMovies = sessionStorage.getItem("movies");
 
     if (storedSearchValue) {
       setSearchValue(storedSearchValue);
     }
     if (storedGenreValue) {
       setGenreValue(storedGenreValue);
-    }
-    if (storedMovies) {
-      setMovies(JSON.parse(storedMovies));
     }
     if (storedSortby) {
       setSortBy(storedSortby);
@@ -63,14 +59,12 @@ export const MoviesPopular = () => {
     sessionStorage.setItem("searchvalueMovie", searchValue);
     sessionStorage.setItem("genrevalueMovie", genreValue);
     sessionStorage.setItem("sortbyMovie", sortBy);
-    sessionStorage.setItem("movies", JSON.stringify(movies));
-  }, [searchValue, movies, genreValue, sortBy]);
+  }, [searchValue, genreValue, sortBy]);
 
   const removeSessionData = () => {
     sessionStorage.removeItem("searchvalueMovie");
     sessionStorage.removeItem("genrevalueMovie");
     sessionStorage.removeItem("sortbyMovie");
-    sessionStorage.removeItem("movies");
 
     setSearchValue("");
     setGenreValue("");

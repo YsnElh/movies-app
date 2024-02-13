@@ -30,16 +30,13 @@ export const Series = () => {
 
   useEffect(() => {
     const storedSearchValue = sessionStorage.getItem("searchvalue");
-    const storedSeries = sessionStorage.getItem("series");
     const storedGenreValue = sessionStorage.getItem("genrevalue");
     const storedSortby = sessionStorage.getItem("sortbySeries");
 
     if (storedSearchValue) {
       setSearchValue(storedSearchValue);
     }
-    if (storedSeries) {
-      setSeries(JSON.parse(storedSeries));
-    }
+
     if (storedGenreValue) {
       setGenreValue(storedGenreValue);
     }
@@ -52,12 +49,10 @@ export const Series = () => {
     sessionStorage.setItem("searchvalue", searchValue);
     sessionStorage.setItem("genrevalue", genreValue);
     sessionStorage.setItem("sortbySeries", sortby);
-    sessionStorage.setItem("series", JSON.stringify(series));
-  }, [searchValue, series, genreValue, sortby]);
+  }, [searchValue, genreValue, sortby]);
 
   const removeSessionData = () => {
     sessionStorage.removeItem("searchvalue");
-    sessionStorage.removeItem("series");
     sessionStorage.removeItem("genrevalue");
     sessionStorage.removeItem("sortbySeries");
     setSearchValue("");
