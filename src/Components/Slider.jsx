@@ -61,11 +61,20 @@ export const Slider = (props) => {
     return () => clearInterval(intervalId);
   }, [nextSlide, prevSlide, currentSlide]);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowLeft") {
+      prevSlide();
+    } else if (event.key === "ArrowRight") {
+      nextSlide();
+    }
+  };
+
   return (
-    //movies-app/bg-not-found.jpg
     <>
       {movies.length > 0 ? (
         <div
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
           className="home-movie-pop"
           style={{
             backgroundImage: `url(${
