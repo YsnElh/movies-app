@@ -96,7 +96,7 @@
 .filter-select,
 .filter-select-favs {
     background-color: transparent;
-    border: 1px solid #fff;
+    border: #6e6e6e 1px solid;
     color: #fff;
     padding: 8px;
     border-radius: 4px;

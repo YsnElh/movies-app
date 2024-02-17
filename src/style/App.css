@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
 
 @keyframes moveBackground {
   0% {
@@ -149,8 +148,8 @@ nav ul li a.active::before {
     padding: 0;
     transition: 0.3s ease-in-out;
     z-index: 100;
-    border-left: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    border-left: #6e6e6e 1px solid;
+    border-bottom: #6e6e6e 1px solid;
   }
 
   nav ul.activeNav {
@@ -500,7 +499,6 @@ nav ul li a.active::before {
   font-size: 20px;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-family: 'Schoolbell', cursive;
 }
 
 .movie-other-info .other-info1 .casts-cards .casts-card-one img {
@@ -1411,6 +1409,10 @@ nav ul li a.active::before {
     margin: 5px;
     width: 250px;
     height: 150px;
+  }
+
+  .movie-other-info .other-info1 .casts-cards .casts-card-one .casts-card-details p {
+    font-size: 10px;
   }
 }
 

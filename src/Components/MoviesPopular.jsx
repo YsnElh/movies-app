@@ -192,7 +192,7 @@ export const MoviesPopular = () => {
           onChange={(e) => setGenreValue(e.target.value)}
           value={genreValue}
         >
-          <option value="">Popular</option>
+          <option value="">All genres</option>
           {movieGenres?.map((gn) => (
             <option key={gn.id} value={`${gn.id}`}>
               {gn.name}

@@ -201,7 +201,7 @@ export const Series = () => {
             onChange={(e) => setGenreValue(e.target.value)}
             value={genreValue}
           >
-            <option value="">Popular</option>
+            <option value="">All genres</option>
             {seriesGenres?.map((gn) => (
               <option key={gn.id} value={`${gn.id}`}>
                 {gn.name}
