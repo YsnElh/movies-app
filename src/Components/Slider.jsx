@@ -88,31 +88,20 @@ export const Slider = (props) => {
             className="btn-sildeshow btn-sildeshow-prev"
             onClick={() => prevSlide()}
           >
-            <i
-              className="fas fa-angle-left"
-              style={{ zIndex: "90" }}
-              data-tooltip-id={currentSlide + 1}
-              data-tooltip-content={
-                movies[currentSlide > 0 ? currentSlide - 1 : 5].title
-                  ? movies[currentSlide > 0 ? currentSlide - 1 : 5].title
-                  : movies[currentSlide > 0 ? currentSlide - 1 : 5].name
-              }
-            >
-              <Tooltip id={currentSlide + 1} />
-            </i>
+            <i className="fas fa-angle-left"></i>
           </span>
           <img
             className="image-card"
             title={
-              (movies[currentSlide].title
-                ? movies[currentSlide].title
-                : movies[currentSlide].name) + " movie poster"
+              movies[currentSlide].title
+                ? movies[currentSlide].title + " movie poster"
+                : movies[currentSlide].name + " serie poster"
             }
             src={`https://image.tmdb.org/t/p/original${movies[currentSlide].poster_path}`}
             alt={
-              (movies[currentSlide].title
-                ? movies[currentSlide].title
-                : movies[currentSlide].name) + " movie poster"
+              movies[currentSlide].title
+                ? movies[currentSlide].title + " movie poster"
+                : movies[currentSlide].name + " serie poster"
             }
           />
           <div className="home-movie-pop-text">
@@ -140,17 +129,7 @@ export const Slider = (props) => {
             className="btn-sildeshow btn-sildeshow-next"
             onClick={nextSlide}
           >
-            <i
-              className="fas fa-chevron-right"
-              data-tooltip-id={currentSlide + 1}
-              data-tooltip-content={
-                movies[currentSlide < 5 ? currentSlide + 1 : 0].title
-                  ? movies[currentSlide < 5 ? currentSlide + 1 : 0].title
-                  : movies[currentSlide < 5 ? currentSlide + 1 : 0].name
-              }
-            >
-              <Tooltip id={currentSlide + 1} />
-            </i>
+            <i className="fas fa-chevron-right"></i>
           </span>
           <div className="navigation-indicators">
             {movies.map((_, index) => (
