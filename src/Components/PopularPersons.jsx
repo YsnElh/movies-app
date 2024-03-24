@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPersons } from "../features/persons/personsSlice";
+import { NavLink } from "react-router-dom";
 
 export const PopularPersons = () => {
   const dispatch = useDispatch();
@@ -11,8 +12,6 @@ export const PopularPersons = () => {
     dispatch(fetchPersons());
   }, [dispatch]);
 
-  console.log(persons);
-
   return (
     <>
       {loading && <div>Loading...</div>}
@@ -21,17 +20,23 @@ export const PopularPersons = () => {
         <div className="row row-cols-md-5 g-4 p-3 persons-cards-container">
           {persons.map((person) => (
             <div key={person.id} className="col person-card">
-              <div class="card">
+              <div className="card">
                 <img
                   src={imgSrcTMDB + person.profile_path}
-                  class="card-img-top"
+                  className="card-img-top"
                   alt="..."
                 />
-                <div class="card-body">
-                  <h5 class="card-title">{person.name}</h5>
-                  <p class="card-text">
+                <div className="card-body">
+                  <h5 className="card-title">{person.name}</h5>
+                  <p className="card-text">
                     {person.known_for_department} Department
                   </p>
+                  <NavLink
+                    to={"/movies-app/person/" + person.id}
+                    className="fs-5 link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                  >
+                    <i className="fas fa-eye"></i>
+                  </NavLink>
                 </div>
               </div>
             </div>

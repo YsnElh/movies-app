@@ -38,8 +38,8 @@ function App() {
         <Route path="movies-app/person" element={<PopularPersons />} />
         <Route path="movies-app/movies/:id" element={<OneMovie />} />
         <Route path="movies-app/series/:id" element={<OneSerie />} />
-        <Route path="movies-app/person/:id" element={<Person />} />
         <Route path="movies-app/persons" element={<PopularPersons />} />
+        <Route path="movies-app/person/:id" element={<Person />} />
       </Routes>
       <Footer />
     </>
