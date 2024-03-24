@@ -19,6 +19,7 @@ import showExtrIds from "../features/movies/showExtrIds";
 import getKeywords from "../features/movies/getKeywords";
 import showVedios from "../features/movies/showVedios";
 import ShowsByGenreSlice from "../features/shows/ShowsByGenreSlice";
+import personsSlice from "../features/persons/personsSlice";
 
 const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ const store = configureStore({
     showExternalIDs: showExtrIds,
     keywords: getKeywords,
     showVedios: showVedios,
+    persons: personsSlice,
   },
 });
 
