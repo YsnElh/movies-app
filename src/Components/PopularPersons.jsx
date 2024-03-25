@@ -3,32 +3,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPersons } from "../features/persons/personsSlice";
 import { fetchSearchedPersons } from "../features/persons/personSearchSlice";
 import { LoadingOverlay } from "./LoadingOverlay";
-//import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+const imgSrcTMDB = "https://image.tmdb.org/t/p/original";
 
 export const PopularPersons = () => {
-  const imgSrcTMDB = "https://image.tmdb.org/t/p/original";
   const dispatch = useDispatch();
-
   const [searchValue, setSearchValue] = useState("");
+  const [genreFetchSelect, setGenreFetchSelect] = useState("");
   const { persons, loading, error } = useSelector((state) => state.persons);
   const { searched_persons, loadingSP, errorSP } = useSelector(
     (state) => state.personsSearch
   );
 
   useEffect(() => {
-    dispatch(fetchPersons());
-  }, [dispatch]);
+    const storedSearchValue = sessionStorage.getItem("searchvaluepersons");
+    const storedFetchSel = sessionStorage.getItem("fetchsel");
+
+    if (storedSearchValue) setSearchValue(storedSearchValue);
+    if (storedFetchSel) setGenreFetchSelect(storedFetchSel);
+  }, []);
 
   useEffect(() => {
-    if (searchValue.length > 0) {
-      dispatch(fetchSearchedPersons({ searchValue }));
-    }
-  }, [dispatch, searchValue]);
-  const display_persons = searchValue.length > 0 ? searched_persons : persons;
+    sessionStorage.setItem("searchvaluepersons", searchValue);
+    sessionStorage.setItem("fetchsel", genreFetchSelect);
+  }, [searchValue, genreFetchSelect]);
+
+  useEffect(() => {
+    if (searchValue.length > 0) dispatch(fetchSearchedPersons({ searchValue }));
+    else dispatch(fetchPersons({ type: genreFetchSelect }));
+  }, [dispatch, searchValue, genreFetchSelect]);
+
+  const displayPersons = searchValue.length > 0 ? searched_persons : persons;
 
   return (
     <>
-      {loading || loadingSP ? <LoadingOverlay /> : null}
+      {(loading || loadingSP) && <LoadingOverlay />}
       <div className="form__group field">
         <input
           type="search"
@@ -42,10 +52,23 @@ export const PopularPersons = () => {
         <label htmlFor="movie-title-search" className="form__label">
           Title
         </label>
+        <div className="d-flex flex-column">
+          <select
+            className="filter-select"
+            name="selectfilter"
+            id="selectfilter"
+            title="Serie Genres"
+            onChange={(e) => setGenreFetchSelect(e.target.value)}
+            value={genreFetchSelect}
+          >
+            <option value="popular">Popular</option>
+            <option value="day">Trending</option>
+          </select>
+        </div>
       </div>
-      {display_persons && (
+      {displayPersons && (
         <div className="row row-cols-md-5 g-4 p-3 persons-cards-container">
-          {display_persons.map((person) => (
+          {displayPersons.map((person) => (
             <div key={person.id} className="col person-card">
               <div className="card">
                 <img
@@ -62,12 +85,12 @@ export const PopularPersons = () => {
                   <p className="card-text">
                     {person.known_for_department} Department
                   </p>
-                  {/* <NavLink
+                  <NavLink
                     to={"/movies-app/person/" + person.id}
                     className="fs-5 link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                   >
                     <i className="fas fa-eye"></i>
-                  </NavLink> */}
+                  </NavLink>
                 </div>
               </div>
             </div>
@@ -75,18 +98,18 @@ export const PopularPersons = () => {
         </div>
       )}
       {searched_persons.length === 0 &&
-      searchValue.length > 0 &&
-      !errorSP &&
-      !loading ? (
+        searchValue.length > 0 &&
+        !errorSP &&
+        !loading && (
+          <div className="display-4 text-light" style={{ textAlign: "center" }}>
+            There is no persons based on this search: {searchValue}!
+          </div>
+        )}
+      {(error || errorSP) && (
         <div className="display-4 text-light" style={{ textAlign: "center" }}>
-          There is no persons based on this search: {searchValue}!
+          {error || errorSP}
         </div>
-      ) : null}
-      {error || errorSP ? (
-        <div className="display-4 text-light" style={{ textAlign: "center" }}>
-          {error ? error : errorSP}
-        </div>
-      ) : null}
+      )}
     </>
   );
 };
