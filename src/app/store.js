@@ -21,6 +21,7 @@ import showVedios from "../features/movies/showVedios";
 import ShowsByGenreSlice from "../features/shows/ShowsByGenreSlice";
 import personsSlice from "../features/persons/personsSlice";
 import personSearchSlice from "../features/persons/personSearchSlice";
+import singlePersonSlice from "../features/persons/singlePersonSlice";
 
 const store = configureStore({
   reducer: {
@@ -45,6 +46,7 @@ const store = configureStore({
     showVedios: showVedios,
     persons: personsSlice,
     personsSearch: personSearchSlice,
+    person: singlePersonSlice,
   },
 });
 
