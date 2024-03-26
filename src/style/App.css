@@ -1148,6 +1148,12 @@ nav ul li a.active::before {
   color: #fff;
 }
 
+@media (max-width: 450px) {
+  .flex-sm-column {
+    flex-direction: column !important;
+  }
+}
+
 /* @media only screen and (max-width: 600px) {
   header nav ul {
     flex-direction: column;

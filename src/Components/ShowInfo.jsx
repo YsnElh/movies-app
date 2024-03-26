@@ -231,18 +231,20 @@ export const ShowInfo = (props) => {
           <div className="casts-cards">
             {movieCasts?.map((cast) => (
               <div key={cast.id} className="casts-card-one">
-                <img
-                  src={
-                    cast.profile_path
-                      ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
-                      : "/movies-app/cast-img-not-found.jpg"
-                  }
-                  alt={cast.original_name + " picture"}
-                />
-                <div className="casts-card-details">
-                  <p>{cast.original_name}</p>
-                  <div>{cast.character}</div>
-                </div>
+                <NavLink to={"/movies-app/person/" + cast.id}>
+                  <img
+                    src={
+                      cast.profile_path
+                        ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
+                        : "/movies-app/cast-img-not-found.jpg"
+                    }
+                    alt={cast.original_name + " picture"}
+                  />
+                  <div className="casts-card-details">
+                    <p>{cast.original_name}</p>
+                    <div>{cast.character}</div>
+                  </div>
+                </NavLink>
               </div>
             ))}
           </div>

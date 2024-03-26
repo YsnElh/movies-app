@@ -83,7 +83,7 @@ function Navbar() {
                 Series
               </NavLink>
             </li>
-            {/* <li
+            <li
               onClick={() => {
                 handleClick();
               }}
@@ -95,7 +95,7 @@ function Navbar() {
               >
                 Persons
               </NavLink>
-            </li> */}
+            </li>
             <li
               onClick={() => {
                 handleClick();
