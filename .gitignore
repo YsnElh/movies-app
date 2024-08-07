@@ -5,7 +5,7 @@
 /.pnp
 /.scannerwork
 sonar-project.properties
-# .env
+.env
 .pnp.js
 
 # testing
