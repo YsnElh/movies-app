@@ -42,7 +42,7 @@ export const Person = () => {
     dispatch(fetchPersonCombinedCredits({ id }));
   }, [dispatch, id]);
 
-  /* useEffect(() => {
+  useEffect(() => {
     const pageEl = pageRef.current;
     const imageEl = imageRef.current;
     const infoEl = infoRef.current;
@@ -86,42 +86,7 @@ export const Person = () => {
       if (biographyRef.current) biographyObserver.unobserve(biographyRef.current);
       if (knownForRef.current) knownForObserver.unobserve(knownForRef.current);
     };
-  }, [person]);  */
-
-  useEffect(() => {
-    const pageEl = pageRef.current;
-    const imageEl = imageRef.current;
-    const infoEl = infoRef.current;
-    const biographyEl = biographyRef.current;
-    const knownForEl = knownForRef.current;
-  
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.target === pageEl) setPageInView(entry.isIntersecting);
-          if (entry.target === imageEl) setImageInView(entry.isIntersecting);
-          if (entry.target === infoEl) setInfoInView(entry.isIntersecting);
-          if (entry.target === biographyEl) setBiographyInView(entry.isIntersecting);
-          if (entry.target === knownForEl) setKnownForInView(entry.isIntersecting);
-        });
-      },
-      { threshold: 0.2 }
-    );
-  
-    pageEl && observer.observe(pageEl);
-    imageEl && observer.observe(imageEl);
-    infoEl && observer.observe(infoEl);
-    biographyEl && observer.observe(biographyEl);
-    knownForEl && observer.observe(knownForEl);
-  
-    return () => {
-      pageEl && observer.unobserve(pageEl);
-      imageEl && observer.unobserve(imageEl);
-      infoEl && observer.unobserve(infoEl);
-      biographyEl && observer.unobserve(biographyEl);
-      knownForEl && observer.unobserve(knownForEl);
-    };
-  }, [person]);
+  }, [person]); 
   
   const top10Credits = combinedCredits.cast
     ? combinedCredits.cast
