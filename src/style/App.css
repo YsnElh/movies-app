@@ -806,6 +806,7 @@ nav ul li a.active::before {
   color: #fff;
   opacity: 0;
   transition: opacity 0.3s ease-out;
+  text-align: center;
 }
 
 .movie-other-info .other-info2 .other-info1-saisons .saisons-cards .saisons-card-details p {
@@ -1144,9 +1145,40 @@ nav ul li a.active::before {
 }
 
 .persons-cards-container .person-card .card {
-  background: transparent;
-  color: #fff;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  color: #e0e0e0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
+
+.persons-cards-container .person-card .card:hover {
+  border-color: #555;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.persons-cards-container .person-card .card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+.persons-cards-container .person-card .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.persons-cards-container .person-card .card-text {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+}
+
+.persons-cards-container .person-card .card-img-top {
+  border-bottom: 1px solid #333;
+}
+
 
 @media (max-width: 450px) {
   .flex-sm-column {
@@ -1290,6 +1322,20 @@ nav ul li a.active::before {
 
   .movie-other-info .other-info1 .other-info1-reviews .review h4 {
     font-size: 15px;
+  }
+
+  .movie-other-info .other-info1 .other-info1-reviews .review .review-text {
+    font-size: 20px;
+  }
+
+  .movie-other-info .other-info1 .other-info1-trailer .trailer-vids iframe {
+    margin: 5px;
+    width: 250px;
+    height: 150px;
+  }
+
+  .movie-other-info .other-info1 .casts-cards .casts-card-one .casts-card-details p {
+    font-size: 10px;
   }
 }
 
@@ -1455,3 +1501,417 @@ nav ul li a.active::before {
 }
 
 /* ------------------------------------------- */
+/* Person Page Styling */
+
+body {
+  background-color: #0e0e11; /* Near-black background */
+  color: #e0e0e0; /* Default text color */
+}
+
+/* Page Entrance Animation */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.person-page-container {
+  opacity: 0;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  padding: 20px; /* Add some padding to the main container */
+}
+
+.person-page-container.page-in-view {
+  animation: pageFadeIn 0.3s ease-out forwards;
+}
+
+.person-page-container.mobile.page-in-view {
+  animation: mobilePageFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes mobilePageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-biography-wrapper {
+  display: flex;
+  gap: 30px; /* Space between hero and biography sections */
+  margin-bottom: 30px;
+}
+
+@media (min-width: 769px) {
+  .hero-biography-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .person-hero-section {
+    flex: 0 0 400px; /* Fixed width for hero section on desktop */
+  }
+  .person-biography-section {
+    flex: 1; /* Take remaining space */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-biography-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .person-hero-section {
+    width: 100%;
+  }
+  .person-biography-section {
+    width: 100%;
+  }
+}
+
+
+/* Hero Section */
+.person-hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  background-color: #15151c; /* Slightly lighter dark for sections */
+  border-radius: 10px;
+}
+
+.person-image-container {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 300px; /* Add explicit width and height for desktop */
+  margin-right: 30px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.person-image-container.image-in-view.desktop {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.person-image-container.image-in-view.mobile {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.person-image-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent 50%);
+}
+
+.person-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.person-info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.person-info-section h1,
+.person-info-section h5 {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.info-in-view .person-name {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.info-in-view .person-known-for {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.18s;
+}
+
+.info-in-view .person-gender {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.26s;
+}
+
+.info-in-view .person-birthday {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.34s;
+}
+
+.info-in-view .person-birthplace {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.42s;
+}
+
+.info-in-view .person-also-known-as {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+.person-name {
+  font-size: 3rem;
+  color: #f0f0f0;
+  margin-bottom: 10px;
+}
+
+.person-known-for,
+.person-gender,
+.person-birthday,
+.person-birthplace {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 5px;
+}
+
+.person-also-known-as {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.person-also-known-as-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  gap: 8px;
+}
+
+.person-aka-item {
+  background-color: #222;
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 0.85rem;
+  color: #ccc;
+
+  /* opacity: 0; */
+  /* transform: translateY(12px); */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Biography Section */
+.person-biography-section {
+  background-color: #15151c;
+  border-radius: 10px;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.person-biography-section.biography-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.biography-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.biography-paragraph {
+  margin-bottom: 15px;
+  line-height: 1.75;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #e0e0e0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.biography-in-view.desktop .biography-paragraph {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.biography-in-view.mobile .biography-paragraph {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s !important;
+}
+
+/* Known For Section */
+.person-known-for-section {
+  background-color: #15151c;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.person-known-for-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.known-for-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.known-for-in-view .known-for-card-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.known-for-card {
+  background: linear-gradient(145deg, #1a1a1a, #121212);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.known-for-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.known-for-card-link.desktop:hover .known-for-card {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.known-for-card-link.mobile .known-for-card {
+  transition: transform 0.2s ease-out;
+}
+
+.known-for-card-link.mobile.active .known-for-card {
+  transform: scale(0.97);
+}
+
+.known-for-poster {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 10px;
+}
+
+.known-for-details {
+  text-align: center;
+  padding: 0 10px;
+}
+
+.known-for-title {
+  font-size: 1rem;
+  color: #f0f0f0;
+  margin-bottom: 5px;
+}
+
+.known-for-year {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #f0f0f0;
+  margin-bottom: 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.known-for-in-view .section-title,
+.biography-in-view .section-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+@media (max-width: 768px) {
+  .person-hero-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .person-image-container {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 225px;
+  }
+
+  .person-profile-image {
+    width: 150px;
+    height: 225px;
+  }
+
+  .person-name {
+    font-size: 2.5rem;
+  }
+
+  .person-known-for,
+  .person-gender,
+  .person-birthday,
+  .person-birthplace {
+    font-size: 1rem;
+  }
+
+  .person-also-known-as {
+    font-size: 0.9rem;
+  }
+
+  .person-known-for-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+  }
+
+  .known-for-poster {
+    height: 180px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .biography-paragraph {
+    line-height: 1.6;
+  }
+}

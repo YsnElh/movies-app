@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import { HomePage } from "./Components/HomePage";
@@ -13,15 +12,7 @@ import { Person } from "./Components/Person";
 import "./style/App.css";
 import "./style/style-heart.css";
 import "./style/style-search.css";
-import ReactGA from "react-ga";
-
 function App() {
-  // google analytics tracking
-  const gaTrackCode = process.env.REACT_APP_GA_TRACKING_CODE;
-  ReactGA.initialize(gaTrackCode);
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, []);
 
   return (
     <>
