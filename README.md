@@ -14,7 +14,7 @@ Create an Account or log in on <a href="https://www.themoviedb.org/" target="_bl
 
 ### Step 2: Set the API KEY in _.env_ file
 
-Go to the `.env` file, change 'your_actual_api_key' with your API KEY:
+Rename the file `.env.exemple` to `.env` and paste your API key:
 
 ```bash
 REACT_APP_MOVIES_API=your_actual_api_key
